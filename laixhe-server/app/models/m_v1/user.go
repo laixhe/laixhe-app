@@ -1,4 +1,4 @@
-package model_v1
+package m_v1
 
 import (
 	"github.com/laixhe/laixhe-app/laixhe-server/db"

@@ -1,10 +1,10 @@
-package controller_v1
+package c_v1
 
 import (
+	"github.com/gin-gonic/gin"
+
 	"github.com/laixhe/laixhe-app/laixhe-server/config"
 	"github.com/laixhe/laixhe-app/laixhe-server/utils"
-
-	"github.com/gin-gonic/gin"
 )
 
 func Ping(c *gin.Context) {

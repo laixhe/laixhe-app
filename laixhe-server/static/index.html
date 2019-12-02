@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Websocket</title>
+</head>
+<body>
+
+</body>
+
+<script>
+
+    var sendData = {"seq":"123","cmd":1,"data":{"token":"--token--","app_id":1}};
+    var t;
+    var ws = new WebSocket("ws://localhost:8080/v1/ws");
+
+    //连接打开时触发
+    ws.onopen = function(evt) {
+        console.log("Connection open ...");
+
+        t = setInterval(wsSend,1000);
+
+    };
+
+    //接收到消息时触发
+    ws.onmessage = function(evt) {
+        console.log(evt.data);
+    };
+
+    //连接关闭时触发
+    ws.onclose = function(evt) {
+        console.log("Connection closed.");
+
+        clearInterval(t);
+    };
+
+    function wsSend() {
+        ws.send(JSON.stringify(sendData))
+    }
+
+</script>
+
+</html>

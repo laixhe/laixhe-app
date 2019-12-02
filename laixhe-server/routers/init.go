@@ -7,7 +7,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/laixhe/goutil"
 
-	"github.com/laixhe/laixhe-app/laixhe-server/app/controller_v1"
 	"github.com/laixhe/laixhe-app/laixhe-server/config"
 	"github.com/laixhe/laixhe-app/laixhe-server/utils"
 )
@@ -34,23 +33,15 @@ func InitRouter(mode string) *gin.Engine {
 	// 初始化GIN
 	router = gin.Default()
 
-	initRouterV1()
+	router.Static("/static", "./static")
+
+	// API V1
+	initApiV1()
+
+	// WS V1
+	initWsV1()
 
 	return router
-}
-
-// v1版本
-func initRouterV1() {
-
-	rv := "/v1"
-
-	router.GET(rv+"/token", ginLogger(), controller_v1.Token)
-
-	v := router.Group(rv, ginLogger(), ginJWTAuth())
-	{
-		v.GET("/ping", controller_v1.Ping)
-	}
-
 }
 
 // gin 日志中间件
