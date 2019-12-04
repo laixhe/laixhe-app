@@ -2,6 +2,7 @@ package routers
 
 import (
 	"bytes"
+	"github.com/laixhe/laixhe-app/laixhe-server/utils/logs"
 	"io/ioutil"
 
 	"github.com/gin-gonic/gin"
@@ -59,9 +60,9 @@ func ginLogger() gin.HandlerFunc {
 		c.Header("x-request-id", requestId)
 		c.Set("x-request-id", requestId)
 
-		if method == "GET" || method == "HEAD" {
+		logs.Infof("ginLogger: %s | %s", requestId, urlString)
 
-			utils.ZapSugar().Infow("gin_log", utils.REQUEST_ID, requestId, "url", urlString)
+		if method == "GET" || method == "HEAD" {
 			return
 		}
 
@@ -75,7 +76,8 @@ func ginLogger() gin.HandlerFunc {
 		if len(data) > 0 {
 
 			c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(data))
-			utils.ZapSugar().Infow("gin_log", utils.REQUEST_ID, requestId, "url", urlString, "body", string(data))
+
+			logs.Infof("ginLogger: %s | %s | %s", requestId, urlString, string(data))
 		}
 
 		c.Next()

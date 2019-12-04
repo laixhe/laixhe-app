@@ -1,4 +1,4 @@
-package utils
+package logs
 
 import (
 	"time"
@@ -8,7 +8,7 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-var zapLogger *zap.Logger
+var zapLogger *zap.SugaredLogger
 
 // 初始 zap 日志
 // path      日志文件路径
@@ -48,7 +48,7 @@ func ZapLogInit(path, logLevel string, maxSize, maxBackup, maxAge int) {
 		NameKey:        "logger",
 		CallerKey:      "line_num",
 		MessageKey:     "message",
-		StacktraceKey:  "stacktrace",
+		StacktraceKey:  "stack",
 		LineEnding:     zapcore.DefaultLineEnding,
 		EncodeLevel:    zapcore.LowercaseLevelEncoder,
 		EncodeTime:     zapTimeEncoder,
@@ -65,11 +65,14 @@ func ZapLogInit(path, logLevel string, maxSize, maxBackup, maxAge int) {
 
 	// 开启开发模式，堆栈跟踪
 	caller := zap.AddCaller()
+	callerSkip := zap.AddCallerSkip(1)
 	// 开启文件及行号
 	development := zap.Development()
 
 	// 构造日志
-	zapLogger = zap.New(core, caller, development)
+	logger := zap.New(core, caller, callerSkip, development)
+
+	zapLogger = logger.Sugar()
 
 }
 
@@ -78,10 +81,34 @@ func zapTimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
 	enc.AppendString(t.Format("2006-01-02 15:04:05"))
 }
 
-func ZapSugar() *zap.SugaredLogger {
-	return zapLogger.Sugar()
+func Debug(args ...interface{}) {
+	zapLogger.Debug(args...)
 }
 
-func Zap() *zap.Logger {
-	return zapLogger
+func Debugf(template string, args ...interface{}) {
+	zapLogger.Debugf(template, args...)
+}
+
+func Info(args ...interface{}) {
+	zapLogger.Info(args...)
+}
+
+func Infof(template string, args ...interface{}) {
+	zapLogger.Infof(template, args...)
+}
+
+func Warn(args ...interface{}) {
+	zapLogger.Warn(args...)
+}
+
+func Warnf(template string, args ...interface{}) {
+	zapLogger.Warnf(template, args...)
+}
+
+func Error(args ...interface{}) {
+	zapLogger.Error(args...)
+}
+
+func Errorf(template string, args ...interface{}) {
+	zapLogger.Errorf(template, args...)
 }

@@ -9,6 +9,7 @@ import (
 
 	"github.com/laixhe/laixhe-app/laixhe-server/servers/ws"
 	"github.com/laixhe/laixhe-app/laixhe-server/utils"
+	"github.com/laixhe/laixhe-app/laixhe-server/utils/logs"
 )
 
 var upgrader = websocket.Upgrader{
@@ -28,7 +29,7 @@ func Ws(c *gin.Context) {
 	if err != nil {
 
 		utils.GinJsonResponseMsg(c, utils.ERROR_WEBSOCKET, err.Error())
-		utils.ZapSugar().Infow("ERROR_WEBSOCKET" + err.Error())
+		logs.Debug("ERROR_WEBSOCKET: ", err)
 
 		return
 	}

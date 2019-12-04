@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/laixhe/laixhe-app/laixhe-server/utils/logs"
 
 	"github.com/laixhe/laixhe-app/laixhe-server/config"
 	"github.com/laixhe/laixhe-app/laixhe-server/db"
@@ -21,7 +22,7 @@ func main() {
 	}
 
 	// 初始 zap 日志
-	utils.ZapLogInit(
+	logs.ZapLogInit(
 		config.GetLog().Path,
 		config.GetLog().Level,
 		config.GetLog().MaxSize,

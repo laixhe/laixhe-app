@@ -8,7 +8,7 @@ import (
 
 	"github.com/gorilla/websocket"
 
-	"github.com/laixhe/laixhe-app/laixhe-server/utils"
+	"github.com/laixhe/laixhe-app/laixhe-server/utils/logs"
 )
 
 // 用户连接
@@ -53,13 +53,13 @@ func (this *Client) readClientChan() {
 		// 读取 ws 中的数据
 		_, message, err := this.conn.ReadMessage()
 		if err != nil {
-			utils.ZapSugar().Infow("Websocket Read Message: " + err.Error())
+			logs.Error("Websocket Read Message: ", err)
 			break
 		}
 
 		err = this.processData(message)
 		if err != nil {
-			utils.ZapSugar().Infow("Websocket Read Message ProcessData: " + err.Error())
+			logs.Error("Websocket Read Message ProcessData: ", err)
 			break
 		}
 
@@ -75,7 +75,7 @@ func (this *Client) writeClientChan() {
 
 		err := this.conn.WriteMessage(websocket.TextMessage, msg)
 		if err != nil {
-			utils.ZapSugar().Infow("Websocket Write Message: " + err.Error())
+			logs.Error("Websocket Write Message: ", err)
 			break
 		}
 

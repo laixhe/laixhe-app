@@ -10,7 +10,7 @@ import (
 
 type Token struct {
 	Account   string `json:"account"`       // 账号
-	No        int    `json:"no"`            // 久聊号
+	No        int    `json:"no"`            // ?
 	IssuedAt  int64  `json:"iat,omitempty"` // 签发时间
 	ExpiresAt int64  `json:"exp,omitempty"` // 过期时间
 }
