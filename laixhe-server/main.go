@@ -12,6 +12,7 @@ import (
 
 func main() {
 
+	// laixhe-server --config=./config.ini
 	// 初始化-解析命令行的参数
 	utils.InitParseCmd()
 

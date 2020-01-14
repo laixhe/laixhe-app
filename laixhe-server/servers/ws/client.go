@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"errors"
 	"log"
+	"net"
 	"sync"
+	"time"
 
 	"github.com/gorilla/websocket"
 
@@ -13,12 +15,12 @@ import (
 
 // 用户连接
 type Client struct {
-	addr     string          // 客户端地址
-	conn     *websocket.Conn // 用户连接
-	connTime int64           // 连接事件
-	send     chan []byte     // 待发送的数据
-	isClosed bool            // 当前连接的关闭状态
-	lock     sync.Mutex      // 锁-关闭状态
+	addr       string          // 客户端地址
+	conn       *websocket.Conn // 用户连接
+	connTime   int64           // 连接时间
+	send       chan []byte     // 待发送的数据
+	isClosed   bool            // 当前连接的关闭状态
+	lockClosed sync.Mutex      // 锁-关闭状态
 }
 
 // 初始化用户连接
@@ -50,10 +52,26 @@ func (this *Client) readClientChan() {
 
 	for {
 
+		//
+		this.conn.SetReadDeadline(time.Now().Add(time.Second * 2))
+
 		// 读取 ws 中的数据
 		_, message, err := this.conn.ReadMessage()
 		if err != nil {
-			logs.Error("Websocket Read Message: ", err)
+
+			// 判断是不是超时
+			if netErr, ok := err.(net.Error); ok {
+				if netErr.Timeout() {
+					logs.Errorf("Websocket ReadMessage timeout remote: %v\n", this.conn.RemoteAddr())
+					break
+				}
+			}
+
+			// 其他错误，如果是 1001 和 1000 就不打印日志
+			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseNormalClosure) {
+				logs.Errorf("Websocket ReadMessage other remote:%v error: %v \n", this.conn.RemoteAddr(), err)
+			}
+
 			break
 		}
 
@@ -86,8 +104,8 @@ func (this *Client) writeClientChan() {
 // 给当前客户端发送信息
 func (this *Client) SendClient(data []byte) error {
 
-	this.lock.Lock()
-	defer this.lock.Unlock()
+	this.lockClosed.Lock()
+	defer this.lockClosed.Unlock()
 
 	// 判断当前链接是否已经关闭
 	if this.isClosed {
@@ -102,8 +120,8 @@ func (this *Client) SendClient(data []byte) error {
 // 停止连接
 func (this *Client) Stop() {
 
-	this.lock.Lock()
-	defer this.lock.Unlock()
+	this.lockClosed.Lock()
+	defer this.lockClosed.Unlock()
 
 	// 判断当前链接是否已经关闭
 	if this.isClosed {
@@ -123,7 +141,7 @@ func (this *Client) Stop() {
 func (this *Client) processData(message []byte) error {
 
 	log.Println("读取客户端数据 处理:", string(message))
-
+	return nil
 	cmd := &WSCmd{}
 	err := json.Unmarshal(message, cmd)
 	if err != nil {

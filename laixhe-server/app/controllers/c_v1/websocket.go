@@ -8,15 +8,20 @@ import (
 	"github.com/gorilla/websocket"
 
 	"github.com/laixhe/laixhe-app/laixhe-server/servers/ws"
-	"github.com/laixhe/laixhe-app/laixhe-server/utils"
 	"github.com/laixhe/laixhe-app/laixhe-server/utils/logs"
 )
 
+// 定义一个 upgrade 类型用于升级 http 为 websocket
 var upgrader = websocket.Upgrader{
-	ReadBufferSize:   1024,
-	WriteBufferSize:  1024,
-	HandshakeTimeout: 5 * time.Second,
+	ReadBufferSize:   1024,            // 指定 io 操作的缓存大小，如果不指定就会自动分配
+	WriteBufferSize:  1024,            // 写数据操作的缓存池，如果没有设置值，write buffers 将会分配到链接生命周期里。
+	HandshakeTimeout: 5 * time.Second, // 指定升级 websocket 握手完成的超时时间
 	CheckOrigin: func(r *http.Request) bool {
+		// 请求检查函数，用于统一的链接检查，以防止跨站点请求伪造。如果不检查，就设置一个返回值为true的函数。
+		if r.Method != "GET" {
+			logs.Error("method is not GET")
+			//return false
+		}
 		return true // 取消 ws 跨域校验
 	},
 }
@@ -24,13 +29,11 @@ var upgrader = websocket.Upgrader{
 // websocket
 func Ws(c *gin.Context) {
 
-	// 升级 get 请求为 webSocket 协议
+	// 升级 http get 请求为 webSocket 协议
+	// 如果升级失败，则使用 HTTP 错误响应回复客户端
 	conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
 	if err != nil {
-
-		utils.GinJsonResponseMsg(c, utils.ERROR_WEBSOCKET, err.Error())
-		logs.Debug("ERROR_WEBSOCKET: ", err)
-
+		logs.Error("ERROR_WEBSOCKET: ", err)
 		return
 	}
 

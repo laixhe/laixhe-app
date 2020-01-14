@@ -12,6 +12,8 @@ var UserManager = NewClientManager()
 type ClientManager struct {
 	clients   *sync.Map   // 保存用户的链接
 	delClient chan string // 通知要删除用户的下标
+	register  chan *Client
+	destroy   chan *Client
 	broadcast chan []byte // 通知广播消息
 }
 

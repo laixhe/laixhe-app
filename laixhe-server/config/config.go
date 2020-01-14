@@ -6,8 +6,6 @@ import (
 	"github.com/laixhe/goutil"
 )
 
-const TOKEN_KEY = "1234567890asdfgh"
-
 // 初始化配置文件
 func InitConfig(c string) error {
 
