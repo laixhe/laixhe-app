@@ -1,4 +1,4 @@
-package ws
+package servers
 
 import (
 	"encoding/json"
@@ -9,8 +9,7 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
-
-	"github.com/laixhe/laixhe-app/laixhe-server/utils/logs"
+	"github.com/laixhe/goutil/zap_log"
 )
 
 // 用户连接
@@ -62,14 +61,14 @@ func (this *Client) readClientChan() {
 			// 判断是不是超时
 			if netErr, ok := err.(net.Error); ok {
 				if netErr.Timeout() {
-					logs.Errorf("Websocket ReadMessage timeout remote: %v\n", this.conn.RemoteAddr())
+					zap_log.Errorf("Websocket ReadMessage timeout remote: %v\n", this.conn.RemoteAddr())
 					break
 				}
 			}
 
 			// 其他错误，如果是 1001 和 1000 就不打印日志
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseNormalClosure) {
-				logs.Errorf("Websocket ReadMessage other remote:%v error: %v \n", this.conn.RemoteAddr(), err)
+				zap_log.Errorf("Websocket ReadMessage other remote:%v error: %v \n", this.conn.RemoteAddr(), err)
 			}
 
 			break
@@ -77,7 +76,7 @@ func (this *Client) readClientChan() {
 
 		err = this.processData(message)
 		if err != nil {
-			logs.Error("Websocket Read Message ProcessData: ", err)
+			zap_log.Error("Websocket Read Message ProcessData: ", err)
 			break
 		}
 
@@ -93,7 +92,7 @@ func (this *Client) writeClientChan() {
 
 		err := this.conn.WriteMessage(websocket.TextMessage, msg)
 		if err != nil {
-			logs.Error("Websocket Write Message: ", err)
+			zap_log.Error("Websocket Write Message: ", err)
 			break
 		}
 

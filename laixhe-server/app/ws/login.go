@@ -1,11 +1,11 @@
-package w_v1
+package ws
 
 import (
 	"fmt"
 	"strconv"
 	"time"
 
-	"github.com/laixhe/laixhe-app/laixhe-server/servers/ws"
+	"github.com/laixhe/laixhe-app/laixhe-server/servers"
 )
 
 // 请求登录数据
@@ -31,7 +31,7 @@ func (this *LoginResponse) GetCmd() uint {
 
 //====================================================
 
-func WSLogin(w *ws.Request) {
+func WSLogin(w *servers.Request) {
 
 	login := &LoginRequest{}
 	l, err := w.Message(login)

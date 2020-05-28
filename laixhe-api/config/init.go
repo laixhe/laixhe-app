@@ -2,9 +2,10 @@ package config
 
 import (
 	"errors"
-	"github.com/laixhe/laixhe-app/laixhe-server/utils"
 
 	"github.com/laixhe/goutil"
+
+	"github.com/laixhe/laixhe-app/laixhe-api/utils"
 )
 
 // 初始化配置文件

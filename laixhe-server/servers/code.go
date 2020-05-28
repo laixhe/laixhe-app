@@ -1,4 +1,4 @@
-package ws
+package servers
 
 type AppOS int
 type AppFormat int

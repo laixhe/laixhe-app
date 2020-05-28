@@ -1,1 +1,1 @@
-# laixhe-server
+# laixhe-api

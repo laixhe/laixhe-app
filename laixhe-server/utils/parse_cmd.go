@@ -13,17 +13,18 @@ type ParseCmd struct {
 
 var parseCmd = &ParseCmd{}
 
+// laixhe-server --config=./laixhe-server.ini
 // 初始化-解析命令行的参数
-func InitParseCmd() {
+func init() {
 
 	flag.StringVar(&parseCmd.ConfigFile, "config", "", "配置文件路径")
 
 	flag.Parse()
 
 	if parseCmd.ConfigFile == "" {
-		parseCmd.ConfigFile = "./config.ini"
+		parseCmd.ConfigFile = "./laixhe-server.ini"
 
-		log.Println("InitParseCmd: Default loading ./config.ini")
+		log.Println("InitParseCmd: Default loading ./laixhe-server.ini")
 	}
 
 }

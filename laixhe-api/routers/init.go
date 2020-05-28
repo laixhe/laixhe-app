@@ -8,8 +8,8 @@ import (
 	"github.com/laixhe/goutil"
 	"github.com/laixhe/goutil/zap_log"
 
-	"github.com/laixhe/laixhe-app/laixhe-server/config"
-	"github.com/laixhe/laixhe-app/laixhe-server/utils"
+	"github.com/laixhe/laixhe-app/laixhe-api/config"
+	"github.com/laixhe/laixhe-app/laixhe-api/utils"
 )
 
 var router *gin.Engine

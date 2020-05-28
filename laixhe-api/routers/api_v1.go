@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"github.com/laixhe/laixhe-app/laixhe-server/app/controllers"
+	"github.com/laixhe/laixhe-app/laixhe-api/app/controllers"
 )
 
 // v1 版本

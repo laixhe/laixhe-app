@@ -3,8 +3,7 @@ package db
 import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/laixhe/goutil/db_sqlx"
-
-	"github.com/laixhe/laixhe-app/laixhe-api/config"
+	"github.com/laixhe/laixhe-app/laixhe-server/config"
 )
 
 // 初始化数据库

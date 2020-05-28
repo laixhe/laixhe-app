@@ -4,38 +4,38 @@ import (
 	"errors"
 
 	"github.com/laixhe/goutil"
+	"github.com/laixhe/laixhe-app/laixhe-server/utils"
 )
 
 // 初始化配置文件
-func InitConfig(c string) error {
+func init() {
 
 	// 加载配置文件
-	err := goutil.OpenConfig(c)
+	err := goutil.OpenConfig(utils.GetParseCmd().ConfigFile)
 	if err != nil {
-		return err
+		panic(err)
 	}
 
 	err = setApp()
 	if err != nil {
-		return err
+		panic(err)
 	}
 
 	err = setLog()
 	if err != nil {
-		return err
+		panic(err)
 	}
 
 	err = setHttp()
 	if err != nil {
-		return err
+		panic(err)
 	}
 
 	err = setDB()
 	if err != nil {
-		return err
+		panic(err)
 	}
 
-	return nil
 }
 
 // 项目配置

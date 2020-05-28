@@ -1,7 +1,7 @@
-package m_v1
+package models
 
 import (
-	"github.com/laixhe/laixhe-app/laixhe-server/db"
+	"github.com/laixhe/goutil/db_sqlx"
 )
 
 type User struct {
@@ -16,7 +16,7 @@ func UserList() ([]*User, error) {
 
 	user := make([]*User, 0, 10)
 
-	err := db.SQLX().Select(&user, query)
+	err := db_sqlx.SQLX().Select(&user, query)
 	if err != nil {
 		return nil, err
 	}

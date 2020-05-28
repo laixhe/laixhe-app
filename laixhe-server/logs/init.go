@@ -2,8 +2,7 @@ package logs
 
 import (
 	"github.com/laixhe/goutil/zap_log"
-
-	"github.com/laixhe/laixhe-app/laixhe-api/config"
+	"github.com/laixhe/laixhe-app/laixhe-server/config"
 )
 
 // 初始日志
