@@ -2,6 +2,7 @@ package routers
 
 import (
 	"github.com/laixhe/laixhe-app/laixhe-server/app/ws"
+	"github.com/laixhe/laixhe-app/laixhe-server/protoapi"
 	"github.com/laixhe/laixhe-app/laixhe-server/servers"
 )
 
@@ -9,6 +10,6 @@ import (
 func initWsV1() {
 
 	// login
-	servers.RouterSet(1, ws.WSLogin)
+	servers.RouterSet(protoapi.CMD_C_LOGIN, ws.WSLogin)
 
 }

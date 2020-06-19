@@ -1,16 +1,20 @@
 package servers
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/laixhe/laixhe-app/laixhe-server/protoapi"
+)
 
 // 业务路由存放的路径
 type Router struct {
-	path map[uint]func(*Request)
+	path map[protoapi.CMD]func(*Request)
 }
 
-var router = &Router{path: make(map[uint]func(*Request))}
+var router = &Router{path: make(map[protoapi.CMD]func(*Request))}
 
 // 设置业务路由
-func RouterSet(cmd uint, fun func(*Request)) {
+func RouterSet(cmd protoapi.CMD, fun func(*Request)) {
 
 	if fun == nil {
 		panic("router can not be nil")

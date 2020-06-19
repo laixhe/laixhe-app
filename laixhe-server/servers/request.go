@@ -1,15 +1,18 @@
 package servers
 
-import "encoding/json"
+import (
+	"github.com/laixhe/laixhe-app/laixhe-server/protoapi"
+	"google.golang.org/protobuf/proto"
+)
 
 // 数据包的请求
 type Request struct {
-	conn *Client // 客户端链接
-	msg  []byte  // 客户端请求的数据
-	cmd  uint    // 客户端请求指令
+	conn *Client      // 客户端链接
+	msg  []byte       // 客户端请求的数据
+	cmd  protoapi.CMD // 客户端请求指令
 }
 
-func NewRequest(conn *Client, msg []byte, cmd uint) *Request {
+func NewRequest(conn *Client, msg []byte, cmd protoapi.CMD) *Request {
 	return &Request{
 		conn: conn,
 		msg:  msg,
@@ -18,29 +21,19 @@ func NewRequest(conn *Client, msg []byte, cmd uint) *Request {
 }
 
 // 客户端请求指令
-func (this *Request) Cmd() uint {
+func (this *Request) Cmd() protoapi.CMD {
 	return this.cmd
 }
 
 // 客户端请求的数据
-func (this *Request) Message(data WsDataInterface) (*WsData, error) {
-
-	wsData := &WsData{Data: data}
-
-	err := json.Unmarshal(this.msg, wsData)
-	if err != nil {
-		return nil, err
-	}
-
-	return wsData, nil
+func (this *Request) Message(data proto.Message) error {
+	return proto.Unmarshal(this.msg, data)
 }
 
 // 客户端发送消息
-func (this *Request) Send(data WsDataInterface) error {
+func (this *Request) Send(data proto.Message) error {
 
-	// 数据打包序列化
-	wsData := NewWsData(data)
-	code, err := wsData.Encode()
+	code, err := proto.Marshal(data)
 	if err != nil {
 		return err
 	}

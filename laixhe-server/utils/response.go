@@ -1,40 +1,30 @@
 package utils
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
+
+	"github.com/laixhe/laixhe-app/laixhe-server/protoapi"
 )
 
-type JsonResponse struct {
-	Code    int         `json:"code"`
-	Message string      `json:"msg"`
-	Data    interface{} `json:"data"`
-}
+func GinJsonResponse(c *gin.Context, code protoapi.ErrorCode, msg string) {
 
-func GinJsonResponse(c *gin.Context, code int, msg string, data interface{}) {
-
-	res := &JsonResponse{Code: code}
+	res := &protoapi.ErrorResponse{Code: code}
 
 	if msg != "" {
 		res.Message = msg
 	} else {
-		res.Message = CodeText(code)
+		res.Message = protoapi.ErrorCode_name[int32(code)]
 	}
 
-	if data != nil {
-		res.Data = data
-	}
-
-	c.JSON(200, res)
+	c.JSON(http.StatusOK, res)
 }
 
-func GinJsonResponseData(c *gin.Context, data interface{}){
-	GinJsonResponse(c, SUCCESS, "", data)
+func GinJsonResponseMsg(c *gin.Context, code protoapi.ErrorCode, msg string){
+	GinJsonResponse(c, code, msg)
 }
 
-func GinJsonResponseMsg(c *gin.Context, code int, msg string){
-	GinJsonResponse(c, code, msg, nil)
-}
-
-func GinJsonResponseCode(c *gin.Context, code int){
-	GinJsonResponse(c, code, "", nil)
+func GinJsonResponseCode(c *gin.Context, code protoapi.ErrorCode){
+	GinJsonResponse(c, code, "")
 }

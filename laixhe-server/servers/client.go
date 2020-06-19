@@ -1,9 +1,9 @@
 package servers
 
 import (
-	"encoding/json"
+	"encoding/binary"
 	"errors"
-	"log"
+	"github.com/laixhe/laixhe-app/laixhe-server/protoapi"
 	"net"
 	"sync"
 	"time"
@@ -51,7 +51,7 @@ func (this *Client) readClientChan() {
 
 	for {
 
-		//
+		// 设置 读超时
 		this.conn.SetReadDeadline(time.Now().Add(time.Second * 2))
 
 		// 读取 ws 中的数据
@@ -61,22 +61,23 @@ func (this *Client) readClientChan() {
 			// 判断是不是超时
 			if netErr, ok := err.(net.Error); ok {
 				if netErr.Timeout() {
-					zap_log.Errorf("Websocket ReadMessage timeout remote: %v\n", this.conn.RemoteAddr())
+					zap_log.Errorf("addr: %v : %v : %v", this.conn.RemoteAddr() , protoapi.ErrorCode_E_WEBSOCKET_TIMEOUT, err)
 					break
 				}
 			}
 
 			// 其他错误，如果是 1001 和 1000 就不打印日志
-			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseNormalClosure) {
-				zap_log.Errorf("Websocket ReadMessage other remote:%v error: %v \n", this.conn.RemoteAddr(), err)
-			}
+			//if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseNormalClosure) {
+			//	zap_log.Errorf("Websocket ReadMessage other remote:%v error: %v \n", this.conn.RemoteAddr(), err)
+			//}
 
+			zap_log.Errorf("addr: %v : %v : %v", this.conn.RemoteAddr() , protoapi.ErrorCode_E_WEBSOCKET_READ, err)
 			break
 		}
 
 		err = this.processData(message)
 		if err != nil {
-			zap_log.Error("Websocket Read Message ProcessData: ", err)
+			zap_log.Errorf("addr: %v : %v : %v", this.conn.RemoteAddr() , protoapi.ErrorCode_E_DECODE, err)
 			break
 		}
 
@@ -90,9 +91,9 @@ func (this *Client) writeClientChan() {
 
 	for msg := range this.send {
 
-		err := this.conn.WriteMessage(websocket.TextMessage, msg)
+		err := this.conn.WriteMessage(websocket.BinaryMessage, msg)
 		if err != nil {
-			zap_log.Error("Websocket Write Message: ", err)
+			zap_log.Errorf("addr: %v : %v : %v", this.conn.RemoteAddr() , protoapi.ErrorCode_E_WEBSOCKET_WRITE, err)
 			break
 		}
 
@@ -139,19 +140,13 @@ func (this *Client) Stop() {
 // 处理数据
 func (this *Client) processData(message []byte) error {
 
-	log.Println("读取客户端数据 处理:", string(message))
-	return nil
-	cmd := &WSCmd{}
-	err := json.Unmarshal(message, cmd)
-	if err != nil {
-		return err
-	}
-
-	log.Println("读取客户端数据 cmd=", cmd)
+	cmd := binary.BigEndian.Uint32(message)
+	zap_log.Debugf("addr: %v : get cmd : %v", this.conn.RemoteAddr(), cmd)
 
 	// 分配路由
-	err = RouterGet(NewRequest(this, message, cmd.Cmd))
+	err := RouterGet(NewRequest(this, message[4:], protoapi.CMD(cmd)))
 	if err != nil {
+		zap_log.Errorf("addr: %v : %v : %v", this.conn.RemoteAddr(), protoapi.ErrorCode_E_ROUTING_NOT_EXIST, err)
 		return err
 	}
 

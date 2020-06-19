@@ -1,0 +1,15 @@
+syntax = "proto3";	// 指定proto版本
+
+package protoapi;	// 指定包名
+
+option go_package="github.com/laixhe/laixhe-app/laixhe-server/protoapi";
+
+import "error_code_app_os.proto";
+import "cmd_int.proto";
+
+// 错误响应
+message ErrorResponse {
+  CMD        cmd     = 1;
+  ErrorCode  code    = 2;
+  string     message = 3;
+}

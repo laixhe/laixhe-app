@@ -1,0 +1,14 @@
+syntax = "proto3";	// 指定proto版本
+
+package protoapi;	// 指定包名
+
+option go_package="github.com/laixhe/laixhe-app/laixhe-server/protoapi";
+
+enum CMD {
+  // 未知
+  C_UNKNOWN       = 0;
+  // 错误
+  C_ERROR         = 1;
+  // 登录
+  C_LOGIN         = 2;
+}
