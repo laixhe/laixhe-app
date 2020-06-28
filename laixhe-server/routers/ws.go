@@ -10,6 +10,6 @@ import (
 func initWsV1() {
 
 	// login
-	servers.RouterSet(protoapi.CMD_C_LOGIN, ws.WSLogin)
+	servers.RouterSet(protoapi.CMD_C_LOGIN_REQUEST, ws.WSLogin)
 
 }

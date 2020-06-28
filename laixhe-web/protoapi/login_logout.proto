@@ -1,0 +1,23 @@
+syntax = "proto3";	// 指定proto版本
+
+package protoapi;	// 指定包名
+
+option go_package="github.com/laixhe/laixhe-app/laixhe-server/protoapi";
+
+import "error_code_app_os.proto";
+import "cmd_int.proto";
+
+// 登录请求
+message LoginRequest {
+  CMD    cmd        = 1;
+  // 验证用户是否登录
+  string token      = 2;
+  // 登录的平台 AppOS
+  AppOS  app_os_id  = 3;
+}
+
+// 登录响应
+message LoginResponse {
+  CMD        cmd     = 1;
+  string     message = 2;
+}

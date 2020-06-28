@@ -8,18 +8,6 @@ import (
 	"time"
 )
 
-// 登录请求
-//func (this *protoapi.LoginRequest) GetCmd() uint {
-//	return 3
-//}
-//
-////====================================================
-//
-//// 登录响应数据
-//func (this *protoapi.LoginResponse) GetCmd() uint {
-//	return 3
-//}
-
 //====================================================
 
 func WSLogin(w *servers.Request) {
@@ -33,7 +21,7 @@ func WSLogin(w *servers.Request) {
 
 	fmt.Printf("T---. login: %#v\n", login)
 
-	err = w.Send(&protoapi.LoginResponse{Message: "--user_id--" + strconv.Itoa(int(time.Now().Unix()))})
+	err = w.Send(&protoapi.LoginResponse{Cmd:protoapi.CMD_C_LOGIN_REQUEST, Message: "--user_id--" + strconv.Itoa(int(time.Now().Unix()))})
 	if err != nil {
 		fmt.Println("T------- Send:", err)
 	}

@@ -1,0 +1,62 @@
+syntax = "proto3";	// 指定proto版本
+
+package protoapi;	// 指定包名
+
+option go_package="github.com/laixhe/laixhe-app/laixhe-server/protoapi";
+
+// 错误码
+enum ErrorCode {
+  // Success           （成功）
+  E_SUCCESS           = 0;
+  // Unknown error     (未知错误)
+  E_UNKNOWN           = 1;
+  // Server error      (服务器错误)
+  E_SERVER            = 2;
+  // WebSocket error   (WebSocket 错误)
+  E_WEBSOCKET         = 3;
+  // WebSocket write error    (WebSocket 写 错误)
+  E_WEBSOCKET_WRITE   = 4;
+  // WebSocket read error     (WebSocket 读 错误)
+  E_WEBSOCKET_READ    = 5;
+  // WebSocket timeout error  (WebSocket 超时 错误)
+  E_WEBSOCKET_TIMEOUT = 6;
+  // decode error      (解码错误)
+  E_DECODE            = 7;
+  // encode error      (编码错误)
+  E_ENCODE            = 8;
+  // AUTH error        (认证(鉴权)错误)
+  E_AUTH              = 9;
+  // Not logged in     (未登录)
+  E_NOT_LOGGED_IN     = 10;
+  // Operation failure (操作失败)
+  E_OPERATION_FAILURE = 11;
+  // Routing not exist (路由不存在)
+  E_ROUTING_NOT_EXIST = 12;
+  // DB error          (数据库错误)
+  E_DB                = 13;
+  // Not support api   (不支持(无效的) API)
+  E_NOT_SUPPORT_API   = 14;
+  // Invalid json      (无效的 json)
+  E_INVALID_JSON      = 15;
+  // Encode json       (json 编码错误)
+  E_ENCODE_JSON       = 16;
+  // Parameter empty   (参数为空)
+  E_PARAMETER_EMPTY   = 17;
+  // Parameter error   (参数错误)
+  E_PARAMETER         = 18;
+  // Resource error    (资源错误)
+  E_RESOURCE          = 19;
+  // Resource repeat   (资源重复)
+  E_RESOURCE_REPEAT   = 20;
+}
+
+// 客户端类型
+enum AppOS {
+  O_UNKNOWN    = 0;
+  O_IOS        = 1;
+  O_ANDROID    = 2;
+  O_WEB        = 3;
+  O_WINDOW     = 4;
+  O_MAC        = 5;
+  O_LINUX      = 6;
+}

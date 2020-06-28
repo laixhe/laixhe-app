@@ -141,6 +141,7 @@ func (this *Client) Stop() {
 func (this *Client) processData(message []byte) error {
 
 	cmd := binary.BigEndian.Uint32(message)
+
 	zap_log.Debugf("addr: %v : get cmd : %v", this.conn.RemoteAddr(), cmd)
 
 	// 分配路由
