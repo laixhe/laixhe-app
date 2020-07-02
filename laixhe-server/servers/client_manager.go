@@ -1,7 +1,6 @@
 package servers
 
 import (
-	"errors"
 	"log"
 	"sync"
 )
@@ -75,19 +74,19 @@ func (this *ClientManager) DeleteClient(connID string) {
 }
 
 // 广播消息
-func (this *ClientManager) BroadcastClient(data WsDataInterface) error {
-
-	// 数据打包序列化
-	wsData := NewWsData(data)
-	code, err := wsData.Encode()
-	if err != nil {
-		return err
-	}
-
-	this.broadcast <- code
-
-	return nil
-}
+//func (this *ClientManager) BroadcastClient(data WsDataInterface) error {
+//
+//	// 数据打包序列化
+//	wsData := NewWsData(data)
+//	code, err := wsData.Encode()
+//	if err != nil {
+//		return err
+//	}
+//
+//	this.broadcast <- code
+//
+//	return nil
+//}
 
 // 保存在线用户
 func (this *ClientManager) SaveUser(client *ClientUser){
@@ -95,36 +94,36 @@ func (this *ClientManager) SaveUser(client *ClientUser){
 }
 
 // 客户端发送消息
-func (this *ClientManager) Send(connID string, data WsDataInterface) error {
-
-	// 数据打包序列化
-	wsData := NewWsData(data)
-	code, err := wsData.Encode()
-	if err != nil {
-		return err
-	}
-
-	// 获取客户端
-	clientUser,ok := this.clients.Load(connID)
-	if ok {
-
-		user, is := clientUser.(*ClientUser)
-		if !is {
-			this.DeleteClient(connID)
-			return errors.New("client load 'ClientUser' Failure of type conversion")
-		}
-
-		err := user.client.SendClient(code)
-		if err != nil {
-			this.DeleteClient(connID)
-			return err
-		}
-
-		return nil
-	}
-
-	return errors.New("client not load")
-}
+//func (this *ClientManager) Send(connID string, data WsDataInterface) error {
+//
+//	// 数据打包序列化
+//	wsData := NewWsData(data)
+//	code, err := wsData.Encode()
+//	if err != nil {
+//		return err
+//	}
+//
+//	// 获取客户端
+//	clientUser,ok := this.clients.Load(connID)
+//	if ok {
+//
+//		user, is := clientUser.(*ClientUser)
+//		if !is {
+//			this.DeleteClient(connID)
+//			return errors.New("client load 'ClientUser' Failure of type conversion")
+//		}
+//
+//		err := user.client.SendClient(code)
+//		if err != nil {
+//			this.DeleteClient(connID)
+//			return err
+//		}
+//
+//		return nil
+//	}
+//
+//	return errors.New("client not load")
+//}
 
 // 是否存在用户
 func (this *ClientManager) IsUser(connID string) bool {

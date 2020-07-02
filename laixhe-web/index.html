@@ -13,8 +13,7 @@
 
 <script>
 
-    var sendData = {"seq":"123","cmd":1,"data":{"token":"--token--","app_id":1}};
-    var t;
+    var t; // 定时器
     var ws = new WebSocket("ws://localhost:8882/v1/ws");
 
     // 可以传递 String、ArrayBuffer 和 Blob 三种数据类型，默认为 string
@@ -34,7 +33,27 @@
 
     //接收到消息时触发
     ws.onmessage = function(evt) {
-        console.log(evt.data);
+
+        // 返回二进制数据
+        console.log('evt.data=', evt.data);
+        console.log('evt.data 0,4=', evt.data.slice(0,4));
+        console.log('evt.data 4=', evt.data.slice(4));
+        console.log('');
+
+        // 解析前面 4 个字节 为 int
+        let data = new DataView(evt.data.slice(0,4));
+        console.log('data len=', data.byteLength);
+        let cmd = data.getUint32(0);
+        console.log('data cmd=', cmd);
+        console.log('');
+
+        // 解析剩余字节 为 protobuf
+        let loginResponse = proto.protoapi.LoginResponse.deserializeBinary(evt.data.slice(4));
+        console.log('LoginResponse=', loginResponse);
+        console.log('LoginResponse.cmd=', loginResponse.getCmd());
+        console.log('LoginResponse.message=', loginResponse.getMessage());
+        console.log('');
+
     };
 
     //连接关闭时触发
@@ -53,16 +72,20 @@
         login.setToken("token-----")
         login.setAppOsId(proto.protoapi.AppOS.O_WEB)
 
-        // 序列化为字节数组
+        // 将 protobuf 序列化为字节数组
         let loginBuffer = login.serializeBinary();
-        console.log(loginBuffer);
-        console.log(loginBuffer.length);
+
+        console.log('loginBuffer=', loginBuffer);
+        console.log('loginBuffer len=', loginBuffer.length);
+        console.log('');
 
         // 建立 N 个字节的缓冲
         let buffer = new ArrayBuffer(loginBuffer.length + 4);
         let data = new DataView(buffer);
         data.setInt32(0, login.getCmd());
 
+        // 将序列化的字节数组 添加到 缓冲
+        // ?没有更好的解决方式
         for (let i=0; i<loginBuffer.length; i++) {
             data.setUint8(i+4, loginBuffer[i]);
         }
