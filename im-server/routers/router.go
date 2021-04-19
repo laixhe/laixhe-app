@@ -1,0 +1,43 @@
+package routers
+
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/laixhe/goutil/zaplog"
+
+	"im-server/app/cws"
+	"im-server/config"
+	"im-server/servers"
+)
+
+// Router Gin路由
+func Router() *gin.Engine {
+	if config.IsAppDebug() {
+		gin.SetMode(gin.DebugMode)
+	}
+	r := gin.New()
+	// 中间件
+	r.Use(zaplog.GinLogger())
+	r.Use(zaplog.GinRecovery())
+
+	// 初始化客户端连接管理
+	clientManager := servers.NewClientManager()
+	go clientManager.Run()
+	// 初始化业务路由存放的路径
+	wsRouter := servers.NewRouter()
+	initWs(wsRouter)
+
+	routerV1 := r.Group("/v1")
+	{
+		routerV1.GET("/ws", func(c *gin.Context) {
+			cws.WebsocketServer(c, clientManager, wsRouter)
+		})
+	}
+	return r
+}
+
+// 直接运行 Gin Http
+func Run() error {
+	ipAddr := config.AppIPAddr()
+	zaplog.Debugf("▶▶▶启用IP端口:%v", ipAddr)
+	return Router().Run(ipAddr)
+}

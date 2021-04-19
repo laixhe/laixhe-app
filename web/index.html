@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test websocket</title>
+    <script src="./protobuf.min.js" type="text/javascript"></script>
+    <script src="./protoim.js" type="text/javascript"></script>
+</head>
+
+<body>
+</body>
+<script type="text/javascript">
+    let interval; // 定时器
+    let ws = new WebSocket("ws://localhost:5050/v1/ws");
+
+    // 可以传递 String、ArrayBuffer 和 Blob 三种数据类型，默认为 string
+    ws.binaryType = 'arraybuffer';
+
+    //连接打开时触发
+    ws.onopen = function(evt) {
+        console.log("Connection open ...");
+        // 开启定时器(周期性)
+        interval = setInterval(wsSend,1000);
+
+    };
+
+    //接收到消息时触发
+    ws.onmessage = function(evt) {
+        console.log("onmessage: ", evt.data);
+    };
+
+    //连接关闭时触发
+    ws.onclose = function(evt) {
+        console.log("Connection closed.");
+        // 取消定时器
+        clearInterval(interval);
+    };
+
+    var i = 100;
+    function wsSend() {
+        var getUserInfoRequestMessage = getUserInfoRequest.create({uid:i});
+        var getUserInfoRequestBuffer = getUserInfoRequest.encode(getUserInfoRequestMessage).finish();
+
+        var messageBaseMessage = messageBase.create({
+            cmd:3,
+            data:getUserInfoRequestBuffer
+        });
+        var messageBaseBuffer = messageBase.encode(messageBaseMessage).finish();
+        console.log(messageBaseBuffer);
+        ws.send(messageBaseBuffer);
+        i++;
+    }
+
+</script>
+</html>

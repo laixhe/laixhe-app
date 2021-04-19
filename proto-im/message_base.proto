@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package protoim;
+
+import "cmd.proto";
+
+option go_package = "./;protoim";
+
+// 基本信息结构
+message MessageBase {
+  protoim.CMD cmd       = 1; // 指令值
+  bytes data            = 2; // 原pd数据
+}
