@@ -88,27 +88,28 @@ func (c *Client) readClientChan() {
 		// 读取 ws 中的数据
 		messageType, message, err := c.conn.ReadMessage()
 		if err != nil {
-			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
-				zaplog.Errorf("addr read: %v : %v", c.addr, err)
-			}
+			//if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
+			//	zaplog.Errorf("addr read: %v : %v", c.addr, err)
+			//}
+			zaplog.Errorf("addr read: %v : %v", c.addr, err)
 			break
 		}
 
-		fmt.Println("T--------- read:", messageType)
 		messageBase := new(protoim.MessageBase)
 		err = proto.Unmarshal(message, messageBase)
 		if err != nil {
-			fmt.Println("T--------- read messageBase err: ", err)
-			return
+			zaplog.Errorf("addr read: %v : %v : %v", c.addr, err, messageType)
+			break
 		}
-		fmt.Println("T--------- messageBase read:", messageBase)
-		getUserInfoRequest := new(protoim.GetUserInfoRequest)
-		err = proto.Unmarshal(messageBase.Data, getUserInfoRequest)
+		err = c.router.Get(&Context{
+			conn: c,
+			data: messageBase.Data,
+			cmd:  messageBase.Cmd,
+		})
 		if err != nil {
-			fmt.Println("T--------- read getUserInfoRequest err: ", err)
-			return
+			zaplog.Errorf("addr read: %v : %v : %v", c.addr, err, messageType)
+			break
 		}
-		fmt.Println("T--------- getUserInfoRequest read:", getUserInfoRequest)
 	}
 }
 
@@ -118,11 +119,11 @@ func (c *Client) writeClientChan() {
 	for msg := range c.send {
 		// 设置 写超时(秒)
 		_ = c.conn.SetWriteDeadline(time.Now().Add(WriteTime))
-		err := c.conn.WriteMessage(websocket.TextMessage, msg)
+		err := c.conn.WriteMessage(websocket.BinaryMessage, msg)
 		if err != nil {
 			zaplog.Errorf("addr write: %v : %v", c.addr, err)
 			return
 		}
-		fmt.Println("T--------- write", string(msg))
+		fmt.Printf("T--------- write %v | %v\n", msg, len(msg))
 	}
 }
