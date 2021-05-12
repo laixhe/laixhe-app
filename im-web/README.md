@@ -1,31 +1,27 @@
-import template from 'lodash/template';
-import $ from "jquery";
+#### 初始化
+```
+npm install
+```
 
-let CMD = require("./protoim/cmd_pb")
-let MessageBase = require("./protoim/message_base_pb")
-let GetUserInfoRequest = require("./protoim/get_user_info_pb")
-let User = require("./protoim/user_pb")
+#### 生成静态文件
+```
+npm run build
+```
 
-const outputElement = document.getElementById('app');
-if (outputElement) {
-  var compiled = template(`
-    <h2><%- wsHeading %></h2>
-    <div>
-      <button type="button" id="ws_connection"><%- wsConnection %></button>
-    </div>
-    <div>
-      <button type="button" id="ws_close"><%- wsClose %></button>
-    </div>
-    <div>
-    <button type="button" id="ws_send">发送</button>
-    </div>
-  `.trim());
+#### 运行测试
+```
+npm run dev
+```
 
-  outputElement.innerHTML = compiled({
-    wsHeading: 'WebSocket',
-    wsConnection: '连接',
-    wsClose: '关闭'
-  });
+#### 使用 golang 打包静态文件为二进制文件
+> 需要 go1.16 以上的版本
+
+```
+# 生成名为 im-web 的二进制文件
+./gobuild.sh
+```
+
+```
 
   let i: number = 100;
   let ws: WebSocket;
@@ -84,5 +80,4 @@ if (outputElement) {
     i++;
     console.log(messageBase);
   });
-
-}
+```
