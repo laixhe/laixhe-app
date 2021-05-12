@@ -49,9 +49,12 @@ export default defineComponent({
     const onSubmit = () => {
       state.loginForm.validate().then((valid: boolean) => {
         if (valid) {
-            console.log('userForm...')
-            console.log(state.userForm)
+          console.log('userForm...')
+          console.log(state.userForm)
         }
+      }).catch((err: any)=>{
+        console.log('catch...')
+        console.log(err)
       });
     }
 

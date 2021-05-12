@@ -8,10 +8,12 @@ import App from './App.vue'
 // 浏览器样式兼容
 import 'normalize.css'
 
+// UI框架
 import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 import locale from 'element-plus/lib/locale/lang/zh-cn';
 
+// 路由
 import router from './router/index'
 
 // 创建 App 应用返回对应的实例对象，调用 mount 方法进行挂载
