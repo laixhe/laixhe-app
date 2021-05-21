@@ -2,16 +2,15 @@ package servers
 
 import (
 	"fmt"
-	"im-server/protoim"
 	"sync"
 	"time"
 
-	"google.golang.org/protobuf/proto"
-
 	"github.com/gorilla/websocket"
 	"github.com/laixhe/goutil/zaplog"
+	"google.golang.org/protobuf/proto"
 
 	"im-server/config"
+	"im-server/protoim"
 )
 
 // ReadTime 读超时(秒)，同时也是心跳超时

@@ -4,7 +4,7 @@ import (
 	"sync"
 )
 
-// 客户端连接管理
+// ClientManager 客户端连接管理
 type ClientManager struct {
 	clients    *sync.Map    // 保存客户端的链接
 	register   chan *Client // 注册客户端的链接
@@ -12,7 +12,7 @@ type ClientManager struct {
 	broadcast  chan []byte  // 通知广播消息
 }
 
-// 初始化客户端连接管理
+// NewClientManager 初始化客户端连接管理
 func NewClientManager() *ClientManager {
 	return &ClientManager{
 		clients:    new(sync.Map),
@@ -22,7 +22,7 @@ func NewClientManager() *ClientManager {
 	}
 }
 
-// 连接管理
+// Run 连接管理
 func (m *ClientManager) Run() {
 	for {
 		select {

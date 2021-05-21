@@ -4,10 +4,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/laixhe/goutil/zaplog"
-
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
+	"github.com/laixhe/goutil/zaplog"
 
 	"im-server/servers"
 )

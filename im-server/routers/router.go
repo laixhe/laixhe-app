@@ -11,13 +11,23 @@ import (
 
 // Router Gin路由
 func Router() *gin.Engine {
+	if !config.IsConsoleLog() {
+		// 禁用控制台输出
+		gin.DisableConsoleColor()
+	}
+
 	if config.IsAppDebug() {
 		gin.SetMode(gin.DebugMode)
 	}
 	r := gin.New()
 	// 中间件
-	r.Use(zaplog.GinLogger())
-	r.Use(zaplog.GinRecovery())
+	if config.IsConsoleLog() {
+		r.Use(gin.Logger())
+		r.Use(gin.Recovery())
+	} else {
+		r.Use(zaplog.GinLogger())
+		r.Use(zaplog.GinRecovery())
+	}
 
 	// 初始化客户端连接管理
 	clientManager := servers.NewClientManager()

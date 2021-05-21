@@ -27,7 +27,7 @@ type MessageBase struct {
 	unknownFields protoimpl.UnknownFields
 
 	Cmd  CMD    `protobuf:"varint,1,opt,name=cmd,proto3,enum=protoim.CMD" json:"cmd,omitempty"` // 指令值
-	Data []byte `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`                 // 原pd数据
+	Data []byte `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`                 // 原 pd 数据
 }
 
 func (x *MessageBase) Reset() {
@@ -66,7 +66,7 @@ func (x *MessageBase) GetCmd() CMD {
 	if x != nil {
 		return x.Cmd
 	}
-	return CMD_UNKNOWN
+	return CMD_Unknown
 }
 
 func (x *MessageBase) GetData() []byte {

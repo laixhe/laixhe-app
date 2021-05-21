@@ -194,6 +194,11 @@ func RedisNodes() []string {
 	return conf.Redis.Nodes
 }
 
+// IsConsoleLog 日志是否控制台输出
+func IsConsoleLog() bool {
+	return conf.Logs.Path == ""
+}
+
 // initLog 初始化日志
 func initLog() {
 	switch conf.Logs.LogLevel {
@@ -212,7 +217,7 @@ func initLog() {
 	if conf.Logs.MaxAge < 0 {
 		conf.Logs.MaxAge = 0
 	}
-	if conf.Logs.Path == "" {
+	if IsConsoleLog() {
 		zaplog.InitConsole(zaplog.Config{
 			ServiceName: conf.App.Name,
 			LogLevel:    conf.Logs.LogLevel,

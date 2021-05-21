@@ -5,9 +5,9 @@ package protoim;
 option go_package = "./;protoim";
 
 // 用户信息
-message User {
+message UserInfo {
   int32  uid  = 1;
   string name = 2;
   int32  age  = 3;
-  bool   isok = 4;
+  bool   is_ok = 4;
 }

@@ -29,6 +29,10 @@ func (c *Context) ProtoBind(data proto.Message) error {
 
 // Send 发送数据
 func (c *Context) Send(cmd protoim.CMD, data proto.Message) error {
+	// 判断当前链接是否已经关闭
+	if c.conn.isClosed {
+		return nil
+	}
 	protoData, err := proto.Marshal(data)
 	if err != nil {
 		return err

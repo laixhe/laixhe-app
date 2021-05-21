@@ -15,12 +15,16 @@ func GetUserInfo(c *servers.Context) {
 		fmt.Println("err:", err)
 		return
 	}
-	rsp := &protoim.User{
-		Uid:  req.Uid,
-		Name: "laixhe",
-		Age:  18,
-		Isok: true,
+
+	rsp := &protoim.GetUserInfoResponse{
+		User: &protoim.UserInfo{
+			Uid:  req.Uid,
+			Name: "laixhe",
+			Age:  18,
+			IsOk: true,
+		},
 	}
-	err = c.Send(protoim.CMD_CHECKING_TOKEN, rsp)
+
+	err = c.Send(protoim.CMD_GetUserInfoRes, rsp)
 	fmt.Println("rsp:", rsp, "err:", err)
 }

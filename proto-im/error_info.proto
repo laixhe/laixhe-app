@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+import "e.proto";
+
+message ErrorInfo {
+    protoim.E code = 1;
+    string msg = 2;
+}
