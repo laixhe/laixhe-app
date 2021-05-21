@@ -18,10 +18,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, toRefs } from 'vue'
-import { useRouter } from 'vue-router'
+import { defineComponent, ref, reactive, toRefs } from 'vue';
+import { useRouter } from 'vue-router';
 
-import axios from '@/utils/axios'
+import {initWS, sendWS} from '@/utils/websocket';
 
 // 自定义组件并导出
 export default defineComponent({
@@ -32,7 +32,7 @@ export default defineComponent({
   // 返回对象中的属性或方法，在模板中可以直接使用
   setup(){
     // 用于跳转路由
-    const router = useRouter()
+    const router = useRouter();
 
     // 创建数据绑定
     const state = reactive({
@@ -53,30 +53,29 @@ export default defineComponent({
       password: [
         {required: true, message: '密码不可为空', trigger: 'blur'}
       ]
-    }
+    };
 
     // 点击登录按钮
     const onSubmit = () => {
       // 对数据进行验证
       state.loginForm.validate().then((valid: boolean) => {
         if (valid) {
-          console.log('login userForm...')
-          axios.get('/').then((res: any)=>{
-            console.log('login res: ', res)
-            // 跳转到...
-            router.push({ path: '/home' })
-          }).catch((err: any) => {
-            console.log('login err: ', err)
-          })
+          console.log('login userForm...');
+
+          initWS();
+
+          // 跳转到...
+          router.push({ path: '/home' });
+        
         }
       }).catch((err: any)=>{
-        console.log('login submit catch...')
-      })
+        console.log('login submit catch... $err', err);
+      });
     }
 
-    return {...toRefs(state), userRules, onSubmit}
+    return {...toRefs(state), userRules, onSubmit};
   }
-})
+});
 </script>
 
 <style scoped>
