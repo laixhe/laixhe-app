@@ -11,6 +11,7 @@ import (
 
 	"im-server/config"
 	"im-server/protoim"
+	"im-server/utils"
 )
 
 // ReadTime 读超时(秒)，同时也是心跳超时
@@ -23,24 +24,33 @@ var WriteTime = time.Second * config.WebsocketWriteTime()
 type Client struct {
 	conn       *websocket.Conn // 客户端连接
 	addr       string          // 客户端地址
-	connTime   time.Time       // 连接时间
 	send       chan []byte     // 待发送的数据
+	connTime   time.Time       // 连接时间
 	isClosed   bool            // 当前连接的关闭状态
-	lockClosed *sync.Mutex     // 锁-关闭状态
-	manager    *ClientManager  // 客户端连接管理
-	router     *Router         // 业务路由存放的路径
+	lockClosed *sync.Mutex     // 当前连接的关闭状态-锁
+	//
+	appOsId   protoim.AppOs // 用户登录的平台 Id
+	userId    string        // 用户 Id
+	userKey   string        // 用户平台连接 Key
+	loginTime time.Time     // 用户登录时间
+	isLogin   bool          // 用户是否登录
+	//
+	manager *ClientManager // 客户端连接管理
+	router  *Router        // 业务路由存放的路径
 }
 
 // NewClient init
 func NewClient(conn *websocket.Conn, manager *ClientManager, router *Router) *Client {
 	return &Client{
-		addr:       conn.RemoteAddr().String(),
 		conn:       conn,
-		connTime:   time.Now(),
+		addr:       conn.RemoteAddr().String(),
 		send:       make(chan []byte, 100),
+		connTime:   time.Now(),
+		isClosed:   false,
 		lockClosed: new(sync.Mutex),
-		manager:    manager,
-		router:     router,
+		//
+		manager: manager,
+		router:  router,
 	}
 }
 
@@ -125,4 +135,26 @@ func (c *Client) writeClientChan() {
 		}
 		fmt.Printf("T--------- write %v | %v\n", msg, len(msg))
 	}
+}
+
+// userLogin 用户登录
+func (c *Client) userLogin(appOsId protoim.AppOs, userId string) {
+	if c.isClosed {
+		return
+	}
+	c.appOsId = appOsId        // 用户登录的平台 Id
+	c.userId = userId          // 用户 Id
+	c.userKey = c.getUserKey() // 用户平台连接 Key
+	c.loginTime = time.Now()   // 用户登录时间
+	c.isLogin = true           // 用户是否登录
+	// 用户登录处理
+	c.manager.userLogin <- c
+}
+
+// getUserConnKey 用户平台连接key
+func (c *Client) getUserKey() string {
+	if c.userKey == "" {
+		c.userKey = utils.GetUserKey(c.appOsId, c.userId)
+	}
+	return c.userKey
 }

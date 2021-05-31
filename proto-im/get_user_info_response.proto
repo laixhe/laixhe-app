@@ -6,10 +6,6 @@ option go_package = "./;protoim";
 
 import "user_info.proto";
 
-message GetUserInfoRequest {
-  int32 uid = 1;
-}
-
 message GetUserInfoResponse {
   protoim.UserInfo user = 1;
 }

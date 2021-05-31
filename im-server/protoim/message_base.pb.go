@@ -66,7 +66,7 @@ func (x *MessageBase) GetCmd() CMD {
 	if x != nil {
 		return x.Cmd
 	}
-	return CMD_Unknown
+	return CMD_CmdUnknown
 }
 
 func (x *MessageBase) GetData() []byte {

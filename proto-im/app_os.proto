@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+enum AppOs {
+    OsUnknown = 0; // 未知
+    Web     = 1; // web
+    Ios     = 2; // ios
+    Android = 3; // android
+    Pc      = 4; // pc
+}
