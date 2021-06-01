@@ -12,6 +12,9 @@ type ClientManager struct {
 	register   chan *Client // 注册客户端
 	unregister chan *Client // 移除注册客户端
 	broadcast  chan []byte  // 通知广播消息
+	//
+	router         *Router        // 业务路由存放的路径
+	routerNotLogin RouterNotLogin // 不需要登录的路由
 }
 
 // NewClientManager 初始化客户端连接管理
@@ -23,6 +26,9 @@ func NewClientManager() *ClientManager {
 		register:   make(chan *Client, 100),
 		unregister: make(chan *Client, 100),
 		broadcast:  make(chan []byte, 100),
+		//
+		router:         NewRouter(),
+		routerNotLogin: NewRouterNotLogin(),
 	}
 }
 
@@ -62,4 +68,9 @@ func (m *ClientManager) Run() {
 			})
 		}
 	}
+}
+
+// InitRouter 初始化业务路由存放的路径
+func (m *ClientManager) InitRouter(f func(r *Router)) {
+	f(m.router)
 }

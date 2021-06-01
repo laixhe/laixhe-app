@@ -1,4 +1,4 @@
-// source: e.proto
+// source: app_os.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -15,26 +15,16 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-goog.exportSymbol('proto.protoim.E', null, global);
+goog.exportSymbol('proto.protoim.AppOs', null, global);
 /**
  * @enum {number}
  */
-proto.protoim.E = {
-  UNKNOWNERROR: 0,
-  SERVERERROR: 1,
-  WRITETIMEOUTERROR: 2,
-  READIMEOUTERROR: 3,
-  ROUTENOTEXIST: 4,
-  DECODEERROR: 5,
-  ENCODEERROR: 6,
-  NOTLOGIN: 7,
-  PARAMETERERROR: 8,
-  DBNOTDATA: 9,
-  DBSELECTERROR: 10,
-  DBINSERTERROR: 11,
-  DBDELETEERROR: 12,
-  DBUPATEERROR: 13,
-  DBOPERATIONERROR: 14
+proto.protoim.AppOs = {
+  OSUNKNOWN: 0,
+  WEB: 1,
+  IOS: 2,
+  ANDROID: 3,
+  PC: 4
 };
 
 goog.object.extend(exports, proto.protoim);

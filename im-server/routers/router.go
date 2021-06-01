@@ -32,14 +32,12 @@ func Router() *gin.Engine {
 	// 初始化客户端连接管理
 	clientManager := servers.NewClientManager()
 	go clientManager.Run()
-	// 初始化业务路由存放的路径
-	wsRouter := servers.NewRouter()
-	initWs(wsRouter)
+	clientManager.InitRouter(wsUser)
 
 	routerV1 := r.Group("/v1")
 	{
 		routerV1.GET("/ws", func(c *gin.Context) {
-			cws.WebsocketServer(c, clientManager, wsRouter)
+			cws.WebsocketServer(c, clientManager)
 		})
 	}
 	return r

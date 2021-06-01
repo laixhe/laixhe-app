@@ -20,9 +20,8 @@ goog.exportSymbol('proto.protoim.CMD', null, global);
  * @enum {number}
  */
 proto.protoim.CMD = {
-  UNKNOWN: 0,
-  ERROR: 1,
-  HEARTBEAT: 2,
+  CERROR: 0,
+  CHEARTBEAT: 1,
   GETUSERINFOREQ: 1000,
   GETUSERINFORES: 1001
 };

@@ -20,11 +20,11 @@ var upgrader = websocket.Upgrader{
 }
 
 // WebsocketServer 升级 websocket 服务
-func WebsocketServer(c *gin.Context, m *servers.ClientManager, r *servers.Router) {
+func WebsocketServer(c *gin.Context, m *servers.ClientManager) {
 	conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
 	if err != nil {
 		zaplog.Errorf("upgrader: %v", err)
 		return
 	}
-	servers.NewClient(conn, m, r).Start()
+	servers.NewClient(conn, m).Start()
 }

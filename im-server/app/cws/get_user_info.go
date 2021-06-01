@@ -12,7 +12,7 @@ func GetUserInfo(c *servers.Context) {
 	req := new(protoim.GetUserInfoRequest)
 	err := c.ProtoBind(req)
 	if err != nil {
-		fmt.Println("err:", err)
+		fmt.Println("GetUserInfo - err:", err)
 		return
 	}
 
@@ -25,6 +25,6 @@ func GetUserInfo(c *servers.Context) {
 		},
 	}
 
-	err = c.Send(protoim.CMD_GetUserInfoRes, rsp)
-	fmt.Println("rsp:", rsp, "err:", err)
+	e := c.Send(protoim.CMD_GetUserInfoRes, rsp)
+	fmt.Println("GetUserInfo - rsp:", rsp, "err:", e)
 }

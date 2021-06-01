@@ -5,11 +5,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import {sendWS} from '@/utils/websocket';
+import {sendWS, onRouter} from '@/utils/websocket';
 
 import * as CMD from '@/protoim/cmd_pb';
 import * as MessageBase from '@/protoim/message_base_pb';
-import * as GetUserInfo from '@/protoim/get_user_info_pb';
+import * as GetUserInfoRequest from '@/protoim/get_user_info_request_pb';
 
 
 export default defineComponent({
@@ -22,7 +22,7 @@ export default defineComponent({
     // 点击发送按钮
     const onSend = () => {
 
-      let getUserInfoRequest = new GetUserInfo.GetUserInfoRequest();
+      let getUserInfoRequest = new GetUserInfoRequest.GetUserInfoRequest();
       getUserInfoRequest.setUid(i);
       // 将 protobuf 序列化为字节数组 Uint8Array
       let getUserInfoRequestBuffer = getUserInfoRequest.serializeBinary();
@@ -35,6 +35,11 @@ export default defineComponent({
       sendWS(messageBaseBuffer);
       i++;
     }
+
+    onRouter(CMD.CMD.GETUSERINFORES as number, function(data: any){
+      console.log(data.getUser().getUid());
+      console.log(data.getUser().getName());
+    });
 
     return {onSend};
   }

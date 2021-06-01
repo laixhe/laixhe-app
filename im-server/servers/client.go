@@ -7,7 +7,6 @@ import (
 
 	"github.com/gorilla/websocket"
 	"github.com/laixhe/goutil/zaplog"
-	"google.golang.org/protobuf/proto"
 
 	"im-server/config"
 	"im-server/protoim"
@@ -36,11 +35,10 @@ type Client struct {
 	isLogin   bool          // 用户是否登录
 	//
 	manager *ClientManager // 客户端连接管理
-	router  *Router        // 业务路由存放的路径
 }
 
 // NewClient init
-func NewClient(conn *websocket.Conn, manager *ClientManager, router *Router) *Client {
+func NewClient(conn *websocket.Conn, manager *ClientManager) *Client {
 	return &Client{
 		conn:       conn,
 		addr:       conn.RemoteAddr().String(),
@@ -50,21 +48,20 @@ func NewClient(conn *websocket.Conn, manager *ClientManager, router *Router) *Cl
 		lockClosed: new(sync.Mutex),
 		//
 		manager: manager,
-		router:  router,
 	}
 }
 
 // Start 开始处理连接的读写
 func (c *Client) Start() {
 	// 对 ping、pong 侦的处理
-	c.conn.SetPongHandler(func(string) error {
-		_ = c.conn.SetReadDeadline(time.Now().Add(ReadTime))
-		return nil
-	})
-	c.conn.SetPingHandler(func(string) error {
-		_ = c.conn.SetReadDeadline(time.Now().Add(ReadTime))
-		return nil
-	})
+	// c.conn.SetPongHandler(func(string) error {
+	// 	_ = c.conn.SetReadDeadline(time.Now().Add(ReadTime))
+	// 	return nil
+	// })
+	// c.conn.SetPingHandler(func(string) error {
+	// 	_ = c.conn.SetReadDeadline(time.Now().Add(ReadTime))
+	// 	return nil
+	// })
 	// 注册客户端的链接
 	c.manager.register <- c
 	go c.writeClientChan()
@@ -92,33 +89,43 @@ func (c *Client) Stop() {
 func (c *Client) readClientChan() {
 	defer c.Stop()
 	for {
-		// 设置 读超时(秒)，同时也是心跳超时
-		_ = c.conn.SetReadDeadline(time.Now().Add(ReadTime))
 		// 读取 ws 中的数据
 		messageType, message, err := c.conn.ReadMessage()
 		if err != nil {
-			//if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
-			//	zaplog.Errorf("addr read: %v : %v", c.addr, err)
-			//}
-			zaplog.Errorf("addr read: %v : %v", c.addr, err)
+			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
+				zaplog.Errorf("addr read11=%v err=%v", c.addr, err)
+				break
+			}
+			zaplog.Errorf("addr read22=%v err=%v", c.addr, err)
 			break
 		}
-
-		messageBase := new(protoim.MessageBase)
-		err = proto.Unmarshal(message, messageBase)
+		messageBase, err := DeCodeMessageBase(message)
 		if err != nil {
-			zaplog.Errorf("addr read: %v : %v : %v", c.addr, err, messageType)
+			zaplog.Errorf("addr read=%v err=%v type=%v", c.addr, err, messageType)
+			if d, e := ErrorMessageDeCode(); e == nil {
+				c.send <- d
+			} else {
+				zaplog.Errorf("addr read=%v err=%v type=%v", c.addr, e, messageType)
+			}
 			break
 		}
-		err = c.router.Get(&Context{
+		// 路由业务
+		errMsg := c.manager.router.Get(&Context{
 			conn: c,
 			data: messageBase.Data,
 			cmd:  messageBase.Cmd,
 		})
-		if err != nil {
-			zaplog.Errorf("addr read: %v : %v : %v", c.addr, err, messageType)
-			break
+		if errMsg != nil {
+			zaplog.Errorf("addr read=%v err=%v type=%v", c.addr, err, messageType)
+			if d, e := EnErrorMessage(errMsg); e == nil {
+				c.send <- d
+			} else {
+				zaplog.Errorf("addr read=%v err=%v type=%v", c.addr, e, messageType)
+			}
+			continue
 		}
+		// 设置 读超时(秒)，同时也是心跳超时
+		_ = c.conn.SetReadDeadline(time.Now().Add(ReadTime))
 	}
 }
 
@@ -130,7 +137,7 @@ func (c *Client) writeClientChan() {
 		_ = c.conn.SetWriteDeadline(time.Now().Add(WriteTime))
 		err := c.conn.WriteMessage(websocket.BinaryMessage, msg)
 		if err != nil {
-			zaplog.Errorf("addr write: %v : %v", c.addr, err)
+			zaplog.Errorf("addr write=%v err=%v", c.addr, err)
 			return
 		}
 		fmt.Printf("T--------- write %v | %v\n", msg, len(msg))

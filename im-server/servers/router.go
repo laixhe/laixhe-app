@@ -17,18 +17,18 @@ func NewRouter() *Router {
 }
 
 // Set 设置业务路由
-func (r *Router) Set(cmd protoim.CMD, fun func(*Context)) {
-	if fun == nil {
+func (r *Router) Set(cmd protoim.CMD, f func(*Context)) {
+	if f == nil {
 		panic("router can not be nil")
 	}
-	r.path[cmd] = fun
+	r.path[cmd] = f
 }
 
 // Get 获取业务路由
-func (r *Router) Get(req *Context) error {
+func (r *Router) Get(req *Context) *protoim.ErrorInfo {
 	fun, ok := r.path[req.cmd]
 	if !ok {
-		return fmt.Errorf("cmd no find: %d", req.cmd)
+		return ErrorMessage(protoim.E_RouteNotExist, fmt.Sprintf("cmd no find: %d", req.cmd))
 	}
 	go fun(req)
 	return nil

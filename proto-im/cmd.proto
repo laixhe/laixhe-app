@@ -6,9 +6,8 @@ option go_package = "./;protoim";
 
 // 指令类型
 enum CMD {
-  CmdUnknown     = 0; // 未知
-  Error          = 1; // 错误
-  HeartBeat      = 2; // 心跳
+  CError           = 0; // 错误
+  CHeartBeat       = 1; // 心跳
   GetUserInfoReq   = 1000; // 获取用户信息
   GetUserInfoRes   = 1001; // 获取用户信息
 }

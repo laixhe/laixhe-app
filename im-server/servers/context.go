@@ -1,6 +1,7 @@
 package servers
 
 import (
+	"github.com/laixhe/goutil/zaplog"
 	"google.golang.org/protobuf/proto"
 
 	"im-server/protoim"
@@ -28,23 +29,22 @@ func (c *Context) ProtoBind(data proto.Message) error {
 }
 
 // Send 发送数据
-func (c *Context) Send(cmd protoim.CMD, data proto.Message) error {
+func (c *Context) Send(cmd protoim.CMD, data proto.Message) *protoim.ErrorInfo {
 	// 判断当前链接是否已经关闭
 	if c.conn.isClosed {
 		return nil
 	}
-	protoData, err := proto.Marshal(data)
+	protoBase, err := EnCode(cmd, data)
 	if err != nil {
-		return err
+		return ErrorMessage(protoim.E_EnCodeError, err.Error())
 	}
-	messageBase := &protoim.MessageBase{
-		Cmd:  cmd,
-		Data: protoData,
-	}
-	protoBase, err := proto.Marshal(messageBase)
-	if err != nil {
-		return err
-	}
+	// 捕获 panic
+	defer func() {
+		if err := recover(); err != nil {
+			zaplog.Errorf("context send=%v err=%v", c.conn.addr, err)
+		}
+	}()
+
 	c.conn.send <- protoBase
 	return nil
 }

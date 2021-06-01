@@ -6,7 +6,7 @@ import (
 	"im-server/servers"
 )
 
-// initWs 初始化业务路由
-func initWs(r *servers.Router) {
+// wsUser 初始化业务路由
+func wsUser(r *servers.Router) {
 	r.Set(protoim.CMD_GetUserInfoReq, cws.GetUserInfo)
 }

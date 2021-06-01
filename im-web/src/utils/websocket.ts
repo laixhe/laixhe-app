@@ -1,6 +1,14 @@
-const baseURL = 'ws://192.168.10.240:5050';
+import * as MessageBase from '@/protoim/message_base_pb';
+import * as GetUserInfoResponse from '@/protoim/get_user_info_response_pb';
+
+// const baseURL = 'ws://192.168.10.240:5050';
+const baseURL = 'ws://127.0.0.1:5050';
 let ws: WebSocket;
 
+// 路由回调
+const routers: Map<number, any> = new Map();
+
+// 初始化
 const initWS = function(): void {
     ws = new WebSocket(baseURL+"/v1/ws");
     ws.binaryType = 'arraybuffer';
@@ -18,8 +26,13 @@ function onOpen(evt: Event){
 }
 
 function onMessage(evt: MessageEvent) {
-    console.log("onmessage evt:", evt);
-    console.log("onmessage evt.data:", new Uint8Array(evt.data));
+
+    //console.log("onmessage evt.data:", new Uint8Array(evt.data));
+    const messageBase = MessageBase.MessageBase.deserializeBinary(evt.data);
+    console.log("onmessage messageBase.cmd:", messageBase.getCmd());
+
+    const base = GetUserInfoResponse.GetUserInfoResponse.deserializeBinary(messageBase.getData());
+    routers.get(messageBase.getCmd() as number)(base);
 }
 
 function onClose(evt: CloseEvent){
@@ -30,4 +43,8 @@ const sendWS = function(msg: any){
     ws.send(msg);
 }
 
-export {initWS, sendWS};
+const onRouter = function(router: number, func: any){
+    routers.set(router, func);
+}
+
+export {initWS, sendWS, onRouter};
