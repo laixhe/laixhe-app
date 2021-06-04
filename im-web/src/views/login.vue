@@ -21,7 +21,11 @@
 import { defineComponent, ref, reactive, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 
-import {initWS, sendWS} from '@/utils/websocket';
+import {initWS, sendWS, onRouter} from '@/utils/websocket';
+
+import * as CMD from '@/protoim/cmd_pb';
+import * as MessageBase from '@/protoim/message_base_pb';
+import * as LoginRequest from '@/protoim/user_login_request_pb';
 
 // 自定义组件并导出
 export default defineComponent({
@@ -61,11 +65,32 @@ export default defineComponent({
       state.loginForm.validate().then((valid: boolean) => {
         if (valid) {
           console.log('login userForm...');
-
           initWS();
 
-          // 跳转到...
-          router.push({ path: '/home' });
+
+          let loginRequest = new LoginRequest.UserLoginRequest();
+          loginRequest.setUid(state.userForm.password)
+          loginRequest.setName(state.userForm.username)
+
+          // 将 protobuf 序列化为字节数组 Uint8Array
+          let loginRequestBuffer = loginRequest.serializeBinary();
+
+          let messageBase = new MessageBase.MessageBase();
+          messageBase.setCmd(CMD.CMD.USER_LOGIN_REQUEST);
+          messageBase.setData(loginRequestBuffer);
+          let messageBaseBuffer = messageBase.serializeBinary();
+
+          setTimeout(()=>{
+            sendWS(messageBaseBuffer)
+          }, 1000);
+          
+
+          onRouter(CMD.CMD.USER_LOGIN_RESPONSE as number, function(data: any){
+            console.log(data.getUid());
+            console.log(data.getName());
+            // 跳转到...
+            router.push({ path: '/home' });
+          });
         
         }
       }).catch((err: any)=>{

@@ -116,7 +116,7 @@ func (c *Client) readClientChan() {
 			cmd:  messageBase.Cmd,
 		})
 		if errMsg != nil {
-			zaplog.Errorf("addr read=%v err=%v type=%v", c.addr, err, messageType)
+			zaplog.Errorf("addr read=%v err=%v type=%v", c.addr, errMsg, messageType)
 			if d, e := EnErrorMessage(errMsg); e == nil {
 				c.send <- d
 			} else {

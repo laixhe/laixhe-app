@@ -25,6 +25,6 @@ func GetUserInfo(c *servers.Context) {
 		},
 	}
 
-	e := c.Send(protoim.CMD_GetUserInfoRes, rsp)
+	e := c.Send(protoim.CMD_GET_USER_INFO_RESPONSE, rsp)
 	fmt.Println("GetUserInfo - rsp:", rsp, "err:", e)
 }

@@ -20,10 +20,14 @@ goog.exportSymbol('proto.protoim.CMD', null, global);
  * @enum {number}
  */
 proto.protoim.CMD = {
-  CERROR: 0,
-  CHEARTBEAT: 1,
-  GETUSERINFOREQ: 1000,
-  GETUSERINFORES: 1001
+  C_ERROR: 0,
+  PING: 1,
+  PONG: 2,
+  USER_LOGIN_REQUEST: 1000,
+  USER_LOGIN_RESPONSE: 1001,
+  UPDATE_USER_FRIEND_INFO: 1002,
+  GET_USER_INFO_REQUEST: 1003,
+  GET_USER_INFO_RESPONSE: 1004
 };
 
 goog.object.extend(exports, proto.protoim);

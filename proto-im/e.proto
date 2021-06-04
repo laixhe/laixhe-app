@@ -6,19 +6,19 @@ option go_package = "./;protoim";
 
 // 错误指令类型
 enum E {
-    UnknownError      = 0; // 未知错误
-    ServerError       = 1; // 服务器错误
-    WriteTimeoutError = 2; // 读超时
-    ReadimeoutError   = 3; // 写超时
-    RouteNotExist     = 4; // 路由不存在
-    DeCodeError       = 5; // 解码code失败
-    EnCodeError       = 6; // 编码code失败
-    NotLogin          = 7; // 未登录
-    ParameterError    = 8; // 参数错误
-    DbNotData         = 9; // 没有数据
-    DbSelectError     = 10; // 数据查询错误
-    DbInsertError     = 11; // 数据添加错误
-	DbDeleteError     = 12; // 数据删除错误
-	DbUpateError      = 13; // 数据更新错误
-	DbOperationError  = 14; // 数据操作错误
+    UNKNOWN_ERROR       = 0; // 未知错误
+    SERVER_ERROR        = 1; // 服务器错误
+    WRITE_TIMEOUT       = 2; // 服务器读超时
+    READ_TIMEOUT        = 3; // 服务器写超时
+    ROUTE_NOT_EXIST     = 4; // 路由不存在
+    DECODE_ERROR        = 5; // 解码code失败
+    ENCODE_ERROR        = 6; // 编码code失败
+    NOT_LOGIN           = 7; // 未登录
+    PARAMETER_ERROR     = 8; // 参数错误
+    DB_NOT_DATA         = 9; // 没有数据
+    DB_SELECT_ERROR     = 10; // 数据查询错误
+    DB_INSERT_ERROR     = 11; // 数据添加错误
+	DB_DELETE_ERROR     = 12; // 数据删除错误
+	DB_UPATE_ERROR      = 13; // 数据更新错误
+	DB_OPERATION_ERROR  = 14; // 数据操作错误
 }

@@ -1,7 +1,9 @@
 package servers
 
 import (
+	"fmt"
 	"sync"
+	"time"
 )
 
 // ClientManager 客户端连接管理
@@ -34,6 +36,7 @@ func NewClientManager() *ClientManager {
 
 // Run 连接管理
 func (m *ClientManager) Run() {
+	go m.test()
 	for {
 		select {
 		case client := <-m.register:
@@ -73,4 +76,19 @@ func (m *ClientManager) Run() {
 // InitRouter 初始化业务路由存放的路径
 func (m *ClientManager) InitRouter(f func(r *Router)) {
 	f(m.router)
+}
+
+func (m *ClientManager) test() {
+	for {
+		time.Sleep(time.Second * 5)
+		m.clients.Range(func(clientAddr, clientInterface interface{}) bool {
+			client, is := clientInterface.(*Client)
+			if is {
+				fmt.Printf("T------ %v \n", client.userId)
+			}
+
+			return true
+		})
+
+	}
 }

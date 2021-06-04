@@ -36,9 +36,9 @@ func (c *Context) Send(cmd protoim.CMD, data proto.Message) *protoim.ErrorInfo {
 	}
 	protoBase, err := EnCode(cmd, data)
 	if err != nil {
-		return ErrorMessage(protoim.E_EnCodeError, err.Error())
+		return ErrorMessage(protoim.E_ENCODE_ERROR, err.Error())
 	}
-	// 捕获 panic
+	// 捕获 panic (注要是发送消息时可能通道已关闭)
 	defer func() {
 		if err := recover(); err != nil {
 			zaplog.Errorf("context send=%v err=%v", c.conn.addr, err)
@@ -46,5 +46,46 @@ func (c *Context) Send(cmd protoim.CMD, data proto.Message) *protoim.ErrorInfo {
 	}()
 
 	c.conn.send <- protoBase
+	return nil
+}
+
+// Send 发送数据 CMD
+func (c *Context) SendCmd(cmd protoim.CMD) *protoim.ErrorInfo {
+	// 判断当前链接是否已经关闭
+	if c.conn.isClosed {
+		return nil
+	}
+	protoBase, err := EnCodeCmd(cmd)
+	if err != nil {
+		return ErrorMessage(protoim.E_ENCODE_ERROR, err.Error())
+	}
+	// 捕获 panic (注要是发送消息时可能通道已关闭)
+	defer func() {
+		if err := recover(); err != nil {
+			zaplog.Errorf("context send=%v err=%v", c.conn.addr, err)
+		}
+	}()
+
+	c.conn.send <- protoBase
+	return nil
+}
+
+func (c *Context) Sendxxx(cmd protoim.CMD, data proto.Message) *protoim.ErrorInfo {
+	// 判断当前链接是否已经关闭
+	if c.conn.isClosed {
+		return nil
+	}
+	protoBase, err := EnCode(cmd, data)
+	if err != nil {
+		return ErrorMessage(protoim.E_ENCODE_ERROR, err.Error())
+	}
+	// 捕获 panic (注要是发送消息时可能通道已关闭)
+	defer func() {
+		if err := recover(); err != nil {
+			zaplog.Errorf("context send=%v err=%v", c.conn.addr, err)
+		}
+	}()
+
+	c.conn.manager.broadcast <- protoBase
 	return nil
 }

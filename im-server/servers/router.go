@@ -13,7 +13,11 @@ type Router struct {
 
 // NewRouter init
 func NewRouter() *Router {
-	return &Router{path: make(map[protoim.CMD]func(*Context))}
+	r := &Router{path: make(map[protoim.CMD]func(*Context))}
+
+	// 添加心跳路由
+	r.Set(protoim.CMD_PING, Ping)
+	return r
 }
 
 // Set 设置业务路由
@@ -28,7 +32,7 @@ func (r *Router) Set(cmd protoim.CMD, f func(*Context)) {
 func (r *Router) Get(req *Context) *protoim.ErrorInfo {
 	fun, ok := r.path[req.cmd]
 	if !ok {
-		return ErrorMessage(protoim.E_RouteNotExist, fmt.Sprintf("cmd no find: %d", req.cmd))
+		return ErrorMessage(protoim.E_ROUTE_NOT_EXIST, fmt.Sprintf("cmd no find: %d", req.cmd))
 	}
 	go fun(req)
 	return nil

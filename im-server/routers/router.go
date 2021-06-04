@@ -21,13 +21,15 @@ func Router() *gin.Engine {
 	}
 	r := gin.New()
 	// 中间件
-	if config.IsConsoleLog() {
-		r.Use(gin.Logger())
-		r.Use(gin.Recovery())
-	} else {
-		r.Use(zaplog.GinLogger())
-		r.Use(zaplog.GinRecovery())
-	}
+	// if config.IsConsoleLog() {
+	// 	r.Use(gin.Logger())
+	// 	r.Use(gin.Recovery())
+	// } else {
+	// 	r.Use(zaplog.GinLogger())
+	// 	r.Use(zaplog.GinRecovery())
+	// }
+	r.Use(zaplog.GinLogger())
+	r.Use(zaplog.GinRecovery())
 
 	// 初始化客户端连接管理
 	clientManager := servers.NewClientManager()

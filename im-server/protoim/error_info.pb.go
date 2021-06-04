@@ -65,7 +65,7 @@ func (x *ErrorInfo) GetCode() E {
 	if x != nil {
 		return x.Code
 	}
-	return E_UnknownError
+	return E_UNKNOWN_ERROR
 }
 
 func (x *ErrorInfo) GetMsg() string {
