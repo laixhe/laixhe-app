@@ -5,5 +5,5 @@ package protoim;
 option go_package = "./;protoim";
 
 message GetUserInfoRequest {
-  int32 uid = 1;
+  string uid = 1;
 }

@@ -7,12 +7,12 @@ import (
 	"im-server/servers"
 )
 
-// GetUserInfo 获取用户信息
-func GetUserInfo(c *servers.Context) {
+// GetUserInfoRequest 获取用户信息-请求
+func GetUserInfoRequest(c *servers.Context) {
 	req := new(protoim.GetUserInfoRequest)
 	err := c.ProtoBind(req)
 	if err != nil {
-		fmt.Println("GetUserInfo - err:", err)
+		c.SendError(protoim.E_PARAMETER_ERROR, err.Error())
 		return
 	}
 

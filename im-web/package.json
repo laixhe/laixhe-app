@@ -1,0 +1,18 @@
+{
+  "name": "im-web",
+  "version": "1.0.0",
+  "description": "``` npm install ```",
+  "main": "main.js",
+  "scripts": {
+    "build": "browserify main.js -o static/js/main_pb.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "google-protobuf": "^3.17.3"
+  },
+  "devDependencies": {
+    "browserify": "^17.0.0"
+  }
+}

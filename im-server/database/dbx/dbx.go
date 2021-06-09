@@ -13,6 +13,10 @@ import (
 
 var client *gorm.DB
 
+func DB() *gorm.DB {
+	return client
+}
+
 // 初始化数据库
 func init() {
 	var logMode = logger.Silent

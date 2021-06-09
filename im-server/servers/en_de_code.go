@@ -36,11 +36,11 @@ func EnCodeCmd(cmd protoim.CMD) ([]byte, error) {
 }
 
 // DeCodeMessageBase 解码
-func DeCodeMessageBase(data []byte) (*protoim.MessageBase, error) {
+func DeCodeMessageBase(data []byte) (*protoim.MessageBase, *protoim.ErrorInfo) {
 	messageBase := new(protoim.MessageBase)
 	err := proto.Unmarshal(data, messageBase)
 	if err != nil {
-		return nil, err
+		return nil, ErrorMessage(protoim.E_DECODE_ERROR, err.Error())
 	}
 	return messageBase, nil
 }

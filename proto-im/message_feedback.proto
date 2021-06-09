@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+message MessageFeedback {
+  string local_msg_id = 1; // 客户端本地的消息ID(用于客户校验)(客户端生成)
+}

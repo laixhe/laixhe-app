@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+import 'chat_type.proto';
+import 'message_type.proto';
+
+message MessageRequest {
+  string local_msg_id = 1; // 客户端本地的消息ID(用于客户校验)(客户端生成)
+  string from_id = 2; // 发送者(用户ID)
+  protoim.ChatType  chat_type_id = 3;      // 私聊还是群聊
+  string to_id   = 4; // 接收者(用户ID/群ID)
+  protoim.MessageType message_type_id = 5; // 消息类型
+  string content = 6; // 消息的内容
+}

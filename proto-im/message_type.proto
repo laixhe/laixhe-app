@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+enum MessageType {
+  TEXT_TYPE  = 0; // 文本消息
+  IMAGE_TYPE = 1; // 图片消息
+  FILE_TYPE  = 2; // 文件消息
+  VOICE_TYPE = 3; // 语音消息
+  VIDEO_TYPE = 4; // 视频消息
+}

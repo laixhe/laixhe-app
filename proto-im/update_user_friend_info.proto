@@ -6,6 +6,6 @@ option go_package = "./;protoim";
 
 message UpdateUserFriendInfo {
   string tag  = 1;
-  int32  uid  = 2;
+  string uid  = 2;
   string name = 3;
 }

@@ -4,9 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/laixhe/goutil/zaplog"
 
-	"im-server/app/cws"
+	"im-server/app/service"
 	"im-server/config"
-	"im-server/servers"
 )
 
 // Router Gin路由
@@ -31,16 +30,14 @@ func Router() *gin.Engine {
 	r.Use(zaplog.GinLogger())
 	r.Use(zaplog.GinRecovery())
 
-	// 初始化客户端连接管理
-	clientManager := servers.NewClientManager()
-	go clientManager.Run()
-	clientManager.InitRouter(wsUser)
+	// 初始化业务路由存放的路径
+	service.InitRouter(wsUser)
+	// 添加不需要登录的路由就可以访问的指令
+	notLoginCmd()
 
 	routerV1 := r.Group("/v1")
 	{
-		routerV1.GET("/ws", func(c *gin.Context) {
-			cws.WebsocketServer(c, clientManager)
-		})
+		routerV1.GET("/ws", service.WebsocketServer)
 	}
 	return r
 }

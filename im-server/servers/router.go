@@ -11,12 +11,12 @@ type Router struct {
 	path map[protoim.CMD]func(*Context)
 }
 
-// NewRouter init
-func NewRouter() *Router {
+// newRouter init
+func newRouter() *Router {
 	r := &Router{path: make(map[protoim.CMD]func(*Context))}
 
 	// 添加心跳路由
-	r.Set(protoim.CMD_PING, Ping)
+	r.Set(protoim.CMD_PING, ping)
 	return r
 }
 

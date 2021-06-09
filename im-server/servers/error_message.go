@@ -6,18 +6,20 @@ import (
 
 // ErrorMessage 错误消息
 func ErrorMessage(e protoim.E, msg ...string) *protoim.ErrorInfo {
-	msgStr := ""
+	s := ""
 	if len(msg) > 0 {
-		msgStr = msg[0]
+		s = msg[0]
+	} else {
+		s = e.String()
 	}
 	return &protoim.ErrorInfo{
 		Code: e,
-		Msg:  msgStr,
+		Msg:  s,
 	}
 }
 
-// EnErrorMessage 编码错误消息
-func EnErrorMessage(e *protoim.ErrorInfo) ([]byte, error) {
+// EnCodeErrorMessage 编码错误消息
+func EnCodeErrorMessage(e *protoim.ErrorInfo) ([]byte, error) {
 	data, err := EnCode(protoim.CMD_C_ERROR, e)
 	if err != nil {
 		return nil, err
@@ -25,22 +27,7 @@ func EnErrorMessage(e *protoim.ErrorInfo) ([]byte, error) {
 	return data, nil
 }
 
-// ErrorMessageEnCode 错误消息-编码
-func ErrorMessageEnCode(msg ...string) ([]byte, error) {
-	em := ErrorMessage(protoim.E_ENCODE_ERROR, msg...)
-	data, err := EnCode(protoim.CMD_C_ERROR, em)
-	if err != nil {
-		return nil, err
-	}
-	return data, nil
-}
-
-// ErrorMessageDeCode 错误消息-解码
-func ErrorMessageDeCode(msg ...string) ([]byte, error) {
-	em := ErrorMessage(protoim.E_DECODE_ERROR, msg...)
-	data, err := EnCode(protoim.CMD_C_ERROR, em)
-	if err != nil {
-		return nil, err
-	}
-	return data, nil
+// EnCodeError 编码错误消息
+func EnCodeError(e protoim.E, msg ...string) ([]byte, error) {
+	return EnCodeErrorMessage(ErrorMessage(e, msg...))
 }

@@ -4,7 +4,10 @@ package protoim;
 
 option go_package = "./;protoim";
 
+import "app_os.proto";
+
 message UserLoginRequest {
-  int32  uid  = 1;
-  string name = 2;
+  protoim.AppOs app_os_id = 1;
+  string account  = 2;
+  string password = 3;
 }

@@ -6,8 +6,8 @@ option go_package = "./;protoim";
 
 // 用户信息
 message UserInfo {
-  int32  uid  = 1;
-  string name = 2;
-  int32  age  = 3;
+  string uid   = 1;
+  string name  = 2;
+  int32  age   = 3;
   bool   is_ok = 4;
 }
