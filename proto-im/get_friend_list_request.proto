@@ -4,10 +4,8 @@ package protoim;
 
 option go_package = "./;protoim";
 
-// 用户信息
-message UserInfo {
+// 获取好友列表-请求
+message GetFriendListRequest {
   string user_id   = 1;
   string nick_name = 2;
-  int32  age   = 3;
-  bool   is_ok = 4;
 }

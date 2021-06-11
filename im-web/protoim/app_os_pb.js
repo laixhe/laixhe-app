@@ -20,7 +20,7 @@ goog.exportSymbol('proto.protoim.AppOs', null, global);
  * @enum {number}
  */
 proto.protoim.AppOs = {
-  OSUNKNOWN: 0,
+  OS_UNKNOWN: 0,
   WEB: 1,
   IOS: 2,
   ANDROID: 3,

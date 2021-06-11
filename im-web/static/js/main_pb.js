@@ -1,6 +1,6 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 var app_os = require('./protoim/app_os_pb')
-var e = require('./protoim/e_pb')
+var error = require('./protoim/error_pb')
 var cmd = require('./protoim/cmd_pb')
 var chat_type = require('./protoim/chat_type_pb')
 var message_type = require('./protoim/message_type_pb')
@@ -10,7 +10,7 @@ var message_base = require('./protoim/message_base_pb')
 
 var user_login_request= require('./protoim/user_login_request_pb')
 var user_login_response = require('./protoim/user_login_response_pb')
-var update_user_friend_info = require('./protoim/update_user_friend_info_pb')
+var update_friend_info = require('./protoim/update_friend_info_pb')
 var user_info = require('./protoim/user_info_pb')
 var get_user_info_request = require('./protoim/get_user_info_request_pb')
 var get_user_info_response = require('./protoim/get_user_info_response_pb')
@@ -21,7 +21,7 @@ var message_feedback = require('./protoim/message_feedback_pb')
 
 module.exports = {
     AppOs       : app_os,
-    E           : e,
+    Error       : error,
     Cmd         : cmd,
     ChatType    : chat_type,
     MessageType : message_type,
@@ -32,7 +32,7 @@ module.exports = {
     UserInfo             : user_info,
     UserLoginRequest     : user_login_request,
     UserLoginResponse    : user_login_response,
-    UpdateUserFriendInfo : update_user_friend_info,
+    UpdateFriendInfo     : update_friend_info,
     GetUserInfoRequest   : get_user_info_request,
     GetUserInfoResponse  : get_user_info_response,
 
@@ -40,7 +40,7 @@ module.exports = {
     MessageResponse  : message_response,
     MessageFeedback  : message_feedback,
 }
-},{"./protoim/app_os_pb":6,"./protoim/chat_type_pb":7,"./protoim/cmd_pb":8,"./protoim/e_pb":9,"./protoim/error_info_pb":10,"./protoim/get_user_info_request_pb":11,"./protoim/get_user_info_response_pb":12,"./protoim/message_base_pb":13,"./protoim/message_feedback_pb":14,"./protoim/message_request_pb":15,"./protoim/message_response_pb":16,"./protoim/message_type_pb":17,"./protoim/update_user_friend_info_pb":18,"./protoim/user_info_pb":19,"./protoim/user_login_request_pb":20,"./protoim/user_login_response_pb":21}],2:[function(require,module,exports){
+},{"./protoim/app_os_pb":6,"./protoim/chat_type_pb":7,"./protoim/cmd_pb":8,"./protoim/error_info_pb":9,"./protoim/error_pb":10,"./protoim/get_user_info_request_pb":11,"./protoim/get_user_info_response_pb":12,"./protoim/message_base_pb":13,"./protoim/message_feedback_pb":14,"./protoim/message_request_pb":15,"./protoim/message_response_pb":16,"./protoim/message_type_pb":17,"./protoim/update_friend_info_pb":18,"./protoim/user_info_pb":19,"./protoim/user_login_request_pb":20,"./protoim/user_login_response_pb":21}],2:[function(require,module,exports){
 'use strict'
 
 exports.byteLength = byteLength
@@ -2610,7 +2610,7 @@ goog.exportSymbol('proto.protoim.AppOs', null, global);
  * @enum {number}
  */
 proto.protoim.AppOs = {
-  OSUNKNOWN: 0,
+  OS_UNKNOWN: 0,
   WEB: 1,
   IOS: 2,
   ANDROID: 3,
@@ -2673,63 +2673,21 @@ goog.exportSymbol('proto.protoim.CMD', null, global);
 proto.protoim.CMD = {
   C_UNKNOWN: 0,
   C_ERROR: 1,
-  PING: 2,
-  PONG: 3,
-  USER_LOGIN_REQUEST: 1000,
-  USER_LOGIN_RESPONSE: 1001,
-  UPDATE_USER_FRIEND_INFO: 1002,
-  GET_USER_INFO_REQUEST: 1003,
-  GET_USER_INFO_RESPONSE: 1004,
-  MESSAGE_REQUEST: 1005,
-  MESSAGE_RESPONSE: 1006,
-  MESSAGE_FEEDBACK: 1007
+  C_PING: 2,
+  C_PONG: 3,
+  C_USER_LOGIN_REQUEST: 1000,
+  C_USER_LOGIN_RESPONSE: 1001,
+  C_GET_USER_INFO_REQUEST: 1002,
+  C_GET_USER_INFO_RESPONSE: 1003,
+  C_UPDATE_FRIEND_INFO: 1004,
+  C_MESSAGE_REQUEST: 1005,
+  C_MESSAGE_RESPONSE: 1006,
+  C_MESSAGE_FEEDBACK: 1007
 };
 
 goog.object.extend(exports, proto.protoim);
 
 },{"google-protobuf":4}],9:[function(require,module,exports){
-// source: e.proto
-/**
- * @fileoverview
- * @enhanceable
- * @suppress {missingRequire} reports error on implicit type usages.
- * @suppress {messageConventions} JS Compiler reports an error if a variable or
- *     field starts with 'MSG_' and isn't a translatable message.
- * @public
- */
-// GENERATED CODE -- DO NOT EDIT!
-/* eslint-disable */
-// @ts-nocheck
-
-var jspb = require('google-protobuf');
-var goog = jspb;
-var global = Function('return this')();
-
-goog.exportSymbol('proto.protoim.E', null, global);
-/**
- * @enum {number}
- */
-proto.protoim.E = {
-  UNKNOWN_ERROR: 0,
-  SERVER_ERROR: 1,
-  WRITE_TIMEOUT: 2,
-  READ_TIMEOUT: 3,
-  ROUTE_NOT_EXIST: 4,
-  DECODE_ERROR: 5,
-  ENCODE_ERROR: 6,
-  NOT_LOGIN: 7,
-  PARAMETER_ERROR: 8,
-  DB_NOT_DATA: 9,
-  DB_SELECT_ERROR: 10,
-  DB_INSERT_ERROR: 11,
-  DB_DELETE_ERROR: 12,
-  DB_UPATE_ERROR: 13,
-  DB_OPERATION_ERROR: 14
-};
-
-goog.object.extend(exports, proto.protoim);
-
-},{"google-protobuf":4}],10:[function(require,module,exports){
 // source: error_info.proto
 /**
  * @fileoverview
@@ -2747,8 +2705,8 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var e_pb = require('./e_pb.js');
-goog.object.extend(proto, e_pb);
+var error_pb = require('./error_pb.js');
+goog.object.extend(proto, error_pb);
 goog.exportSymbol('proto.protoim.ErrorInfo', null, global);
 /**
  * Generated by JsPbCodeGenerator.
@@ -2842,7 +2800,7 @@ proto.protoim.ErrorInfo.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {!proto.protoim.E} */ (reader.readEnum());
+      var value = /** @type {!proto.protoim.Error} */ (reader.readEnum());
       msg.setCode(value);
       break;
     case 2:
@@ -2896,16 +2854,16 @@ proto.protoim.ErrorInfo.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional E code = 1;
- * @return {!proto.protoim.E}
+ * optional Error code = 1;
+ * @return {!proto.protoim.Error}
  */
 proto.protoim.ErrorInfo.prototype.getCode = function() {
-  return /** @type {!proto.protoim.E} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+  return /** @type {!proto.protoim.Error} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /**
- * @param {!proto.protoim.E} value
+ * @param {!proto.protoim.Error} value
  * @return {!proto.protoim.ErrorInfo} returns this
  */
 proto.protoim.ErrorInfo.prototype.setCode = function(value) {
@@ -2933,7 +2891,49 @@ proto.protoim.ErrorInfo.prototype.setMsg = function(value) {
 
 goog.object.extend(exports, proto.protoim);
 
-},{"./e_pb.js":9,"google-protobuf":4}],11:[function(require,module,exports){
+},{"./error_pb.js":10,"google-protobuf":4}],10:[function(require,module,exports){
+// source: error.proto
+/**
+ * @fileoverview
+ * @enhanceable
+ * @suppress {missingRequire} reports error on implicit type usages.
+ * @suppress {messageConventions} JS Compiler reports an error if a variable or
+ *     field starts with 'MSG_' and isn't a translatable message.
+ * @public
+ */
+// GENERATED CODE -- DO NOT EDIT!
+/* eslint-disable */
+// @ts-nocheck
+
+var jspb = require('google-protobuf');
+var goog = jspb;
+var global = Function('return this')();
+
+goog.exportSymbol('proto.protoim.Error', null, global);
+/**
+ * @enum {number}
+ */
+proto.protoim.Error = {
+  E_UNKNOWN: 0,
+  E_SERVER: 1,
+  E_WRITE_TIMEOUT: 2,
+  E_READ_TIMEOUT: 3,
+  E_ROUTE_NOT_EXIST: 4,
+  E_DECODE: 5,
+  E_ENCODE: 6,
+  E_NOT_LOGIN: 7,
+  E_PARAMETER: 8,
+  E_DB_NOT_DATA: 9,
+  E_DB_SELECT: 10,
+  E_DB_INSERT: 11,
+  E_DB_DELETE: 12,
+  E_DB_UPATE: 13,
+  E_DB_OPERATION: 14
+};
+
+goog.object.extend(exports, proto.protoim);
+
+},{"google-protobuf":4}],11:[function(require,module,exports){
 // source: get_user_info_request.proto
 /**
  * @fileoverview
@@ -3005,7 +3005,7 @@ proto.protoim.GetUserInfoRequest.prototype.toObject = function(opt_includeInstan
  */
 proto.protoim.GetUserInfoRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    uid: jspb.Message.getFieldWithDefault(msg, 1, "")
+    userId: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -3044,7 +3044,7 @@ proto.protoim.GetUserInfoRequest.deserializeBinaryFromReader = function(msg, rea
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setUid(value);
+      msg.setUserId(value);
       break;
     default:
       reader.skipField();
@@ -3075,7 +3075,7 @@ proto.protoim.GetUserInfoRequest.prototype.serializeBinary = function() {
  */
 proto.protoim.GetUserInfoRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getUid();
+  f = message.getUserId();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -3086,10 +3086,10 @@ proto.protoim.GetUserInfoRequest.serializeBinaryToWriter = function(message, wri
 
 
 /**
- * optional string uid = 1;
+ * optional string user_id = 1;
  * @return {string}
  */
-proto.protoim.GetUserInfoRequest.prototype.getUid = function() {
+proto.protoim.GetUserInfoRequest.prototype.getUserId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -3098,7 +3098,7 @@ proto.protoim.GetUserInfoRequest.prototype.getUid = function() {
  * @param {string} value
  * @return {!proto.protoim.GetUserInfoRequest} returns this
  */
-proto.protoim.GetUserInfoRequest.prototype.setUid = function(value) {
+proto.protoim.GetUserInfoRequest.prototype.setUserId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
@@ -4475,7 +4475,7 @@ proto.protoim.MessageType = {
 goog.object.extend(exports, proto.protoim);
 
 },{"google-protobuf":4}],18:[function(require,module,exports){
-// source: update_user_friend_info.proto
+// source: update_friend_info.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -4492,7 +4492,9 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-goog.exportSymbol('proto.protoim.UpdateUserFriendInfo', null, global);
+var user_info_pb = require('./user_info_pb.js');
+goog.object.extend(proto, user_info_pb);
+goog.exportSymbol('proto.protoim.UpdateFriendInfo', null, global);
 /**
  * Generated by JsPbCodeGenerator.
  * @param {Array=} opt_data Optional initial data array, typically from a
@@ -4503,16 +4505,16 @@ goog.exportSymbol('proto.protoim.UpdateUserFriendInfo', null, global);
  * @extends {jspb.Message}
  * @constructor
  */
-proto.protoim.UpdateUserFriendInfo = function(opt_data) {
+proto.protoim.UpdateFriendInfo = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.protoim.UpdateUserFriendInfo, jspb.Message);
+goog.inherits(proto.protoim.UpdateFriendInfo, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.protoim.UpdateUserFriendInfo.displayName = 'proto.protoim.UpdateUserFriendInfo';
+  proto.protoim.UpdateFriendInfo.displayName = 'proto.protoim.UpdateFriendInfo';
 }
 
 
@@ -4530,8 +4532,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.protoim.UpdateUserFriendInfo.prototype.toObject = function(opt_includeInstance) {
-  return proto.protoim.UpdateUserFriendInfo.toObject(opt_includeInstance, this);
+proto.protoim.UpdateFriendInfo.prototype.toObject = function(opt_includeInstance) {
+  return proto.protoim.UpdateFriendInfo.toObject(opt_includeInstance, this);
 };
 
 
@@ -4540,15 +4542,14 @@ proto.protoim.UpdateUserFriendInfo.prototype.toObject = function(opt_includeInst
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.protoim.UpdateUserFriendInfo} msg The msg instance to transform.
+ * @param {!proto.protoim.UpdateFriendInfo} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.protoim.UpdateUserFriendInfo.toObject = function(includeInstance, msg) {
+proto.protoim.UpdateFriendInfo.toObject = function(includeInstance, msg) {
   var f, obj = {
     tag: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    uid: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    name: jspb.Message.getFieldWithDefault(msg, 3, "")
+    user: (f = msg.getUser()) && user_info_pb.UserInfo.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -4562,23 +4563,23 @@ proto.protoim.UpdateUserFriendInfo.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.protoim.UpdateUserFriendInfo}
+ * @return {!proto.protoim.UpdateFriendInfo}
  */
-proto.protoim.UpdateUserFriendInfo.deserializeBinary = function(bytes) {
+proto.protoim.UpdateFriendInfo.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.protoim.UpdateUserFriendInfo;
-  return proto.protoim.UpdateUserFriendInfo.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.protoim.UpdateFriendInfo;
+  return proto.protoim.UpdateFriendInfo.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.protoim.UpdateUserFriendInfo} msg The message object to deserialize into.
+ * @param {!proto.protoim.UpdateFriendInfo} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.protoim.UpdateUserFriendInfo}
+ * @return {!proto.protoim.UpdateFriendInfo}
  */
-proto.protoim.UpdateUserFriendInfo.deserializeBinaryFromReader = function(msg, reader) {
+proto.protoim.UpdateFriendInfo.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4590,12 +4591,9 @@ proto.protoim.UpdateUserFriendInfo.deserializeBinaryFromReader = function(msg, r
       msg.setTag(value);
       break;
     case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setUid(value);
-      break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setName(value);
+      var value = new user_info_pb.UserInfo;
+      reader.readMessage(value,user_info_pb.UserInfo.deserializeBinaryFromReader);
+      msg.setUser(value);
       break;
     default:
       reader.skipField();
@@ -4610,9 +4608,9 @@ proto.protoim.UpdateUserFriendInfo.deserializeBinaryFromReader = function(msg, r
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.protoim.UpdateUserFriendInfo.prototype.serializeBinary = function() {
+proto.protoim.UpdateFriendInfo.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.protoim.UpdateUserFriendInfo.serializeBinaryToWriter(this, writer);
+  proto.protoim.UpdateFriendInfo.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4620,11 +4618,11 @@ proto.protoim.UpdateUserFriendInfo.prototype.serializeBinary = function() {
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.protoim.UpdateUserFriendInfo} message
+ * @param {!proto.protoim.UpdateFriendInfo} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.protoim.UpdateUserFriendInfo.serializeBinaryToWriter = function(message, writer) {
+proto.protoim.UpdateFriendInfo.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getTag();
   if (f.length > 0) {
@@ -4633,18 +4631,12 @@ proto.protoim.UpdateUserFriendInfo.serializeBinaryToWriter = function(message, w
       f
     );
   }
-  f = message.getUid();
-  if (f.length > 0) {
-    writer.writeString(
+  f = message.getUser();
+  if (f != null) {
+    writer.writeMessage(
       2,
-      f
-    );
-  }
-  f = message.getName();
-  if (f.length > 0) {
-    writer.writeString(
-      3,
-      f
+      f,
+      user_info_pb.UserInfo.serializeBinaryToWriter
     );
   }
 };
@@ -4654,59 +4646,60 @@ proto.protoim.UpdateUserFriendInfo.serializeBinaryToWriter = function(message, w
  * optional string tag = 1;
  * @return {string}
  */
-proto.protoim.UpdateUserFriendInfo.prototype.getTag = function() {
+proto.protoim.UpdateFriendInfo.prototype.getTag = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.protoim.UpdateUserFriendInfo} returns this
+ * @return {!proto.protoim.UpdateFriendInfo} returns this
  */
-proto.protoim.UpdateUserFriendInfo.prototype.setTag = function(value) {
+proto.protoim.UpdateFriendInfo.prototype.setTag = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * optional string uid = 2;
- * @return {string}
+ * optional UserInfo user = 2;
+ * @return {?proto.protoim.UserInfo}
  */
-proto.protoim.UpdateUserFriendInfo.prototype.getUid = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+proto.protoim.UpdateFriendInfo.prototype.getUser = function() {
+  return /** @type{?proto.protoim.UserInfo} */ (
+    jspb.Message.getWrapperField(this, user_info_pb.UserInfo, 2));
 };
 
 
 /**
- * @param {string} value
- * @return {!proto.protoim.UpdateUserFriendInfo} returns this
- */
-proto.protoim.UpdateUserFriendInfo.prototype.setUid = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
+ * @param {?proto.protoim.UserInfo|undefined} value
+ * @return {!proto.protoim.UpdateFriendInfo} returns this
+*/
+proto.protoim.UpdateFriendInfo.prototype.setUser = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
 /**
- * optional string name = 3;
- * @return {string}
+ * Clears the message field making it undefined.
+ * @return {!proto.protoim.UpdateFriendInfo} returns this
  */
-proto.protoim.UpdateUserFriendInfo.prototype.getName = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+proto.protoim.UpdateFriendInfo.prototype.clearUser = function() {
+  return this.setUser(undefined);
 };
 
 
 /**
- * @param {string} value
- * @return {!proto.protoim.UpdateUserFriendInfo} returns this
+ * Returns whether this field is set.
+ * @return {boolean}
  */
-proto.protoim.UpdateUserFriendInfo.prototype.setName = function(value) {
-  return jspb.Message.setProto3StringField(this, 3, value);
+proto.protoim.UpdateFriendInfo.prototype.hasUser = function() {
+  return jspb.Message.getField(this, 2) != null;
 };
 
 
 goog.object.extend(exports, proto.protoim);
 
-},{"google-protobuf":4}],19:[function(require,module,exports){
+},{"./user_info_pb.js":19,"google-protobuf":4}],19:[function(require,module,exports){
 // source: user_info.proto
 /**
  * @fileoverview
@@ -4778,8 +4771,8 @@ proto.protoim.UserInfo.prototype.toObject = function(opt_includeInstance) {
  */
 proto.protoim.UserInfo.toObject = function(includeInstance, msg) {
   var f, obj = {
-    uid: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    name: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    userId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    nickName: jspb.Message.getFieldWithDefault(msg, 2, ""),
     age: jspb.Message.getFieldWithDefault(msg, 3, 0),
     isOk: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
   };
@@ -4820,11 +4813,11 @@ proto.protoim.UserInfo.deserializeBinaryFromReader = function(msg, reader) {
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setUid(value);
+      msg.setUserId(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setName(value);
+      msg.setNickName(value);
       break;
     case 3:
       var value = /** @type {number} */ (reader.readInt32());
@@ -4863,14 +4856,14 @@ proto.protoim.UserInfo.prototype.serializeBinary = function() {
  */
 proto.protoim.UserInfo.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getUid();
+  f = message.getUserId();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = message.getName();
+  f = message.getNickName();
   if (f.length > 0) {
     writer.writeString(
       2,
@@ -4895,10 +4888,10 @@ proto.protoim.UserInfo.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional string uid = 1;
+ * optional string user_id = 1;
  * @return {string}
  */
-proto.protoim.UserInfo.prototype.getUid = function() {
+proto.protoim.UserInfo.prototype.getUserId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -4907,16 +4900,16 @@ proto.protoim.UserInfo.prototype.getUid = function() {
  * @param {string} value
  * @return {!proto.protoim.UserInfo} returns this
  */
-proto.protoim.UserInfo.prototype.setUid = function(value) {
+proto.protoim.UserInfo.prototype.setUserId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * optional string name = 2;
+ * optional string nick_name = 2;
  * @return {string}
  */
-proto.protoim.UserInfo.prototype.getName = function() {
+proto.protoim.UserInfo.prototype.getNickName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -4925,7 +4918,7 @@ proto.protoim.UserInfo.prototype.getName = function() {
  * @param {string} value
  * @return {!proto.protoim.UserInfo} returns this
  */
-proto.protoim.UserInfo.prototype.setName = function(value) {
+proto.protoim.UserInfo.prototype.setNickName = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 
@@ -5274,8 +5267,8 @@ proto.protoim.UserLoginResponse.prototype.toObject = function(opt_includeInstanc
  */
 proto.protoim.UserLoginResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    uid: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    name: jspb.Message.getFieldWithDefault(msg, 2, "")
+    userId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    nickName: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -5314,11 +5307,11 @@ proto.protoim.UserLoginResponse.deserializeBinaryFromReader = function(msg, read
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setUid(value);
+      msg.setUserId(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setName(value);
+      msg.setNickName(value);
       break;
     default:
       reader.skipField();
@@ -5349,14 +5342,14 @@ proto.protoim.UserLoginResponse.prototype.serializeBinary = function() {
  */
 proto.protoim.UserLoginResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getUid();
+  f = message.getUserId();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = message.getName();
+  f = message.getNickName();
   if (f.length > 0) {
     writer.writeString(
       2,
@@ -5367,10 +5360,10 @@ proto.protoim.UserLoginResponse.serializeBinaryToWriter = function(message, writ
 
 
 /**
- * optional string uid = 1;
+ * optional string user_id = 1;
  * @return {string}
  */
-proto.protoim.UserLoginResponse.prototype.getUid = function() {
+proto.protoim.UserLoginResponse.prototype.getUserId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -5379,16 +5372,16 @@ proto.protoim.UserLoginResponse.prototype.getUid = function() {
  * @param {string} value
  * @return {!proto.protoim.UserLoginResponse} returns this
  */
-proto.protoim.UserLoginResponse.prototype.setUid = function(value) {
+proto.protoim.UserLoginResponse.prototype.setUserId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * optional string name = 2;
+ * optional string nick_name = 2;
  * @return {string}
  */
-proto.protoim.UserLoginResponse.prototype.getName = function() {
+proto.protoim.UserLoginResponse.prototype.getNickName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -5397,7 +5390,7 @@ proto.protoim.UserLoginResponse.prototype.getName = function() {
  * @param {string} value
  * @return {!proto.protoim.UserLoginResponse} returns this
  */
-proto.protoim.UserLoginResponse.prototype.setName = function(value) {
+proto.protoim.UserLoginResponse.prototype.setNickName = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 

@@ -4,6 +4,7 @@ package protoim;
 
 option go_package = "./;protoim";
 
+// 获取用户信息-请求
 message GetUserInfoRequest {
-  string uid = 1;
+  string user_id = 1;
 }

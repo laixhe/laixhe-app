@@ -69,9 +69,9 @@ func (s *Servers) IsLogin(userID string) bool {
 // SendMessageResponse 发送信息
 func (s *Servers) SendMessageResponse(data *protoim.MessageResponse) *protoim.ErrorInfo {
 	fmt.Println("T---- 00", data)
-	protoBase, err := EnCode(protoim.CMD_MESSAGE_RESPONSE, data)
+	protoBase, err := EnCode(protoim.CMD_C_MESSAGE_RESPONSE, data)
 	if err != nil {
-		return ErrorMessage(protoim.E_ENCODE_ERROR, err.Error())
+		return ErrorMessage(protoim.Error_E_ENCODE, err.Error())
 	}
 	fmt.Println("T---- 11", data)
 	clientInterface, ok := s.clientManager.users.Load(data.ToId)

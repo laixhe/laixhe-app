@@ -16,7 +16,7 @@ func MessageRequest(c *servers.Context) {
 	req := new(protoim.MessageRequest)
 	err := c.ProtoBind(req)
 	if err != nil {
-		c.SendError(protoim.E_PARAMETER_ERROR, err.Error())
+		c.SendError(protoim.Error_E_PARAMETER, err.Error())
 		return
 	}
 	fmt.Println("MessageRequest - req:", req)
@@ -25,7 +25,7 @@ func MessageRequest(c *servers.Context) {
 		LocalMsgId: req.LocalMsgId,
 	}
 
-	e := c.Send(protoim.CMD_MESSAGE_FEEDBACK, rsp)
+	e := c.Send(protoim.CMD_C_MESSAGE_FEEDBACK, rsp)
 	fmt.Println("MessageRequest - rsp:", rsp, "err:", e)
 
 	data := &protoim.MessageResponse{

@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+// 错误指令类型
+enum Error {
+    E_UNKNOWN         = 0; // 未知错误
+    E_SERVER          = 1; // 服务器错误
+    E_WRITE_TIMEOUT   = 2; // 服务器读超时
+    E_READ_TIMEOUT    = 3; // 服务器写超时
+    E_ROUTE_NOT_EXIST = 4; // 路由不存在
+    E_DECODE          = 5; // 解码code失败
+    E_ENCODE          = 6; // 编码code失败
+    E_NOT_LOGIN       = 7; // 未登录
+    E_PARAMETER       = 8; // 参数错误
+    E_DB_NOT_DATA     = 9; // 没有数据
+    E_DB_SELECT       = 10; // 数据查询错误
+    E_DB_INSERT       = 11; // 数据添加错误
+	E_DB_DELETE       = 12; // 数据删除错误
+	E_DB_UPATE        = 13; // 数据更新错误
+	E_DB_OPERATION    = 14; // 数据操作错误
+}

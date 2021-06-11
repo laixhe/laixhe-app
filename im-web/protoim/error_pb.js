@@ -1,4 +1,4 @@
-// source: e.proto
+// source: error.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -15,26 +15,26 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-goog.exportSymbol('proto.protoim.E', null, global);
+goog.exportSymbol('proto.protoim.Error', null, global);
 /**
  * @enum {number}
  */
-proto.protoim.E = {
-  UNKNOWN_ERROR: 0,
-  SERVER_ERROR: 1,
-  WRITE_TIMEOUT: 2,
-  READ_TIMEOUT: 3,
-  ROUTE_NOT_EXIST: 4,
-  DECODE_ERROR: 5,
-  ENCODE_ERROR: 6,
-  NOT_LOGIN: 7,
-  PARAMETER_ERROR: 8,
-  DB_NOT_DATA: 9,
-  DB_SELECT_ERROR: 10,
-  DB_INSERT_ERROR: 11,
-  DB_DELETE_ERROR: 12,
-  DB_UPATE_ERROR: 13,
-  DB_OPERATION_ERROR: 14
+proto.protoim.Error = {
+  E_UNKNOWN: 0,
+  E_SERVER: 1,
+  E_WRITE_TIMEOUT: 2,
+  E_READ_TIMEOUT: 3,
+  E_ROUTE_NOT_EXIST: 4,
+  E_DECODE: 5,
+  E_ENCODE: 6,
+  E_NOT_LOGIN: 7,
+  E_PARAMETER: 8,
+  E_DB_NOT_DATA: 9,
+  E_DB_SELECT: 10,
+  E_DB_INSERT: 11,
+  E_DB_DELETE: 12,
+  E_DB_UPATE: 13,
+  E_DB_OPERATION: 14
 };
 
 goog.object.extend(exports, proto.protoim);

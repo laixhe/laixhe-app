@@ -6,6 +6,7 @@ option go_package = "./;protoim";
 
 import "user_info.proto";
 
+// 获取用户信息-响应
 message GetUserInfoResponse {
   protoim.UserInfo user = 1;
 }

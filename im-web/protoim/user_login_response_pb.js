@@ -69,8 +69,8 @@ proto.protoim.UserLoginResponse.prototype.toObject = function(opt_includeInstanc
  */
 proto.protoim.UserLoginResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    uid: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    name: jspb.Message.getFieldWithDefault(msg, 2, "")
+    userId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    nickName: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -109,11 +109,11 @@ proto.protoim.UserLoginResponse.deserializeBinaryFromReader = function(msg, read
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setUid(value);
+      msg.setUserId(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setName(value);
+      msg.setNickName(value);
       break;
     default:
       reader.skipField();
@@ -144,14 +144,14 @@ proto.protoim.UserLoginResponse.prototype.serializeBinary = function() {
  */
 proto.protoim.UserLoginResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getUid();
+  f = message.getUserId();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = message.getName();
+  f = message.getNickName();
   if (f.length > 0) {
     writer.writeString(
       2,
@@ -162,10 +162,10 @@ proto.protoim.UserLoginResponse.serializeBinaryToWriter = function(message, writ
 
 
 /**
- * optional string uid = 1;
+ * optional string user_id = 1;
  * @return {string}
  */
-proto.protoim.UserLoginResponse.prototype.getUid = function() {
+proto.protoim.UserLoginResponse.prototype.getUserId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -174,16 +174,16 @@ proto.protoim.UserLoginResponse.prototype.getUid = function() {
  * @param {string} value
  * @return {!proto.protoim.UserLoginResponse} returns this
  */
-proto.protoim.UserLoginResponse.prototype.setUid = function(value) {
+proto.protoim.UserLoginResponse.prototype.setUserId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * optional string name = 2;
+ * optional string nick_name = 2;
  * @return {string}
  */
-proto.protoim.UserLoginResponse.prototype.getName = function() {
+proto.protoim.UserLoginResponse.prototype.getNickName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -192,7 +192,7 @@ proto.protoim.UserLoginResponse.prototype.getName = function() {
  * @param {string} value
  * @return {!proto.protoim.UserLoginResponse} returns this
  */
-proto.protoim.UserLoginResponse.prototype.setName = function(value) {
+proto.protoim.UserLoginResponse.prototype.setNickName = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 

@@ -28,7 +28,7 @@ websocket:
   writeTime: 30
 
 mysql:
-  dsn: root:123456@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local
+  dsn: root:123456@tcp(192.168.10.240:3306)/test?charset=utf8mb4&parseTime=True&loc=Local
   # 设置空闲连接池中连接的最大数量
   maxIdleConn: 5
   # 设置打开数据库连接的最大数量
@@ -43,7 +43,7 @@ redis:
   password:
   # 当节点只有一个视为单机
   nodes:
-    - 127.0.0.1:6379
+    - 192.168.10.240:6379
 
 jwt:
   secretKey: W6VjDud2W1kMG3BicbMNlGgI4ZfcoHtMGLWr

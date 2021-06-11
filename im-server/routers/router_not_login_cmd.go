@@ -7,5 +7,5 @@ import (
 
 // notLoginCmd 添加不需要登录的路由就可以访问的指令
 func notLoginCmd() {
-	service.AddNotLoginCmd(protoim.CMD_USER_LOGIN_REQUEST)
+	service.AddNotLoginCmd(protoim.CMD_C_USER_LOGIN_REQUEST)
 }

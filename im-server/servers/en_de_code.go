@@ -40,7 +40,7 @@ func DeCodeMessageBase(data []byte) (*protoim.MessageBase, *protoim.ErrorInfo) {
 	messageBase := new(protoim.MessageBase)
 	err := proto.Unmarshal(data, messageBase)
 	if err != nil {
-		return nil, ErrorMessage(protoim.E_DECODE_ERROR, err.Error())
+		return nil, ErrorMessage(protoim.Error_E_DECODE, err.Error())
 	}
 	return messageBase, nil
 }

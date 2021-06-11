@@ -16,7 +16,7 @@ func newRouter() *Router {
 	r := &Router{path: make(map[protoim.CMD]func(*Context))}
 
 	// 添加心跳路由
-	r.Set(protoim.CMD_PING, ping)
+	r.Set(protoim.CMD_C_PING, ping)
 	return r
 }
 
@@ -32,7 +32,7 @@ func (r *Router) Set(cmd protoim.CMD, f func(*Context)) {
 func (r *Router) Get(req *Context) *protoim.ErrorInfo {
 	fun, ok := r.path[req.cmd]
 	if !ok {
-		return ErrorMessage(protoim.E_ROUTE_NOT_EXIST, fmt.Sprintf("cmd no find: %d", req.cmd))
+		return ErrorMessage(protoim.Error_E_ROUTE_NOT_EXIST, fmt.Sprintf("cmd no find: %d", req.cmd))
 	}
 	go fun(req)
 	return nil

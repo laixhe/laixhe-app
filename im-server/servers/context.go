@@ -32,7 +32,7 @@ func (c *Context) Send(cmd protoim.CMD, data proto.Message) *protoim.ErrorInfo {
 	}
 	protoBase, err := EnCode(cmd, data)
 	if err != nil {
-		return ErrorMessage(protoim.E_ENCODE_ERROR, err.Error())
+		return ErrorMessage(protoim.Error_E_ENCODE, err.Error())
 	}
 	_ = c.conn.sendData(protoBase)
 	return nil
@@ -46,7 +46,7 @@ func (c *Context) SendCmd(cmd protoim.CMD) *protoim.ErrorInfo {
 	}
 	protoBase, err := EnCodeCmd(cmd)
 	if err != nil {
-		return ErrorMessage(protoim.E_ENCODE_ERROR, err.Error())
+		return ErrorMessage(protoim.Error_E_ENCODE, err.Error())
 	}
 	_ = c.conn.sendData(protoBase)
 	return nil
@@ -59,7 +59,7 @@ func (c *Context) Sendxxx(cmd protoim.CMD, data proto.Message) *protoim.ErrorInf
 	}
 	protoBase, err := EnCode(cmd, data)
 	if err != nil {
-		return ErrorMessage(protoim.E_ENCODE_ERROR, err.Error())
+		return ErrorMessage(protoim.Error_E_ENCODE, err.Error())
 	}
 	// 捕获 panic (注要是发送消息时可能通道已关闭)
 	defer func() {
@@ -73,7 +73,7 @@ func (c *Context) Sendxxx(cmd protoim.CMD, data proto.Message) *protoim.ErrorInf
 }
 
 // Error 发送错误
-func (c *Context) SendError(e protoim.E, msg ...string) {
+func (c *Context) SendError(e protoim.Error, msg ...string) {
 	// 判断当前链接是否已经关闭
 	if c.conn.isClosed {
 		return

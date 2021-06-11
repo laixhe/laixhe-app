@@ -5,7 +5,7 @@ package protoim;
 option go_package = "./;protoim";
 
 enum AppOs {
-    OSUNKNOWN = 0; // 未知
+    OS_UNKNOWN = 0; // 未知
     WEB     = 1; // web
     IOS     = 2; // ios
     ANDROID = 3; // android

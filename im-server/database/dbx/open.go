@@ -13,19 +13,15 @@ import (
 
 var client *gorm.DB
 
-func DB() *gorm.DB {
-	return client
-}
-
-// 初始化数据库
-func init() {
+// InitDB init
+func InitDB() {
 	var logMode = logger.Silent
 	if config.IsAppDebug() {
 		logMode = logger.Info
 	}
 	zaplog.Debug("▶▶▶数据库初始化...")
 	var err error
-	client, err = gorm.Open(mysql.Open(config.DBDsn()), &gorm.Config{
+	client, err = gorm.Open(mysql.Open(config.DBdsn()), &gorm.Config{
 		Logger: logger.Default.LogMode(logMode),
 	})
 	if err != nil {

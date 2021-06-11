@@ -118,9 +118,9 @@ var ws = null;
 //
 var user_info_data = null;
 class user_info {
-  constructor(uid, name, avatar){
-    this.uid = uid
-    this.name = name
+  constructor(user_id, nick_name, avatar){
+    this.user_id = user_id
+    this.nick_name = nick_name
     this.avatar = avatar
   }
 }
@@ -128,9 +128,9 @@ class user_info {
 // 好友列表
 var user_friends = new Map();
 class friend {
-  constructor(uid, name, avatar){
-    this.uid = uid
-    this.name = name
+  constructor(user_id, nick_name, avatar){
+    this.user_id = user_id
+    this.nick_name = nick_name
     this.avatar = avatar
   }
 }
@@ -171,7 +171,7 @@ function showLoginHtml(){
   login_html += '<div class="layui-form-item">';
   login_html += '<label class="layui-form-label">账号：</label>';
   login_html += '<div class="layui-input-inline">';
-  login_html += '<input type="text" name="user_name" required lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">';
+  login_html += '<input type="text" name="account" required lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">';
   login_html += '</div>';
   login_html += '</div>';
   //
@@ -203,10 +203,10 @@ function showLoginHtml(){
   // 监听提交
   layform.on('submit(user-login-button)', function(data){
     
-    if (data.field.user_pwd && data.field.user_name) {
+    if (data.field.user_pwd && data.field.account) {
       // 加载中
       login_load_index = layer.load(0);
-      if (!LoginWS(data.field.user_name, data.field.user_pwd)){
+      if (!LoginWS(data.field.account, data.field.user_pwd)){
         layer.msg('服务器不可用，请稍后再试！', {icon: 5});
       }
     }else{
@@ -248,12 +248,12 @@ function sendMessageHtml(){
     if (user_info_data != null && receive_user_data != null) {
       let messageRequest = new proto.protoim.MessageRequest();
       messageRequest.setLocalMsgId(GenNonDuplicateID());
-      messageRequest.setFromId(user_info_data.uid);
+      messageRequest.setFromId(user_info_data.user_id);
       messageRequest.setChatTypeId(proto.protoim.ChatType.USE_CHAT);
       messageRequest.setToId(receive_user_data.id);
       messageRequest.setMessageTypeId(proto.protoim.MessageType.TEXT_TYPE);
       messageRequest.setContent(data.field.message);
-      SendMessageWS(proto.protoim.CMD.MESSAGE_REQUEST, messageRequest.serializeBinary());
+      SendMessageWS(proto.protoim.CMD.C_MESSAGE_REQUEST, messageRequest.serializeBinary());
 
       console.log('send:', messageRequest);
       fromReceiveChatHtml(data.field.message);
@@ -273,7 +273,7 @@ function showUserFriendHtml(){
     var user_friend_html = '<div style="margin-left: 10px; margin-bottom: 5px;" onclick="showUserFriendClick(\''+k+'\')">';
     user_friend_html += '<img src="img/100.jpg" class="layui-circle" height="30px">';
     user_friend_html += '<div class="layui-inline" style="padding-left:5px">';
-    user_friend_html += '<div>'+ v.name +'</div>';
+    user_friend_html += '<div>'+ v.nick_name +'</div>';
     //user_friend_html += '<div>这个人很懒...</div>';
     user_friend_html += '</div>';
     user_friend_html += '</div>';
@@ -286,8 +286,8 @@ function showUserFriendClick(k){
   var get_friend = user_friends.get(k);
   if (get_friend) {
     // 接收内容区-标题
-    $('#receive-title').text(get_friend.name);
-    receive_user_data = new receive_user(get_friend.uid, get_friend.name, get_friend.avatar);
+    $('#receive-title').text(get_friend.nick_name);
+    receive_user_data = new receive_user(get_friend.user_id, get_friend.nick_name, get_friend.avatar);
   }
   
 }
@@ -296,7 +296,7 @@ function showUserFriendClick(k){
 function initWS(func){
   var is_initws = false
   try{ 
-    ws = new WebSocket("ws://127.0.0.1:5050/v1/ws");
+    ws = new WebSocket("ws://192.168.10.177:5050/v1/ws");
     is_initws = true;
   }catch(error){ 
     console.log(error);
@@ -319,43 +319,43 @@ function initWS(func){
     console.log("onmessage messageBase.cmd:", messageBase.getCmd());
     // 指令
     switch(messageBase.getCmd()){
-      case proto.protoim.CMD.USER_LOGIN_RESPONSE:
+      case proto.protoim.CMD.C_USER_LOGIN_RESPONSE:
         // 用户登录-响应
         var dataMsg = proto.protoim.UserLoginResponse.deserializeBinary(messageBase.getData());
-        console.log("onmessage UserLoginResponse-uid:", dataMsg.getUid());
-        console.log("onmessage UserLoginResponse-name:", dataMsg.getName());
-        user_info_data = new user_info(dataMsg.getUid(), dataMsg.getName(), '');
+        console.log("onmessage UserLoginResponse-user_id:", dataMsg.getUserId());
+        console.log("onmessage UserLoginResponse-nick_name:", dataMsg.getNickName());
+        user_info_data = new user_info(dataMsg.getUserId(), dataMsg.getNickName(), '');
         // 关闭登录框
         layer.close(login_html_index);
         layer.close(login_load_index);
         break;
-      case proto.protoim.CMD.UPDATE_USER_FRIEND_INFO:
+      case proto.protoim.CMD.C_UPDATE_FRIEND_INFO:
         // 更新用户某个好友的信息
-        var dataMsg = proto.protoim.UpdateUserFriendInfo.deserializeBinary(messageBase.getData());
-        console.log("onmessage UpdateUserFriendInfo-tag:", dataMsg.getTag());
-        console.log("onmessage UpdateUserFriendInfo-uid:", dataMsg.getUid());
-        console.log("onmessage UpdateUserFriendInfo-name:", dataMsg.getName());
+        var dataMsg = proto.protoim.UpdateFriendInfo.deserializeBinary(messageBase.getData());
+        console.log("onmessage UpdateFriendInfo-tag:", dataMsg.getTag());
+        console.log("onmessage UpdateFriendInfo-uid:", dataMsg.getUser().getUserId());
+        console.log("onmessage UpdateFriendInfo-name:", dataMsg.getUser().getNickName());
         if (dataMsg.getTag() == "add"){
-          user_friends.set(dataMsg.getUid(), new friend(dataMsg.getUid(), dataMsg.getName(), ''));
+          user_friends.set(dataMsg.getUser().getUserId(), new friend(dataMsg.getUser().getUserId(), dataMsg.getUser().getNickName(), ''));
         }
         if (dataMsg.getTag() == "delete"){
-          user_friends.delete(dataMsg.getUid());
+          user_friends.delete(dataMsg.getUser().getUserId());
         }
         showUserFriendHtml();
         break;
-      case proto.protoim.CMD.GET_USER_INFO_RESPONSE:
+      case proto.protoim.CMD.C_GET_USER_INFO_RESPONSE:
         // 获取用户信息-响应
         var dataMsg = proto.protoim.GetUserInfoResponse.deserializeBinary(messageBase.getData());
         console.log("onmessage GetUserInfoResponse-user:", dataMsg.getUser());
         break;
-      case proto.protoim.CMD.MESSAGE_RESPONSE:
+      case proto.protoim.CMD.C_MESSAGE_RESPONSE:
         // 消息相关(服务端发送-客户端接收)-响应
         var dataMsg = proto.protoim.MessageResponse.deserializeBinary(messageBase.getData());
         console.log("onmessage MessageResponse:", dataMsg);
         toReceiveChatHtml(dataMsg.getContent());
         //layer.msg('收到消息：'+dataMsg.getContent(), {icon: 1});
         break;
-      case proto.protoim.CMD.MESSAGE_FEEDBACK:
+      case proto.protoim.CMD.C_MESSAGE_FEEDBACK:
         // 消息相关-反馈
         var dataMsg = proto.protoim.MessageFeedback.deserializeBinary(messageBase.getData());
         console.log("onmessage MessageFeedback:", dataMsg);
@@ -397,12 +397,13 @@ function initWS(func){
 }
 
 // WS登录
-function LoginWS(user_name, user_pwd){
+function LoginWS(account, user_pwd){
   return initWS(function(){
     var userLoginRequest = new proto.protoim.UserLoginRequest();
-    userLoginRequest.setAccount(user_name);
+    userLoginRequest.setAppOsId(proto.protoim.AppOs.WEB);
+    userLoginRequest.setAccount(account);
     userLoginRequest.setPassword(user_pwd);
-    SendMessageWS(proto.protoim.CMD.USER_LOGIN_REQUEST, userLoginRequest.serializeBinary());
+    SendMessageWS(proto.protoim.CMD.C_USER_LOGIN_REQUEST, userLoginRequest.serializeBinary());
   });
 }
 

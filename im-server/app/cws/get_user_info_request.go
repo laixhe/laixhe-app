@@ -12,19 +12,19 @@ func GetUserInfoRequest(c *servers.Context) {
 	req := new(protoim.GetUserInfoRequest)
 	err := c.ProtoBind(req)
 	if err != nil {
-		c.SendError(protoim.E_PARAMETER_ERROR, err.Error())
+		c.SendError(protoim.Error_E_PARAMETER, err.Error())
 		return
 	}
 
 	rsp := &protoim.GetUserInfoResponse{
 		User: &protoim.UserInfo{
-			Uid:  req.Uid,
-			Name: "laixhe",
-			Age:  18,
-			IsOk: true,
+			UserId:   req.UserId,
+			NickName: "laixhe",
+			Age:      18,
+			IsOk:     true,
 		},
 	}
 
-	e := c.Send(protoim.CMD_GET_USER_INFO_RESPONSE, rsp)
+	e := c.Send(protoim.CMD_C_GET_USER_INFO_RESPONSE, rsp)
 	fmt.Println("GetUserInfo - rsp:", rsp, "err:", e)
 }

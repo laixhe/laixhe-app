@@ -4,7 +4,8 @@ package protoim;
 
 option go_package = "./;protoim";
 
+// 用户登录-响应
 message UserLoginResponse {
-  string uid  = 1;
-  string name = 2;
+  string user_id   = 1;
+  string nick_name = 2;
 }

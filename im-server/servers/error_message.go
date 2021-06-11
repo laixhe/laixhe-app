@@ -5,7 +5,7 @@ import (
 )
 
 // ErrorMessage 错误消息
-func ErrorMessage(e protoim.E, msg ...string) *protoim.ErrorInfo {
+func ErrorMessage(e protoim.Error, msg ...string) *protoim.ErrorInfo {
 	s := ""
 	if len(msg) > 0 {
 		s = msg[0]
@@ -28,6 +28,6 @@ func EnCodeErrorMessage(e *protoim.ErrorInfo) ([]byte, error) {
 }
 
 // EnCodeError 编码错误消息
-func EnCodeError(e protoim.E, msg ...string) ([]byte, error) {
+func EnCodeError(e protoim.Error, msg ...string) ([]byte, error) {
 	return EnCodeErrorMessage(ErrorMessage(e, msg...))
 }

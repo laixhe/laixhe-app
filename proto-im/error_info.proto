@@ -4,9 +4,9 @@ package protoim;
 
 option go_package = "./;protoim";
 
-import "e.proto";
+import "error.proto";
 
 message ErrorInfo {
-    protoim.E code = 1;
+    protoim.Error code = 1;
     string msg = 2;
 }

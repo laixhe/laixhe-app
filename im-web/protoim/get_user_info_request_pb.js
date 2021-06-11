@@ -69,7 +69,7 @@ proto.protoim.GetUserInfoRequest.prototype.toObject = function(opt_includeInstan
  */
 proto.protoim.GetUserInfoRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    uid: jspb.Message.getFieldWithDefault(msg, 1, "")
+    userId: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -108,7 +108,7 @@ proto.protoim.GetUserInfoRequest.deserializeBinaryFromReader = function(msg, rea
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setUid(value);
+      msg.setUserId(value);
       break;
     default:
       reader.skipField();
@@ -139,7 +139,7 @@ proto.protoim.GetUserInfoRequest.prototype.serializeBinary = function() {
  */
 proto.protoim.GetUserInfoRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getUid();
+  f = message.getUserId();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -150,10 +150,10 @@ proto.protoim.GetUserInfoRequest.serializeBinaryToWriter = function(message, wri
 
 
 /**
- * optional string uid = 1;
+ * optional string user_id = 1;
  * @return {string}
  */
-proto.protoim.GetUserInfoRequest.prototype.getUid = function() {
+proto.protoim.GetUserInfoRequest.prototype.getUserId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -162,7 +162,7 @@ proto.protoim.GetUserInfoRequest.prototype.getUid = function() {
  * @param {string} value
  * @return {!proto.protoim.GetUserInfoRequest} returns this
  */
-proto.protoim.GetUserInfoRequest.prototype.setUid = function(value) {
+proto.protoim.GetUserInfoRequest.prototype.setUserId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 

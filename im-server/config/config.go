@@ -3,6 +3,7 @@ package config
 import (
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"time"
 
@@ -130,8 +131,8 @@ func WebsocketWriteTime() time.Duration {
 	return conf.Websocket.WriteTime
 }
 
-// DBDsn 获取数据库连接地址
-func DBDsn() string {
+// DBdsn 获取数据库连接地址
+func DBdsn() string {
 	if conf.Mysql.Dsn == "" {
 		panic(errors.New("获取数据库连接地址失败：为空"))
 	}
@@ -250,12 +251,18 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-
+	initLog()
 	// 一些必要检查
-	DBDsn()
+	DBdsn()
 	RedisNodes()
 
-	initLog()
-	fmt.Printf("%#v\n", conf.Websocket)
+	if AppPid() != "" {
+		err = ioutil.WriteFile(AppPid(), []byte(fmt.Sprintf("%d", os.Getpid())), 0666)
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	//fmt.Printf("%#v\n", conf.Websocket)
 	zaplog.Debug("▶▶▶配置与日志初始化完毕...")
 }
