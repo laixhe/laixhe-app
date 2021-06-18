@@ -6,8 +6,8 @@ option go_package = "./;protoim";
 
 import "cmd.proto";
 
-// 基本信息结构
+// 所有基本信息结构 (发送的、接收的)
 message MessageBase {
-  protoim.CMD cmd       = 1; // 指令值
-  bytes data            = 2; // 原 pd 数据
+  protoim.CMD cmd  = 1; // 指令值
+  bytes data       = 2; // 原 pd 数据
 }

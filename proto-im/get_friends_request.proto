@@ -5,7 +5,5 @@ package protoim;
 option go_package = "./;protoim";
 
 // 获取好友列表-请求
-message GetFriendListRequest {
-  string user_id   = 1;
-  string nick_name = 2;
+message GetFriendsRequest {
 }

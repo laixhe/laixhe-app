@@ -6,5 +6,7 @@ option go_package = "./;protoim";
 
 // 消息相关-反馈(客户端发送给服务端接收后响应接收该消息，则反)
 message MessageFeedback {
-  string local_msg_id = 1; // 客户端本地的消息ID(用于客户校验)(客户端生成)
+  string conversation_id = 1; // 会话ID( {user_id}_{to_id} )
+  string msg_id          = 2; // 消息ID(服务端生成)
+  string local_msg_id    = 3; // 客户端本地的消息ID(用于客户校验)(客户端生成)
 }

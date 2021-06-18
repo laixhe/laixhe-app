@@ -4,6 +4,7 @@ package protoim;
 
 option go_package = "./;protoim";
 
+// 聊天类型
 enum ChatType {
     USE_CHAT   = 0; // 私聊
     GROUP_CHAT = 1; // 群聊

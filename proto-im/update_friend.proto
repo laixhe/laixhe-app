@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+import "user_info.proto";
+import "update_friend_type.proto";
+
+// 更新好友相关信息(只有服务端的推送)如：添加好友、删除好友、好友修改呢称|头像
+message UpdateFriend {
+  protoim.UpdateFriendType tag = 1;
+  protoim.UserInfo user        = 2;
+}

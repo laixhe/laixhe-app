@@ -4,6 +4,7 @@ package protoim;
 
 option go_package = "./;protoim";
 
+// 消息类型
 enum MessageType {
   TEXT_TYPE  = 0; // 文本消息
   IMAGE_TYPE = 1; // 图片消息

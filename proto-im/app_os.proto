@@ -4,6 +4,7 @@ package protoim;
 
 option go_package = "./;protoim";
 
+// 操作系统类型
 enum AppOs {
     OS_UNKNOWN = 0; // 未知
     WEB     = 1; // web

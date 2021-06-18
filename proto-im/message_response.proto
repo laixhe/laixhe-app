@@ -9,13 +9,14 @@ import 'message_type.proto';
 
 // 消息相关(服务端发送-客户端接收)-响应
 message MessageResponse{
-  string msg_id  = 1; // 消息ID(服务端生成)
-  string local_msg_id = 2; // 客户端本地的消息ID(用于客户校验)(客户端生成)
-  int32 pts      = 3; // 当前会话的序列ID(可用于排序)(唯一值)(服务端生成)
-  string from_id = 4; // 发送者(用户ID)
-  protoim.ChatType  chat_type_id = 5;      // 私聊还是群聊
-  string to_id   = 6; // 接收者(用户ID/群ID)
-  protoim.MessageType message_type_id = 7; // 消息类型
-  string content  = 8; // 消息的内容
-  int64 data_time = 9; // 发送时间戳(以服务端接收到的时间为准)
+  string conversation_id = 1; // 会话ID( {user_id}_{to_id} )
+  string msg_id          = 2; // 消息ID(服务端生成)
+  string local_msg_id    = 3; // 客户端本地的消息ID(用于客户校验)(客户端生成)
+  string from_id         = 4; // 发送者(用户ID)
+  string to_id           = 5; // 接收者(用户ID/群ID)
+  int32  pts             = 6; // 当前会话的序列ID(可用于排序)(唯一值)(服务端生成)
+  protoim.ChatType chat_type_id       = 7; // 私聊还是群聊
+  protoim.MessageType message_type_id = 8; // 消息类型
+  string content         = 9; // 消息的内容
+  int64  latest_time     = 10; // 最近发生的时间戳(以服务端接收到的时间为准)
 }

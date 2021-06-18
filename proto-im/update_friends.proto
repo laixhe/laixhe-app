@@ -4,10 +4,9 @@ package protoim;
 
 option go_package = "./;protoim";
 
-import "user_info.proto";
+import "update_friend.proto";
 
 // 更新好友相关信息(只有服务端的推送)如：添加好友、删除好友、好友修改呢称|头像
-message UpdateFriendInfo {
-  string tag  = 1; // 操作类型 add update delete
-  protoim.UserInfo user = 2;
+message UpdateFriends {
+  repeated protoim.UpdateFriend users = 1;
 }

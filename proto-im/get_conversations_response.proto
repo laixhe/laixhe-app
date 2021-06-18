@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+// 消息会话列表-响应
+message GetConversationsResponse{
+}

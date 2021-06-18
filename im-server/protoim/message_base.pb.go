@@ -20,7 +20,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// 基本信息结构
+// 所有基本信息结构 (发送的、接收的)
 type MessageBase struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

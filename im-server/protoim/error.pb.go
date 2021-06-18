@@ -20,7 +20,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// 错误指令类型
+// 错误类型
 type Error int32
 
 const (

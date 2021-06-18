@@ -4,18 +4,22 @@ package protoim;
 
 option go_package = "./;protoim";
 
-// 指令类型
+// 指令类型(路由)
 enum CMD {
   C_UNKNOWN = 0;  // 未知
   C_ERROR   = 1;  // 错误
   C_PING      = 2;  // 心跳-ping
   C_PONG      = 3;  // 心跳-pong
-  C_USER_LOGIN_REQUEST        = 1000; // 用户登录-请求
-  C_USER_LOGIN_RESPONSE       = 1001; // 用户登录-响应
-  C_GET_USER_INFO_REQUEST     = 1002; // 获取用户信息-请求
-  C_GET_USER_INFO_RESPONSE    = 1003; // 获取用户信息-响应
-  C_UPDATE_FRIEND_INFO        = 1004; // 更新好友相关信息
-  C_MESSAGE_REQUEST           = 1005; // 消息相关(客户端发送-服务端接收)-请求
-  C_MESSAGE_RESPONSE          = 1006; // 消息相关(服务端发送-客户端接收)-响应
-  C_MESSAGE_FEEDBACK          = 1007; // 消息相关-反馈(客户端发送给服务端接收后响应接收该消息，则反)
+  C_USER_LOGIN_REQUEST          = 1000; // 用户登录-请求
+  C_USER_LOGIN_RESPONSE         = 1001; // 用户登录-响应
+  C_GET_USER_REQUEST            = 1002; // 获取用户信息-请求
+  C_GET_USER_RESPONSE           = 1003; // 获取用户信息-响应
+  C_GET_FRIENDS_REQUEST         = 1004; // 获取好友列表-请求
+  C_GET_FRIENDS_RESPONSE        = 1005; // 获取好友列表-响应
+  C_UPDATE_FRIENDS              = 1006; // 更新好友相关信息
+  C_GET_CONVERSATIONS_REQUEST   = 1007; // 消息会话列表-请求
+  C_GET_CONVERSATIONS_RESPONSE  = 1008; // 消息会话列表-响应
+  C_MESSAGE_REQUEST             = 1009; // 消息相关(客户端发送-服务端接收)-请求
+  C_MESSAGE_RESPONSE            = 1010; // 消息相关(服务端发送-客户端接收)-响应
+  C_MESSAGE_FEEDBACK            = 1011; // 消息相关-反馈(客户端发送给服务端接收后响应接收该消息，则反)
 }

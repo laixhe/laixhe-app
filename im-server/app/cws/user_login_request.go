@@ -11,6 +11,8 @@ import (
 	"im-server/utils"
 )
 
+var us = make([]*protoim.UserLoginResponse, 0)
+
 // UserLoginRequest 用户登录-请求
 func UserLoginRequest(c *servers.Context) {
 	req := new(protoim.UserLoginRequest)
@@ -25,11 +27,14 @@ func UserLoginRequest(c *servers.Context) {
 		return
 	}
 
-	fmt.Println("UserLogin - req:", req)
+	fmt.Println("UserLoginRequest - req:", req)
+
 	rsp := &protoim.UserLoginResponse{
 		UserId:   cryptos.Md5(req.Account),
 		NickName: basictype.GetRandomString(6, 1),
 	}
+
+	us = append(us, rsp)
 
 	e := c.Send(protoim.CMD_C_USER_LOGIN_RESPONSE, rsp)
 	if e == nil {
@@ -37,11 +42,15 @@ func UserLoginRequest(c *servers.Context) {
 	}
 
 	fmt.Println("UserLogin - rsp:", rsp)
-	c.Sendxxx(protoim.CMD_C_UPDATE_FRIEND_INFO, &protoim.UpdateFriendInfo{
-		Tag: "add",
-		User: &protoim.UserInfo{
-			UserId:   rsp.UserId,
-			NickName: rsp.NickName,
+	c.Sendxxx(protoim.CMD_C_UPDATE_FRIENDS, &protoim.UpdateFriends{
+		Users: []*protoim.UpdateFriend{
+			{
+				Tag: protoim.UpdateFriendType_UF_ADD,
+				User: &protoim.UserInfo{
+					UserId:   rsp.UserId,
+					NickName: rsp.NickName,
+				},
+			},
 		},
 	})
 }

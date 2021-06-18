@@ -75,8 +75,8 @@ proto.protoim.MessageRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     localMsgId: jspb.Message.getFieldWithDefault(msg, 1, ""),
     fromId: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    chatTypeId: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    toId: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    toId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    chatTypeId: jspb.Message.getFieldWithDefault(msg, 4, 0),
     messageTypeId: jspb.Message.getFieldWithDefault(msg, 5, 0),
     content: jspb.Message.getFieldWithDefault(msg, 6, "")
   };
@@ -124,12 +124,12 @@ proto.protoim.MessageRequest.deserializeBinaryFromReader = function(msg, reader)
       msg.setFromId(value);
       break;
     case 3:
-      var value = /** @type {!proto.protoim.ChatType} */ (reader.readEnum());
-      msg.setChatTypeId(value);
-      break;
-    case 4:
       var value = /** @type {string} */ (reader.readString());
       msg.setToId(value);
+      break;
+    case 4:
+      var value = /** @type {!proto.protoim.ChatType} */ (reader.readEnum());
+      msg.setChatTypeId(value);
       break;
     case 5:
       var value = /** @type {!proto.protoim.MessageType} */ (reader.readEnum());
@@ -182,16 +182,16 @@ proto.protoim.MessageRequest.serializeBinaryToWriter = function(message, writer)
       f
     );
   }
-  f = message.getChatTypeId();
-  if (f !== 0.0) {
-    writer.writeEnum(
+  f = message.getToId();
+  if (f.length > 0) {
+    writer.writeString(
       3,
       f
     );
   }
-  f = message.getToId();
-  if (f.length > 0) {
-    writer.writeString(
+  f = message.getChatTypeId();
+  if (f !== 0.0) {
+    writer.writeEnum(
       4,
       f
     );
@@ -250,29 +250,11 @@ proto.protoim.MessageRequest.prototype.setFromId = function(value) {
 
 
 /**
- * optional ChatType chat_type_id = 3;
- * @return {!proto.protoim.ChatType}
- */
-proto.protoim.MessageRequest.prototype.getChatTypeId = function() {
-  return /** @type {!proto.protoim.ChatType} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
-};
-
-
-/**
- * @param {!proto.protoim.ChatType} value
- * @return {!proto.protoim.MessageRequest} returns this
- */
-proto.protoim.MessageRequest.prototype.setChatTypeId = function(value) {
-  return jspb.Message.setProto3EnumField(this, 3, value);
-};
-
-
-/**
- * optional string to_id = 4;
+ * optional string to_id = 3;
  * @return {string}
  */
 proto.protoim.MessageRequest.prototype.getToId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
@@ -281,7 +263,25 @@ proto.protoim.MessageRequest.prototype.getToId = function() {
  * @return {!proto.protoim.MessageRequest} returns this
  */
 proto.protoim.MessageRequest.prototype.setToId = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional ChatType chat_type_id = 4;
+ * @return {!proto.protoim.ChatType}
+ */
+proto.protoim.MessageRequest.prototype.getChatTypeId = function() {
+  return /** @type {!proto.protoim.ChatType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {!proto.protoim.ChatType} value
+ * @return {!proto.protoim.MessageRequest} returns this
+ */
+proto.protoim.MessageRequest.prototype.setChatTypeId = function(value) {
+  return jspb.Message.setProto3EnumField(this, 4, value);
 };
 
 

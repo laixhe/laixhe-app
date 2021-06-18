@@ -7,16 +7,18 @@ import (
 	"im-server/servers"
 )
 
-// GetUserInfoRequest 获取用户信息-请求
-func GetUserInfoRequest(c *servers.Context) {
-	req := new(protoim.GetUserInfoRequest)
+// GetUserRequest 获取用户信息-请求
+func GetUserRequest(c *servers.Context) {
+	req := new(protoim.GetUserRequest)
 	err := c.ProtoBind(req)
 	if err != nil {
 		c.SendError(protoim.Error_E_PARAMETER, err.Error())
 		return
 	}
 
-	rsp := &protoim.GetUserInfoResponse{
+	fmt.Println("GetUserRequest - req:", req)
+
+	rsp := &protoim.GetUserResponse{
 		User: &protoim.UserInfo{
 			UserId:   req.UserId,
 			NickName: "laixhe",
@@ -25,6 +27,6 @@ func GetUserInfoRequest(c *servers.Context) {
 		},
 	}
 
-	e := c.Send(protoim.CMD_C_GET_USER_INFO_RESPONSE, rsp)
+	e := c.Send(protoim.CMD_C_GET_USER_RESPONSE, rsp)
 	fmt.Println("GetUserInfo - rsp:", rsp, "err:", e)
 }

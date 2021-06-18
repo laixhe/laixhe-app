@@ -1,46 +1,56 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-var app_os = require('./protoim/app_os_pb')
-var error = require('./protoim/error_pb')
-var cmd = require('./protoim/cmd_pb')
-var chat_type = require('./protoim/chat_type_pb')
+var app_os       = require('./protoim/app_os_pb')
+var error        = require('./protoim/error_pb')
+var cmd          = require('./protoim/cmd_pb')
+var chat_type    = require('./protoim/chat_type_pb')
 var message_type = require('./protoim/message_type_pb')
 
-var error_info = require('./protoim/error_info_pb')
+var error_info   = require('./protoim/error_info_pb')
 var message_base = require('./protoim/message_base_pb')
 
-var user_login_request= require('./protoim/user_login_request_pb')
-var user_login_response = require('./protoim/user_login_response_pb')
-var update_friend_info = require('./protoim/update_friend_info_pb')
-var user_info = require('./protoim/user_info_pb')
-var get_user_info_request = require('./protoim/get_user_info_request_pb')
-var get_user_info_response = require('./protoim/get_user_info_response_pb')
-
-var message_request = require('./protoim/message_request_pb')
-var message_response = require('./protoim/message_response_pb')
-var message_feedback = require('./protoim/message_feedback_pb')
+var user_info                  = require('./protoim/user_info_pb')
+var user_login_request         = require('./protoim/user_login_request_pb')
+var user_login_response        = require('./protoim/user_login_response_pb')
+var get_user_request           = require('./protoim/get_user_request_pb')
+var get_user_response          = require('./protoim/get_user_response_pb')
+var get_friends_request        = require('./protoim/get_friends_request_pb')
+var get_friends_response       = require('./protoim/get_friends_response_pb')
+var update_friend_type         = require('./protoim/update_friend_type_pb')
+var update_friend              = require('./protoim/update_friend_pb')
+var update_friends             = require('./protoim/update_friends_pb')
+var get_conversations_request  = require('./protoim/get_conversations_request_pb')
+var get_conversations_response = require('./protoim/get_conversations_response_pb')
+var message_request            = require('./protoim/message_request_pb')
+var message_response           = require('./protoim/message_response_pb')
+var message_feedback           = require('./protoim/message_feedback_pb')
 
 module.exports = {
-    AppOs       : app_os,
-    Error       : error,
-    Cmd         : cmd,
-    ChatType    : chat_type,
-    MessageType : message_type,
-
-    ErrorInfo   : error_info,
-    MessageBase : message_base,
+    AppOs                : app_os,
+    Error                : error,
+    Cmd                  : cmd,
+    ChatType             : chat_type,
+    MessageType          : message_type,
+    
+    ErrorInfo            : error_info,
+    MessageBase          : message_base,
 
     UserInfo             : user_info,
     UserLoginRequest     : user_login_request,
     UserLoginResponse    : user_login_response,
-    UpdateFriendInfo     : update_friend_info,
-    GetUserInfoRequest   : get_user_info_request,
-    GetUserInfoResponse  : get_user_info_response,
-
-    MessageRequest   : message_request,
-    MessageResponse  : message_response,
-    MessageFeedback  : message_feedback,
+    GetUserRequest       : get_user_request,
+    GetUserResponse      : get_user_response,
+    GetFriendsRequest    : get_friends_request,
+    GetFriendsResponse   : get_friends_response,
+    UpdateFriendType     : update_friend_type,
+    UpdateFriend         : update_friend,
+    UpdateFriends        : update_friends,
+    GetConversationsRequest  : get_conversations_request,
+    GetConversationsResponse : get_conversations_response,
+    MessageRequest       : message_request,
+    MessageResponse      : message_response,
+    MessageFeedback      : message_feedback,
 }
-},{"./protoim/app_os_pb":6,"./protoim/chat_type_pb":7,"./protoim/cmd_pb":8,"./protoim/error_info_pb":9,"./protoim/error_pb":10,"./protoim/get_user_info_request_pb":11,"./protoim/get_user_info_response_pb":12,"./protoim/message_base_pb":13,"./protoim/message_feedback_pb":14,"./protoim/message_request_pb":15,"./protoim/message_response_pb":16,"./protoim/message_type_pb":17,"./protoim/update_friend_info_pb":18,"./protoim/user_info_pb":19,"./protoim/user_login_request_pb":20,"./protoim/user_login_response_pb":21}],2:[function(require,module,exports){
+},{"./protoim/app_os_pb":6,"./protoim/chat_type_pb":7,"./protoim/cmd_pb":8,"./protoim/error_info_pb":9,"./protoim/error_pb":10,"./protoim/get_conversations_request_pb":11,"./protoim/get_conversations_response_pb":12,"./protoim/get_friends_request_pb":13,"./protoim/get_friends_response_pb":14,"./protoim/get_user_request_pb":15,"./protoim/get_user_response_pb":16,"./protoim/message_base_pb":17,"./protoim/message_feedback_pb":18,"./protoim/message_request_pb":19,"./protoim/message_response_pb":20,"./protoim/message_type_pb":21,"./protoim/update_friend_pb":22,"./protoim/update_friend_type_pb":23,"./protoim/update_friends_pb":24,"./protoim/user_info_pb":25,"./protoim/user_login_request_pb":26,"./protoim/user_login_response_pb":27}],2:[function(require,module,exports){
 'use strict'
 
 exports.byteLength = byteLength
@@ -2677,12 +2687,16 @@ proto.protoim.CMD = {
   C_PONG: 3,
   C_USER_LOGIN_REQUEST: 1000,
   C_USER_LOGIN_RESPONSE: 1001,
-  C_GET_USER_INFO_REQUEST: 1002,
-  C_GET_USER_INFO_RESPONSE: 1003,
-  C_UPDATE_FRIEND_INFO: 1004,
-  C_MESSAGE_REQUEST: 1005,
-  C_MESSAGE_RESPONSE: 1006,
-  C_MESSAGE_FEEDBACK: 1007
+  C_GET_USER_REQUEST: 1002,
+  C_GET_USER_RESPONSE: 1003,
+  C_GET_FRIENDS_REQUEST: 1004,
+  C_GET_FRIENDS_RESPONSE: 1005,
+  C_UPDATE_FRIENDS: 1006,
+  C_GET_CONVERSATIONS_REQUEST: 1007,
+  C_GET_CONVERSATIONS_RESPONSE: 1008,
+  C_MESSAGE_REQUEST: 1009,
+  C_MESSAGE_RESPONSE: 1010,
+  C_MESSAGE_FEEDBACK: 1011
 };
 
 goog.object.extend(exports, proto.protoim);
@@ -2934,7 +2948,7 @@ proto.protoim.Error = {
 goog.object.extend(exports, proto.protoim);
 
 },{"google-protobuf":4}],11:[function(require,module,exports){
-// source: get_user_info_request.proto
+// source: get_conversations_request.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -2951,7 +2965,7 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-goog.exportSymbol('proto.protoim.GetUserInfoRequest', null, global);
+goog.exportSymbol('proto.protoim.GetConversationsRequest', null, global);
 /**
  * Generated by JsPbCodeGenerator.
  * @param {Array=} opt_data Optional initial data array, typically from a
@@ -2962,16 +2976,16 @@ goog.exportSymbol('proto.protoim.GetUserInfoRequest', null, global);
  * @extends {jspb.Message}
  * @constructor
  */
-proto.protoim.GetUserInfoRequest = function(opt_data) {
+proto.protoim.GetConversationsRequest = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.protoim.GetUserInfoRequest, jspb.Message);
+goog.inherits(proto.protoim.GetConversationsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.protoim.GetUserInfoRequest.displayName = 'proto.protoim.GetUserInfoRequest';
+  proto.protoim.GetConversationsRequest.displayName = 'proto.protoim.GetConversationsRequest';
 }
 
 
@@ -2989,8 +3003,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.protoim.GetUserInfoRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.protoim.GetUserInfoRequest.toObject(opt_includeInstance, this);
+proto.protoim.GetConversationsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.protoim.GetConversationsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -2999,11 +3013,644 @@ proto.protoim.GetUserInfoRequest.prototype.toObject = function(opt_includeInstan
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.protoim.GetUserInfoRequest} msg The msg instance to transform.
+ * @param {!proto.protoim.GetConversationsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.protoim.GetUserInfoRequest.toObject = function(includeInstance, msg) {
+proto.protoim.GetConversationsRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.protoim.GetConversationsRequest}
+ */
+proto.protoim.GetConversationsRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.protoim.GetConversationsRequest;
+  return proto.protoim.GetConversationsRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.protoim.GetConversationsRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.protoim.GetConversationsRequest}
+ */
+proto.protoim.GetConversationsRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.protoim.GetConversationsRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.protoim.GetConversationsRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.protoim.GetConversationsRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protoim.GetConversationsRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+};
+
+
+goog.object.extend(exports, proto.protoim);
+
+},{"google-protobuf":4}],12:[function(require,module,exports){
+// source: get_conversations_response.proto
+/**
+ * @fileoverview
+ * @enhanceable
+ * @suppress {missingRequire} reports error on implicit type usages.
+ * @suppress {messageConventions} JS Compiler reports an error if a variable or
+ *     field starts with 'MSG_' and isn't a translatable message.
+ * @public
+ */
+// GENERATED CODE -- DO NOT EDIT!
+/* eslint-disable */
+// @ts-nocheck
+
+var jspb = require('google-protobuf');
+var goog = jspb;
+var global = Function('return this')();
+
+goog.exportSymbol('proto.protoim.GetConversationsResponse', null, global);
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.protoim.GetConversationsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.protoim.GetConversationsResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.protoim.GetConversationsResponse.displayName = 'proto.protoim.GetConversationsResponse';
+}
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.protoim.GetConversationsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.protoim.GetConversationsResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.protoim.GetConversationsResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protoim.GetConversationsResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.protoim.GetConversationsResponse}
+ */
+proto.protoim.GetConversationsResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.protoim.GetConversationsResponse;
+  return proto.protoim.GetConversationsResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.protoim.GetConversationsResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.protoim.GetConversationsResponse}
+ */
+proto.protoim.GetConversationsResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.protoim.GetConversationsResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.protoim.GetConversationsResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.protoim.GetConversationsResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protoim.GetConversationsResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+};
+
+
+goog.object.extend(exports, proto.protoim);
+
+},{"google-protobuf":4}],13:[function(require,module,exports){
+// source: get_friends_request.proto
+/**
+ * @fileoverview
+ * @enhanceable
+ * @suppress {missingRequire} reports error on implicit type usages.
+ * @suppress {messageConventions} JS Compiler reports an error if a variable or
+ *     field starts with 'MSG_' and isn't a translatable message.
+ * @public
+ */
+// GENERATED CODE -- DO NOT EDIT!
+/* eslint-disable */
+// @ts-nocheck
+
+var jspb = require('google-protobuf');
+var goog = jspb;
+var global = Function('return this')();
+
+goog.exportSymbol('proto.protoim.GetFriendsRequest', null, global);
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.protoim.GetFriendsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.protoim.GetFriendsRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.protoim.GetFriendsRequest.displayName = 'proto.protoim.GetFriendsRequest';
+}
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.protoim.GetFriendsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.protoim.GetFriendsRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.protoim.GetFriendsRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protoim.GetFriendsRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.protoim.GetFriendsRequest}
+ */
+proto.protoim.GetFriendsRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.protoim.GetFriendsRequest;
+  return proto.protoim.GetFriendsRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.protoim.GetFriendsRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.protoim.GetFriendsRequest}
+ */
+proto.protoim.GetFriendsRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.protoim.GetFriendsRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.protoim.GetFriendsRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.protoim.GetFriendsRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protoim.GetFriendsRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+};
+
+
+goog.object.extend(exports, proto.protoim);
+
+},{"google-protobuf":4}],14:[function(require,module,exports){
+// source: get_friends_response.proto
+/**
+ * @fileoverview
+ * @enhanceable
+ * @suppress {missingRequire} reports error on implicit type usages.
+ * @suppress {messageConventions} JS Compiler reports an error if a variable or
+ *     field starts with 'MSG_' and isn't a translatable message.
+ * @public
+ */
+// GENERATED CODE -- DO NOT EDIT!
+/* eslint-disable */
+// @ts-nocheck
+
+var jspb = require('google-protobuf');
+var goog = jspb;
+var global = Function('return this')();
+
+var user_info_pb = require('./user_info_pb.js');
+goog.object.extend(proto, user_info_pb);
+goog.exportSymbol('proto.protoim.GetFriendsResponse', null, global);
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.protoim.GetFriendsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.protoim.GetFriendsResponse.repeatedFields_, null);
+};
+goog.inherits(proto.protoim.GetFriendsResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.protoim.GetFriendsResponse.displayName = 'proto.protoim.GetFriendsResponse';
+}
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.protoim.GetFriendsResponse.repeatedFields_ = [1];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.protoim.GetFriendsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.protoim.GetFriendsResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.protoim.GetFriendsResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protoim.GetFriendsResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    usersList: jspb.Message.toObjectList(msg.getUsersList(),
+    user_info_pb.UserInfo.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.protoim.GetFriendsResponse}
+ */
+proto.protoim.GetFriendsResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.protoim.GetFriendsResponse;
+  return proto.protoim.GetFriendsResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.protoim.GetFriendsResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.protoim.GetFriendsResponse}
+ */
+proto.protoim.GetFriendsResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new user_info_pb.UserInfo;
+      reader.readMessage(value,user_info_pb.UserInfo.deserializeBinaryFromReader);
+      msg.addUsers(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.protoim.GetFriendsResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.protoim.GetFriendsResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.protoim.GetFriendsResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protoim.GetFriendsResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getUsersList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      1,
+      f,
+      user_info_pb.UserInfo.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * repeated UserInfo users = 1;
+ * @return {!Array<!proto.protoim.UserInfo>}
+ */
+proto.protoim.GetFriendsResponse.prototype.getUsersList = function() {
+  return /** @type{!Array<!proto.protoim.UserInfo>} */ (
+    jspb.Message.getRepeatedWrapperField(this, user_info_pb.UserInfo, 1));
+};
+
+
+/**
+ * @param {!Array<!proto.protoim.UserInfo>} value
+ * @return {!proto.protoim.GetFriendsResponse} returns this
+*/
+proto.protoim.GetFriendsResponse.prototype.setUsersList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.protoim.UserInfo=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.protoim.UserInfo}
+ */
+proto.protoim.GetFriendsResponse.prototype.addUsers = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.protoim.UserInfo, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.protoim.GetFriendsResponse} returns this
+ */
+proto.protoim.GetFriendsResponse.prototype.clearUsersList = function() {
+  return this.setUsersList([]);
+};
+
+
+goog.object.extend(exports, proto.protoim);
+
+},{"./user_info_pb.js":25,"google-protobuf":4}],15:[function(require,module,exports){
+// source: get_user_request.proto
+/**
+ * @fileoverview
+ * @enhanceable
+ * @suppress {missingRequire} reports error on implicit type usages.
+ * @suppress {messageConventions} JS Compiler reports an error if a variable or
+ *     field starts with 'MSG_' and isn't a translatable message.
+ * @public
+ */
+// GENERATED CODE -- DO NOT EDIT!
+/* eslint-disable */
+// @ts-nocheck
+
+var jspb = require('google-protobuf');
+var goog = jspb;
+var global = Function('return this')();
+
+goog.exportSymbol('proto.protoim.GetUserRequest', null, global);
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.protoim.GetUserRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.protoim.GetUserRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.protoim.GetUserRequest.displayName = 'proto.protoim.GetUserRequest';
+}
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.protoim.GetUserRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.protoim.GetUserRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.protoim.GetUserRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protoim.GetUserRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     userId: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
@@ -3019,23 +3666,23 @@ proto.protoim.GetUserInfoRequest.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.protoim.GetUserInfoRequest}
+ * @return {!proto.protoim.GetUserRequest}
  */
-proto.protoim.GetUserInfoRequest.deserializeBinary = function(bytes) {
+proto.protoim.GetUserRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.protoim.GetUserInfoRequest;
-  return proto.protoim.GetUserInfoRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.protoim.GetUserRequest;
+  return proto.protoim.GetUserRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.protoim.GetUserInfoRequest} msg The message object to deserialize into.
+ * @param {!proto.protoim.GetUserRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.protoim.GetUserInfoRequest}
+ * @return {!proto.protoim.GetUserRequest}
  */
-proto.protoim.GetUserInfoRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.protoim.GetUserRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3059,9 +3706,9 @@ proto.protoim.GetUserInfoRequest.deserializeBinaryFromReader = function(msg, rea
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.protoim.GetUserInfoRequest.prototype.serializeBinary = function() {
+proto.protoim.GetUserRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.protoim.GetUserInfoRequest.serializeBinaryToWriter(this, writer);
+  proto.protoim.GetUserRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3069,11 +3716,11 @@ proto.protoim.GetUserInfoRequest.prototype.serializeBinary = function() {
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.protoim.GetUserInfoRequest} message
+ * @param {!proto.protoim.GetUserRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.protoim.GetUserInfoRequest.serializeBinaryToWriter = function(message, writer) {
+proto.protoim.GetUserRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getUserId();
   if (f.length > 0) {
@@ -3089,24 +3736,24 @@ proto.protoim.GetUserInfoRequest.serializeBinaryToWriter = function(message, wri
  * optional string user_id = 1;
  * @return {string}
  */
-proto.protoim.GetUserInfoRequest.prototype.getUserId = function() {
+proto.protoim.GetUserRequest.prototype.getUserId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.protoim.GetUserInfoRequest} returns this
+ * @return {!proto.protoim.GetUserRequest} returns this
  */
-proto.protoim.GetUserInfoRequest.prototype.setUserId = function(value) {
+proto.protoim.GetUserRequest.prototype.setUserId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 goog.object.extend(exports, proto.protoim);
 
-},{"google-protobuf":4}],12:[function(require,module,exports){
-// source: get_user_info_response.proto
+},{"google-protobuf":4}],16:[function(require,module,exports){
+// source: get_user_response.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -3125,7 +3772,7 @@ var global = Function('return this')();
 
 var user_info_pb = require('./user_info_pb.js');
 goog.object.extend(proto, user_info_pb);
-goog.exportSymbol('proto.protoim.GetUserInfoResponse', null, global);
+goog.exportSymbol('proto.protoim.GetUserResponse', null, global);
 /**
  * Generated by JsPbCodeGenerator.
  * @param {Array=} opt_data Optional initial data array, typically from a
@@ -3136,16 +3783,16 @@ goog.exportSymbol('proto.protoim.GetUserInfoResponse', null, global);
  * @extends {jspb.Message}
  * @constructor
  */
-proto.protoim.GetUserInfoResponse = function(opt_data) {
+proto.protoim.GetUserResponse = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.protoim.GetUserInfoResponse, jspb.Message);
+goog.inherits(proto.protoim.GetUserResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.protoim.GetUserInfoResponse.displayName = 'proto.protoim.GetUserInfoResponse';
+  proto.protoim.GetUserResponse.displayName = 'proto.protoim.GetUserResponse';
 }
 
 
@@ -3163,8 +3810,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.protoim.GetUserInfoResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.protoim.GetUserInfoResponse.toObject(opt_includeInstance, this);
+proto.protoim.GetUserResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.protoim.GetUserResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -3173,11 +3820,11 @@ proto.protoim.GetUserInfoResponse.prototype.toObject = function(opt_includeInsta
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.protoim.GetUserInfoResponse} msg The msg instance to transform.
+ * @param {!proto.protoim.GetUserResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.protoim.GetUserInfoResponse.toObject = function(includeInstance, msg) {
+proto.protoim.GetUserResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     user: (f = msg.getUser()) && user_info_pb.UserInfo.toObject(includeInstance, f)
   };
@@ -3193,23 +3840,23 @@ proto.protoim.GetUserInfoResponse.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.protoim.GetUserInfoResponse}
+ * @return {!proto.protoim.GetUserResponse}
  */
-proto.protoim.GetUserInfoResponse.deserializeBinary = function(bytes) {
+proto.protoim.GetUserResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.protoim.GetUserInfoResponse;
-  return proto.protoim.GetUserInfoResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.protoim.GetUserResponse;
+  return proto.protoim.GetUserResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.protoim.GetUserInfoResponse} msg The message object to deserialize into.
+ * @param {!proto.protoim.GetUserResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.protoim.GetUserInfoResponse}
+ * @return {!proto.protoim.GetUserResponse}
  */
-proto.protoim.GetUserInfoResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.protoim.GetUserResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3234,9 +3881,9 @@ proto.protoim.GetUserInfoResponse.deserializeBinaryFromReader = function(msg, re
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.protoim.GetUserInfoResponse.prototype.serializeBinary = function() {
+proto.protoim.GetUserResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.protoim.GetUserInfoResponse.serializeBinaryToWriter(this, writer);
+  proto.protoim.GetUserResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3244,11 +3891,11 @@ proto.protoim.GetUserInfoResponse.prototype.serializeBinary = function() {
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.protoim.GetUserInfoResponse} message
+ * @param {!proto.protoim.GetUserResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.protoim.GetUserInfoResponse.serializeBinaryToWriter = function(message, writer) {
+proto.protoim.GetUserResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getUser();
   if (f != null) {
@@ -3265,7 +3912,7 @@ proto.protoim.GetUserInfoResponse.serializeBinaryToWriter = function(message, wr
  * optional UserInfo user = 1;
  * @return {?proto.protoim.UserInfo}
  */
-proto.protoim.GetUserInfoResponse.prototype.getUser = function() {
+proto.protoim.GetUserResponse.prototype.getUser = function() {
   return /** @type{?proto.protoim.UserInfo} */ (
     jspb.Message.getWrapperField(this, user_info_pb.UserInfo, 1));
 };
@@ -3273,18 +3920,18 @@ proto.protoim.GetUserInfoResponse.prototype.getUser = function() {
 
 /**
  * @param {?proto.protoim.UserInfo|undefined} value
- * @return {!proto.protoim.GetUserInfoResponse} returns this
+ * @return {!proto.protoim.GetUserResponse} returns this
 */
-proto.protoim.GetUserInfoResponse.prototype.setUser = function(value) {
+proto.protoim.GetUserResponse.prototype.setUser = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.protoim.GetUserInfoResponse} returns this
+ * @return {!proto.protoim.GetUserResponse} returns this
  */
-proto.protoim.GetUserInfoResponse.prototype.clearUser = function() {
+proto.protoim.GetUserResponse.prototype.clearUser = function() {
   return this.setUser(undefined);
 };
 
@@ -3293,14 +3940,14 @@ proto.protoim.GetUserInfoResponse.prototype.clearUser = function() {
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.protoim.GetUserInfoResponse.prototype.hasUser = function() {
+proto.protoim.GetUserResponse.prototype.hasUser = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 goog.object.extend(exports, proto.protoim);
 
-},{"./user_info_pb.js":19,"google-protobuf":4}],13:[function(require,module,exports){
+},{"./user_info_pb.js":25,"google-protobuf":4}],17:[function(require,module,exports){
 // source: message_base.proto
 /**
  * @fileoverview
@@ -3528,7 +4175,7 @@ proto.protoim.MessageBase.prototype.setData = function(value) {
 
 goog.object.extend(exports, proto.protoim);
 
-},{"./cmd_pb.js":8,"google-protobuf":4}],14:[function(require,module,exports){
+},{"./cmd_pb.js":8,"google-protobuf":4}],18:[function(require,module,exports){
 // source: message_feedback.proto
 /**
  * @fileoverview
@@ -3600,7 +4247,9 @@ proto.protoim.MessageFeedback.prototype.toObject = function(opt_includeInstance)
  */
 proto.protoim.MessageFeedback.toObject = function(includeInstance, msg) {
   var f, obj = {
-    localMsgId: jspb.Message.getFieldWithDefault(msg, 1, "")
+    conversationId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    msgId: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    localMsgId: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -3639,6 +4288,14 @@ proto.protoim.MessageFeedback.deserializeBinaryFromReader = function(msg, reader
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
+      msg.setConversationId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setMsgId(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
       msg.setLocalMsgId(value);
       break;
     default:
@@ -3670,10 +4327,24 @@ proto.protoim.MessageFeedback.prototype.serializeBinary = function() {
  */
 proto.protoim.MessageFeedback.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getLocalMsgId();
+  f = message.getConversationId();
   if (f.length > 0) {
     writer.writeString(
       1,
+      f
+    );
+  }
+  f = message.getMsgId();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getLocalMsgId();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
       f
     );
   }
@@ -3681,10 +4352,10 @@ proto.protoim.MessageFeedback.serializeBinaryToWriter = function(message, writer
 
 
 /**
- * optional string local_msg_id = 1;
+ * optional string conversation_id = 1;
  * @return {string}
  */
-proto.protoim.MessageFeedback.prototype.getLocalMsgId = function() {
+proto.protoim.MessageFeedback.prototype.getConversationId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -3693,14 +4364,50 @@ proto.protoim.MessageFeedback.prototype.getLocalMsgId = function() {
  * @param {string} value
  * @return {!proto.protoim.MessageFeedback} returns this
  */
-proto.protoim.MessageFeedback.prototype.setLocalMsgId = function(value) {
+proto.protoim.MessageFeedback.prototype.setConversationId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string msg_id = 2;
+ * @return {string}
+ */
+proto.protoim.MessageFeedback.prototype.getMsgId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.protoim.MessageFeedback} returns this
+ */
+proto.protoim.MessageFeedback.prototype.setMsgId = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string local_msg_id = 3;
+ * @return {string}
+ */
+proto.protoim.MessageFeedback.prototype.getLocalMsgId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.protoim.MessageFeedback} returns this
+ */
+proto.protoim.MessageFeedback.prototype.setLocalMsgId = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
 goog.object.extend(exports, proto.protoim);
 
-},{"google-protobuf":4}],15:[function(require,module,exports){
+},{"google-protobuf":4}],19:[function(require,module,exports){
 // source: message_request.proto
 /**
  * @fileoverview
@@ -3778,8 +4485,8 @@ proto.protoim.MessageRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     localMsgId: jspb.Message.getFieldWithDefault(msg, 1, ""),
     fromId: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    chatTypeId: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    toId: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    toId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    chatTypeId: jspb.Message.getFieldWithDefault(msg, 4, 0),
     messageTypeId: jspb.Message.getFieldWithDefault(msg, 5, 0),
     content: jspb.Message.getFieldWithDefault(msg, 6, "")
   };
@@ -3827,12 +4534,12 @@ proto.protoim.MessageRequest.deserializeBinaryFromReader = function(msg, reader)
       msg.setFromId(value);
       break;
     case 3:
-      var value = /** @type {!proto.protoim.ChatType} */ (reader.readEnum());
-      msg.setChatTypeId(value);
-      break;
-    case 4:
       var value = /** @type {string} */ (reader.readString());
       msg.setToId(value);
+      break;
+    case 4:
+      var value = /** @type {!proto.protoim.ChatType} */ (reader.readEnum());
+      msg.setChatTypeId(value);
       break;
     case 5:
       var value = /** @type {!proto.protoim.MessageType} */ (reader.readEnum());
@@ -3885,16 +4592,16 @@ proto.protoim.MessageRequest.serializeBinaryToWriter = function(message, writer)
       f
     );
   }
-  f = message.getChatTypeId();
-  if (f !== 0.0) {
-    writer.writeEnum(
+  f = message.getToId();
+  if (f.length > 0) {
+    writer.writeString(
       3,
       f
     );
   }
-  f = message.getToId();
-  if (f.length > 0) {
-    writer.writeString(
+  f = message.getChatTypeId();
+  if (f !== 0.0) {
+    writer.writeEnum(
       4,
       f
     );
@@ -3953,29 +4660,11 @@ proto.protoim.MessageRequest.prototype.setFromId = function(value) {
 
 
 /**
- * optional ChatType chat_type_id = 3;
- * @return {!proto.protoim.ChatType}
- */
-proto.protoim.MessageRequest.prototype.getChatTypeId = function() {
-  return /** @type {!proto.protoim.ChatType} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
-};
-
-
-/**
- * @param {!proto.protoim.ChatType} value
- * @return {!proto.protoim.MessageRequest} returns this
- */
-proto.protoim.MessageRequest.prototype.setChatTypeId = function(value) {
-  return jspb.Message.setProto3EnumField(this, 3, value);
-};
-
-
-/**
- * optional string to_id = 4;
+ * optional string to_id = 3;
  * @return {string}
  */
 proto.protoim.MessageRequest.prototype.getToId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
@@ -3984,7 +4673,25 @@ proto.protoim.MessageRequest.prototype.getToId = function() {
  * @return {!proto.protoim.MessageRequest} returns this
  */
 proto.protoim.MessageRequest.prototype.setToId = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional ChatType chat_type_id = 4;
+ * @return {!proto.protoim.ChatType}
+ */
+proto.protoim.MessageRequest.prototype.getChatTypeId = function() {
+  return /** @type {!proto.protoim.ChatType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {!proto.protoim.ChatType} value
+ * @return {!proto.protoim.MessageRequest} returns this
+ */
+proto.protoim.MessageRequest.prototype.setChatTypeId = function(value) {
+  return jspb.Message.setProto3EnumField(this, 4, value);
 };
 
 
@@ -4026,7 +4733,7 @@ proto.protoim.MessageRequest.prototype.setContent = function(value) {
 
 goog.object.extend(exports, proto.protoim);
 
-},{"./chat_type_pb.js":7,"./message_type_pb.js":17,"google-protobuf":4}],16:[function(require,module,exports){
+},{"./chat_type_pb.js":7,"./message_type_pb.js":21,"google-protobuf":4}],20:[function(require,module,exports){
 // source: message_response.proto
 /**
  * @fileoverview
@@ -4102,15 +4809,16 @@ proto.protoim.MessageResponse.prototype.toObject = function(opt_includeInstance)
  */
 proto.protoim.MessageResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    msgId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    localMsgId: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    pts: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    conversationId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    msgId: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    localMsgId: jspb.Message.getFieldWithDefault(msg, 3, ""),
     fromId: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    chatTypeId: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    toId: jspb.Message.getFieldWithDefault(msg, 6, ""),
-    messageTypeId: jspb.Message.getFieldWithDefault(msg, 7, 0),
-    content: jspb.Message.getFieldWithDefault(msg, 8, ""),
-    dataTime: jspb.Message.getFieldWithDefault(msg, 9, 0)
+    toId: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    pts: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    chatTypeId: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    messageTypeId: jspb.Message.getFieldWithDefault(msg, 8, 0),
+    content: jspb.Message.getFieldWithDefault(msg, 9, ""),
+    latestTime: jspb.Message.getFieldWithDefault(msg, 10, 0)
   };
 
   if (includeInstance) {
@@ -4149,39 +4857,43 @@ proto.protoim.MessageResponse.deserializeBinaryFromReader = function(msg, reader
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setMsgId(value);
+      msg.setConversationId(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setLocalMsgId(value);
+      msg.setMsgId(value);
       break;
     case 3:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setPts(value);
+      var value = /** @type {string} */ (reader.readString());
+      msg.setLocalMsgId(value);
       break;
     case 4:
       var value = /** @type {string} */ (reader.readString());
       msg.setFromId(value);
       break;
     case 5:
-      var value = /** @type {!proto.protoim.ChatType} */ (reader.readEnum());
-      msg.setChatTypeId(value);
-      break;
-    case 6:
       var value = /** @type {string} */ (reader.readString());
       msg.setToId(value);
       break;
+    case 6:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setPts(value);
+      break;
     case 7:
+      var value = /** @type {!proto.protoim.ChatType} */ (reader.readEnum());
+      msg.setChatTypeId(value);
+      break;
+    case 8:
       var value = /** @type {!proto.protoim.MessageType} */ (reader.readEnum());
       msg.setMessageTypeId(value);
       break;
-    case 8:
+    case 9:
       var value = /** @type {string} */ (reader.readString());
       msg.setContent(value);
       break;
-    case 9:
+    case 10:
       var value = /** @type {number} */ (reader.readInt64());
-      msg.setDataTime(value);
+      msg.setLatestTime(value);
       break;
     default:
       reader.skipField();
@@ -4212,23 +4924,23 @@ proto.protoim.MessageResponse.prototype.serializeBinary = function() {
  */
 proto.protoim.MessageResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getMsgId();
+  f = message.getConversationId();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = message.getLocalMsgId();
+  f = message.getMsgId();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = message.getPts();
-  if (f !== 0) {
-    writer.writeInt32(
+  f = message.getLocalMsgId();
+  if (f.length > 0) {
+    writer.writeString(
       3,
       f
     );
@@ -4240,38 +4952,45 @@ proto.protoim.MessageResponse.serializeBinaryToWriter = function(message, writer
       f
     );
   }
-  f = message.getChatTypeId();
-  if (f !== 0.0) {
-    writer.writeEnum(
+  f = message.getToId();
+  if (f.length > 0) {
+    writer.writeString(
       5,
       f
     );
   }
-  f = message.getToId();
-  if (f.length > 0) {
-    writer.writeString(
+  f = message.getPts();
+  if (f !== 0) {
+    writer.writeInt32(
       6,
       f
     );
   }
-  f = message.getMessageTypeId();
+  f = message.getChatTypeId();
   if (f !== 0.0) {
     writer.writeEnum(
       7,
       f
     );
   }
-  f = message.getContent();
-  if (f.length > 0) {
-    writer.writeString(
+  f = message.getMessageTypeId();
+  if (f !== 0.0) {
+    writer.writeEnum(
       8,
       f
     );
   }
-  f = message.getDataTime();
+  f = message.getContent();
+  if (f.length > 0) {
+    writer.writeString(
+      9,
+      f
+    );
+  }
+  f = message.getLatestTime();
   if (f !== 0) {
     writer.writeInt64(
-      9,
+      10,
       f
     );
   }
@@ -4279,10 +4998,10 @@ proto.protoim.MessageResponse.serializeBinaryToWriter = function(message, writer
 
 
 /**
- * optional string msg_id = 1;
+ * optional string conversation_id = 1;
  * @return {string}
  */
-proto.protoim.MessageResponse.prototype.getMsgId = function() {
+proto.protoim.MessageResponse.prototype.getConversationId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -4291,16 +5010,16 @@ proto.protoim.MessageResponse.prototype.getMsgId = function() {
  * @param {string} value
  * @return {!proto.protoim.MessageResponse} returns this
  */
-proto.protoim.MessageResponse.prototype.setMsgId = function(value) {
+proto.protoim.MessageResponse.prototype.setConversationId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * optional string local_msg_id = 2;
+ * optional string msg_id = 2;
  * @return {string}
  */
-proto.protoim.MessageResponse.prototype.getLocalMsgId = function() {
+proto.protoim.MessageResponse.prototype.getMsgId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -4309,26 +5028,26 @@ proto.protoim.MessageResponse.prototype.getLocalMsgId = function() {
  * @param {string} value
  * @return {!proto.protoim.MessageResponse} returns this
  */
-proto.protoim.MessageResponse.prototype.setLocalMsgId = function(value) {
+proto.protoim.MessageResponse.prototype.setMsgId = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
 /**
- * optional int32 pts = 3;
- * @return {number}
+ * optional string local_msg_id = 3;
+ * @return {string}
  */
-proto.protoim.MessageResponse.prototype.getPts = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+proto.protoim.MessageResponse.prototype.getLocalMsgId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /**
- * @param {number} value
+ * @param {string} value
  * @return {!proto.protoim.MessageResponse} returns this
  */
-proto.protoim.MessageResponse.prototype.setPts = function(value) {
-  return jspb.Message.setProto3IntField(this, 3, value);
+proto.protoim.MessageResponse.prototype.setLocalMsgId = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
@@ -4351,29 +5070,11 @@ proto.protoim.MessageResponse.prototype.setFromId = function(value) {
 
 
 /**
- * optional ChatType chat_type_id = 5;
- * @return {!proto.protoim.ChatType}
- */
-proto.protoim.MessageResponse.prototype.getChatTypeId = function() {
-  return /** @type {!proto.protoim.ChatType} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
-};
-
-
-/**
- * @param {!proto.protoim.ChatType} value
- * @return {!proto.protoim.MessageResponse} returns this
- */
-proto.protoim.MessageResponse.prototype.setChatTypeId = function(value) {
-  return jspb.Message.setProto3EnumField(this, 5, value);
-};
-
-
-/**
- * optional string to_id = 6;
+ * optional string to_id = 5;
  * @return {string}
  */
 proto.protoim.MessageResponse.prototype.getToId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
@@ -4382,16 +5083,52 @@ proto.protoim.MessageResponse.prototype.getToId = function() {
  * @return {!proto.protoim.MessageResponse} returns this
  */
 proto.protoim.MessageResponse.prototype.setToId = function(value) {
-  return jspb.Message.setProto3StringField(this, 6, value);
+  return jspb.Message.setProto3StringField(this, 5, value);
 };
 
 
 /**
- * optional MessageType message_type_id = 7;
+ * optional int32 pts = 6;
+ * @return {number}
+ */
+proto.protoim.MessageResponse.prototype.getPts = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.protoim.MessageResponse} returns this
+ */
+proto.protoim.MessageResponse.prototype.setPts = function(value) {
+  return jspb.Message.setProto3IntField(this, 6, value);
+};
+
+
+/**
+ * optional ChatType chat_type_id = 7;
+ * @return {!proto.protoim.ChatType}
+ */
+proto.protoim.MessageResponse.prototype.getChatTypeId = function() {
+  return /** @type {!proto.protoim.ChatType} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+};
+
+
+/**
+ * @param {!proto.protoim.ChatType} value
+ * @return {!proto.protoim.MessageResponse} returns this
+ */
+proto.protoim.MessageResponse.prototype.setChatTypeId = function(value) {
+  return jspb.Message.setProto3EnumField(this, 7, value);
+};
+
+
+/**
+ * optional MessageType message_type_id = 8;
  * @return {!proto.protoim.MessageType}
  */
 proto.protoim.MessageResponse.prototype.getMessageTypeId = function() {
-  return /** @type {!proto.protoim.MessageType} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+  return /** @type {!proto.protoim.MessageType} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
 };
 
 
@@ -4400,16 +5137,16 @@ proto.protoim.MessageResponse.prototype.getMessageTypeId = function() {
  * @return {!proto.protoim.MessageResponse} returns this
  */
 proto.protoim.MessageResponse.prototype.setMessageTypeId = function(value) {
-  return jspb.Message.setProto3EnumField(this, 7, value);
+  return jspb.Message.setProto3EnumField(this, 8, value);
 };
 
 
 /**
- * optional string content = 8;
+ * optional string content = 9;
  * @return {string}
  */
 proto.protoim.MessageResponse.prototype.getContent = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 9, ""));
 };
 
 
@@ -4418,16 +5155,16 @@ proto.protoim.MessageResponse.prototype.getContent = function() {
  * @return {!proto.protoim.MessageResponse} returns this
  */
 proto.protoim.MessageResponse.prototype.setContent = function(value) {
-  return jspb.Message.setProto3StringField(this, 8, value);
+  return jspb.Message.setProto3StringField(this, 9, value);
 };
 
 
 /**
- * optional int64 data_time = 9;
+ * optional int64 latest_time = 10;
  * @return {number}
  */
-proto.protoim.MessageResponse.prototype.getDataTime = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
+proto.protoim.MessageResponse.prototype.getLatestTime = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
 };
 
 
@@ -4435,14 +5172,14 @@ proto.protoim.MessageResponse.prototype.getDataTime = function() {
  * @param {number} value
  * @return {!proto.protoim.MessageResponse} returns this
  */
-proto.protoim.MessageResponse.prototype.setDataTime = function(value) {
-  return jspb.Message.setProto3IntField(this, 9, value);
+proto.protoim.MessageResponse.prototype.setLatestTime = function(value) {
+  return jspb.Message.setProto3IntField(this, 10, value);
 };
 
 
 goog.object.extend(exports, proto.protoim);
 
-},{"./chat_type_pb.js":7,"./message_type_pb.js":17,"google-protobuf":4}],17:[function(require,module,exports){
+},{"./chat_type_pb.js":7,"./message_type_pb.js":21,"google-protobuf":4}],21:[function(require,module,exports){
 // source: message_type.proto
 /**
  * @fileoverview
@@ -4474,8 +5211,8 @@ proto.protoim.MessageType = {
 
 goog.object.extend(exports, proto.protoim);
 
-},{"google-protobuf":4}],18:[function(require,module,exports){
-// source: update_friend_info.proto
+},{"google-protobuf":4}],22:[function(require,module,exports){
+// source: update_friend.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -4494,7 +5231,9 @@ var global = Function('return this')();
 
 var user_info_pb = require('./user_info_pb.js');
 goog.object.extend(proto, user_info_pb);
-goog.exportSymbol('proto.protoim.UpdateFriendInfo', null, global);
+var update_friend_type_pb = require('./update_friend_type_pb.js');
+goog.object.extend(proto, update_friend_type_pb);
+goog.exportSymbol('proto.protoim.UpdateFriend', null, global);
 /**
  * Generated by JsPbCodeGenerator.
  * @param {Array=} opt_data Optional initial data array, typically from a
@@ -4505,16 +5244,16 @@ goog.exportSymbol('proto.protoim.UpdateFriendInfo', null, global);
  * @extends {jspb.Message}
  * @constructor
  */
-proto.protoim.UpdateFriendInfo = function(opt_data) {
+proto.protoim.UpdateFriend = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.protoim.UpdateFriendInfo, jspb.Message);
+goog.inherits(proto.protoim.UpdateFriend, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.protoim.UpdateFriendInfo.displayName = 'proto.protoim.UpdateFriendInfo';
+  proto.protoim.UpdateFriend.displayName = 'proto.protoim.UpdateFriend';
 }
 
 
@@ -4532,8 +5271,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.protoim.UpdateFriendInfo.prototype.toObject = function(opt_includeInstance) {
-  return proto.protoim.UpdateFriendInfo.toObject(opt_includeInstance, this);
+proto.protoim.UpdateFriend.prototype.toObject = function(opt_includeInstance) {
+  return proto.protoim.UpdateFriend.toObject(opt_includeInstance, this);
 };
 
 
@@ -4542,13 +5281,13 @@ proto.protoim.UpdateFriendInfo.prototype.toObject = function(opt_includeInstance
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.protoim.UpdateFriendInfo} msg The msg instance to transform.
+ * @param {!proto.protoim.UpdateFriend} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.protoim.UpdateFriendInfo.toObject = function(includeInstance, msg) {
+proto.protoim.UpdateFriend.toObject = function(includeInstance, msg) {
   var f, obj = {
-    tag: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    tag: jspb.Message.getFieldWithDefault(msg, 1, 0),
     user: (f = msg.getUser()) && user_info_pb.UserInfo.toObject(includeInstance, f)
   };
 
@@ -4563,23 +5302,23 @@ proto.protoim.UpdateFriendInfo.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.protoim.UpdateFriendInfo}
+ * @return {!proto.protoim.UpdateFriend}
  */
-proto.protoim.UpdateFriendInfo.deserializeBinary = function(bytes) {
+proto.protoim.UpdateFriend.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.protoim.UpdateFriendInfo;
-  return proto.protoim.UpdateFriendInfo.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.protoim.UpdateFriend;
+  return proto.protoim.UpdateFriend.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.protoim.UpdateFriendInfo} msg The message object to deserialize into.
+ * @param {!proto.protoim.UpdateFriend} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.protoim.UpdateFriendInfo}
+ * @return {!proto.protoim.UpdateFriend}
  */
-proto.protoim.UpdateFriendInfo.deserializeBinaryFromReader = function(msg, reader) {
+proto.protoim.UpdateFriend.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4587,7 +5326,7 @@ proto.protoim.UpdateFriendInfo.deserializeBinaryFromReader = function(msg, reade
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {!proto.protoim.UpdateFriendType} */ (reader.readEnum());
       msg.setTag(value);
       break;
     case 2:
@@ -4608,9 +5347,9 @@ proto.protoim.UpdateFriendInfo.deserializeBinaryFromReader = function(msg, reade
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.protoim.UpdateFriendInfo.prototype.serializeBinary = function() {
+proto.protoim.UpdateFriend.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.protoim.UpdateFriendInfo.serializeBinaryToWriter(this, writer);
+  proto.protoim.UpdateFriend.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4618,15 +5357,15 @@ proto.protoim.UpdateFriendInfo.prototype.serializeBinary = function() {
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.protoim.UpdateFriendInfo} message
+ * @param {!proto.protoim.UpdateFriend} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.protoim.UpdateFriendInfo.serializeBinaryToWriter = function(message, writer) {
+proto.protoim.UpdateFriend.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getTag();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f !== 0.0) {
+    writer.writeEnum(
       1,
       f
     );
@@ -4643,20 +5382,20 @@ proto.protoim.UpdateFriendInfo.serializeBinaryToWriter = function(message, write
 
 
 /**
- * optional string tag = 1;
- * @return {string}
+ * optional UpdateFriendType tag = 1;
+ * @return {!proto.protoim.UpdateFriendType}
  */
-proto.protoim.UpdateFriendInfo.prototype.getTag = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+proto.protoim.UpdateFriend.prototype.getTag = function() {
+  return /** @type {!proto.protoim.UpdateFriendType} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /**
- * @param {string} value
- * @return {!proto.protoim.UpdateFriendInfo} returns this
+ * @param {!proto.protoim.UpdateFriendType} value
+ * @return {!proto.protoim.UpdateFriend} returns this
  */
-proto.protoim.UpdateFriendInfo.prototype.setTag = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
+proto.protoim.UpdateFriend.prototype.setTag = function(value) {
+  return jspb.Message.setProto3EnumField(this, 1, value);
 };
 
 
@@ -4664,7 +5403,7 @@ proto.protoim.UpdateFriendInfo.prototype.setTag = function(value) {
  * optional UserInfo user = 2;
  * @return {?proto.protoim.UserInfo}
  */
-proto.protoim.UpdateFriendInfo.prototype.getUser = function() {
+proto.protoim.UpdateFriend.prototype.getUser = function() {
   return /** @type{?proto.protoim.UserInfo} */ (
     jspb.Message.getWrapperField(this, user_info_pb.UserInfo, 2));
 };
@@ -4672,18 +5411,18 @@ proto.protoim.UpdateFriendInfo.prototype.getUser = function() {
 
 /**
  * @param {?proto.protoim.UserInfo|undefined} value
- * @return {!proto.protoim.UpdateFriendInfo} returns this
+ * @return {!proto.protoim.UpdateFriend} returns this
 */
-proto.protoim.UpdateFriendInfo.prototype.setUser = function(value) {
+proto.protoim.UpdateFriend.prototype.setUser = function(value) {
   return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.protoim.UpdateFriendInfo} returns this
+ * @return {!proto.protoim.UpdateFriend} returns this
  */
-proto.protoim.UpdateFriendInfo.prototype.clearUser = function() {
+proto.protoim.UpdateFriend.prototype.clearUser = function() {
   return this.setUser(undefined);
 };
 
@@ -4692,14 +5431,250 @@ proto.protoim.UpdateFriendInfo.prototype.clearUser = function() {
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.protoim.UpdateFriendInfo.prototype.hasUser = function() {
+proto.protoim.UpdateFriend.prototype.hasUser = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 
 
 goog.object.extend(exports, proto.protoim);
 
-},{"./user_info_pb.js":19,"google-protobuf":4}],19:[function(require,module,exports){
+},{"./update_friend_type_pb.js":23,"./user_info_pb.js":25,"google-protobuf":4}],23:[function(require,module,exports){
+// source: update_friend_type.proto
+/**
+ * @fileoverview
+ * @enhanceable
+ * @suppress {missingRequire} reports error on implicit type usages.
+ * @suppress {messageConventions} JS Compiler reports an error if a variable or
+ *     field starts with 'MSG_' and isn't a translatable message.
+ * @public
+ */
+// GENERATED CODE -- DO NOT EDIT!
+/* eslint-disable */
+// @ts-nocheck
+
+var jspb = require('google-protobuf');
+var goog = jspb;
+var global = Function('return this')();
+
+goog.exportSymbol('proto.protoim.UpdateFriendType', null, global);
+/**
+ * @enum {number}
+ */
+proto.protoim.UpdateFriendType = {
+  UF_ONLINE_FALSE: 0,
+  UF_ONLINE_TRUE: 1,
+  UF_ADD: 2,
+  UF_UPDATE: 3,
+  UF_DELETE: 4
+};
+
+goog.object.extend(exports, proto.protoim);
+
+},{"google-protobuf":4}],24:[function(require,module,exports){
+// source: update_friends.proto
+/**
+ * @fileoverview
+ * @enhanceable
+ * @suppress {missingRequire} reports error on implicit type usages.
+ * @suppress {messageConventions} JS Compiler reports an error if a variable or
+ *     field starts with 'MSG_' and isn't a translatable message.
+ * @public
+ */
+// GENERATED CODE -- DO NOT EDIT!
+/* eslint-disable */
+// @ts-nocheck
+
+var jspb = require('google-protobuf');
+var goog = jspb;
+var global = Function('return this')();
+
+var update_friend_pb = require('./update_friend_pb.js');
+goog.object.extend(proto, update_friend_pb);
+goog.exportSymbol('proto.protoim.UpdateFriends', null, global);
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.protoim.UpdateFriends = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.protoim.UpdateFriends.repeatedFields_, null);
+};
+goog.inherits(proto.protoim.UpdateFriends, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.protoim.UpdateFriends.displayName = 'proto.protoim.UpdateFriends';
+}
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.protoim.UpdateFriends.repeatedFields_ = [1];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.protoim.UpdateFriends.prototype.toObject = function(opt_includeInstance) {
+  return proto.protoim.UpdateFriends.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.protoim.UpdateFriends} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protoim.UpdateFriends.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    usersList: jspb.Message.toObjectList(msg.getUsersList(),
+    update_friend_pb.UpdateFriend.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.protoim.UpdateFriends}
+ */
+proto.protoim.UpdateFriends.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.protoim.UpdateFriends;
+  return proto.protoim.UpdateFriends.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.protoim.UpdateFriends} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.protoim.UpdateFriends}
+ */
+proto.protoim.UpdateFriends.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new update_friend_pb.UpdateFriend;
+      reader.readMessage(value,update_friend_pb.UpdateFriend.deserializeBinaryFromReader);
+      msg.addUsers(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.protoim.UpdateFriends.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.protoim.UpdateFriends.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.protoim.UpdateFriends} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protoim.UpdateFriends.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getUsersList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      1,
+      f,
+      update_friend_pb.UpdateFriend.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * repeated UpdateFriend users = 1;
+ * @return {!Array<!proto.protoim.UpdateFriend>}
+ */
+proto.protoim.UpdateFriends.prototype.getUsersList = function() {
+  return /** @type{!Array<!proto.protoim.UpdateFriend>} */ (
+    jspb.Message.getRepeatedWrapperField(this, update_friend_pb.UpdateFriend, 1));
+};
+
+
+/**
+ * @param {!Array<!proto.protoim.UpdateFriend>} value
+ * @return {!proto.protoim.UpdateFriends} returns this
+*/
+proto.protoim.UpdateFriends.prototype.setUsersList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.protoim.UpdateFriend=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.protoim.UpdateFriend}
+ */
+proto.protoim.UpdateFriends.prototype.addUsers = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.protoim.UpdateFriend, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.protoim.UpdateFriends} returns this
+ */
+proto.protoim.UpdateFriends.prototype.clearUsersList = function() {
+  return this.setUsersList([]);
+};
+
+
+goog.object.extend(exports, proto.protoim);
+
+},{"./update_friend_pb.js":22,"google-protobuf":4}],25:[function(require,module,exports){
 // source: user_info.proto
 /**
  * @fileoverview
@@ -4961,7 +5936,7 @@ proto.protoim.UserInfo.prototype.setIsOk = function(value) {
 
 goog.object.extend(exports, proto.protoim);
 
-},{"google-protobuf":4}],20:[function(require,module,exports){
+},{"google-protobuf":4}],26:[function(require,module,exports){
 // source: user_login_request.proto
 /**
  * @fileoverview
@@ -5195,7 +6170,7 @@ proto.protoim.UserLoginRequest.prototype.setPassword = function(value) {
 
 goog.object.extend(exports, proto.protoim);
 
-},{"./app_os_pb.js":6,"google-protobuf":4}],21:[function(require,module,exports){
+},{"./app_os_pb.js":6,"google-protobuf":4}],27:[function(require,module,exports){
 // source: user_login_response.proto
 /**
  * @fileoverview

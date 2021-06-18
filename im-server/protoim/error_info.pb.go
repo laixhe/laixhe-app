@@ -20,6 +20,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 错误信息
 type ErrorInfo struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

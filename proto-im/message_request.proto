@@ -10,9 +10,9 @@ import 'message_type.proto';
 // 消息相关(客户端发送-服务端接收)-请求
 message MessageRequest {
   string local_msg_id = 1; // 客户端本地的消息ID(用于客户校验)(客户端生成)
-  string from_id = 2; // 发送者(用户ID)
-  protoim.ChatType  chat_type_id = 3;      // 私聊还是群聊
-  string to_id   = 4; // 接收者(用户ID/群ID)
+  string from_id      = 2; // 发送者(用户ID)
+  string to_id        = 3; // 接收者(用户ID/群ID)
+  protoim.ChatType chat_type_id       = 4; // 私聊还是群聊
   protoim.MessageType message_type_id = 5; // 消息类型
   string content = 6; // 消息的内容
 }

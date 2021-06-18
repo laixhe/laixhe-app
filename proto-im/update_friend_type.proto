@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+// 更新好友相关信息操作类型
+enum UpdateFriendType {
+  UF_ONLINE_FALSE = 0; // 下线
+  UF_ONLINE_TRUE  = 1; // 上线
+  UF_ADD          = 2; // 添加好友
+  UF_UPDATE       = 3; // 更新好友
+  UF_DELETE       = 4; // 删除好友
+}

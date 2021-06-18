@@ -19,6 +19,7 @@ func MessageRequest(c *servers.Context) {
 		c.SendError(protoim.Error_E_PARAMETER, err.Error())
 		return
 	}
+
 	fmt.Println("MessageRequest - req:", req)
 
 	rsp := &protoim.MessageFeedback{
@@ -26,18 +27,20 @@ func MessageRequest(c *servers.Context) {
 	}
 
 	e := c.Send(protoim.CMD_C_MESSAGE_FEEDBACK, rsp)
+
 	fmt.Println("MessageRequest - rsp:", rsp, "err:", e)
 
 	data := &protoim.MessageResponse{
-		MsgId:         fmt.Sprintf("%d", utils.GetXUID()),
-		LocalMsgId:    req.LocalMsgId,
-		Pts:           0,
-		FromId:        req.FromId,
-		ChatTypeId:    req.ChatTypeId,
-		ToId:          req.ToId,
-		MessageTypeId: req.MessageTypeId,
-		Content:       req.Content,
-		DataTime:      time.Now().Unix(),
+		ConversationId: "",
+		MsgId:          fmt.Sprintf("%d", utils.GetXUID()),
+		LocalMsgId:     req.LocalMsgId,
+		Pts:            0,
+		FromId:         req.FromId,
+		ChatTypeId:     req.ChatTypeId,
+		ToId:           req.ToId,
+		MessageTypeId:  req.MessageTypeId,
+		Content:        req.Content,
+		LatestTime:     time.Now().Unix(),
 	}
 
 	_ = service.SendMessageResponse(data)
