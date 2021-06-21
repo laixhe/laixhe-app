@@ -27,8 +27,8 @@ const (
 	MessageType_TEXT_TYPE  MessageType = 0 // 文本消息
 	MessageType_IMAGE_TYPE MessageType = 1 // 图片消息
 	MessageType_FILE_TYPE  MessageType = 2 // 文件消息
-	MessageType_VOICE_TYPE MessageType = 3 // 语音消息
-	MessageType_VIDEO_TYPE MessageType = 4 // 视频消息
+	MessageType_VOICE_TYPE MessageType = 3 // 语音文件消息
+	MessageType_VIDEO_TYPE MessageType = 4 // 视频文件消息
 )
 
 // Enum value maps for MessageType.

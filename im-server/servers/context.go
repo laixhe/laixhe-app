@@ -25,7 +25,7 @@ func (c *Context) UserLogin(appOsId protoim.AppOs, userId string) {
 }
 
 // Send 发送数据
-func (c *Context) Send(cmd protoim.CMD, data proto.Message) *protoim.ErrorInfo {
+func (c *Context) Send(cmd protoim.CMD, data proto.Message) *protoim.ErrorBase {
 	// 判断当前链接是否已经关闭
 	if c.conn.isClosed {
 		return nil
@@ -39,7 +39,7 @@ func (c *Context) Send(cmd protoim.CMD, data proto.Message) *protoim.ErrorInfo {
 }
 
 // Send 发送数据 CMD
-func (c *Context) SendCmd(cmd protoim.CMD) *protoim.ErrorInfo {
+func (c *Context) SendCmd(cmd protoim.CMD) *protoim.ErrorBase {
 	// 判断当前链接是否已经关闭
 	if c.conn.isClosed {
 		return nil
@@ -52,7 +52,7 @@ func (c *Context) SendCmd(cmd protoim.CMD) *protoim.ErrorInfo {
 	return nil
 }
 
-func (c *Context) Sendxxx(cmd protoim.CMD, data proto.Message) *protoim.ErrorInfo {
+func (c *Context) Sendxxx(cmd protoim.CMD, data proto.Message) *protoim.ErrorBase {
 	// 判断当前链接是否已经关闭
 	if c.conn.isClosed {
 		return nil

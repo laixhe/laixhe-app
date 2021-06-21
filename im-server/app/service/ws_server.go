@@ -37,6 +37,6 @@ func IsLogin(userID string) bool {
 }
 
 // 发送信息
-func SendMessageResponse(data *protoim.MessageResponse) *protoim.ErrorInfo {
+func SendMessageResponse(data *protoim.MessageResponse) *protoim.ErrorBase {
 	return wsServer.SendMessageResponse(data)
 }

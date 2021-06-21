@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+// 用户类型
+enum UserType{
+    U_ORDINARY = 0; // 普通用户
+}

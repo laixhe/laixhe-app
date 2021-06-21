@@ -394,8 +394,8 @@ function initWS(func){
         //layer.msg('发送成功：'+dataMsg.getLocalMsgId(), {icon: 1});
         break;
       case proto.protoim.CMD.C_ERROR:
-        var dataMsg = proto.protoim.ErrorInfo.deserializeBinary(messageBase.getData());
-        console.log("onmessage ErrorInfo:", dataMsg.getCode(), dataMsg.getMsg());
+        var dataMsg = proto.protoim.ErrorBase.deserializeBinary(messageBase.getData());
+        console.log("onmessage ErrorBase:", dataMsg.getCode(), dataMsg.getMsg());
         layer.msg('错误:'+dataMsg.getCode()+':'+dataMsg.getMsg(), {icon: 5});
         break;
       default:

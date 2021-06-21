@@ -176,7 +176,7 @@ func (c *client) getUserKey() string {
 }
 
 // sendErrorInfo 发送错误信息
-func (c *client) sendErrorInfo(e *protoim.ErrorInfo) {
+func (c *client) sendErrorInfo(e *protoim.ErrorBase) {
 	if d, err := EnCodeErrorMessage(e); err == nil {
 		_ = c.sendData(d)
 	}

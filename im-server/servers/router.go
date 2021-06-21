@@ -29,7 +29,7 @@ func (r *Router) Set(cmd protoim.CMD, f func(*Context)) {
 }
 
 // Get 获取业务路由
-func (r *Router) Get(req *Context) *protoim.ErrorInfo {
+func (r *Router) Get(req *Context) *protoim.ErrorBase {
 	fun, ok := r.path[req.cmd]
 	if !ok {
 		return ErrorMessage(protoim.Error_E_ROUTE_NOT_EXIST, fmt.Sprintf("cmd no find: %d", req.cmd))

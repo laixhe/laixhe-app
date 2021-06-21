@@ -3,8 +3,9 @@ var error        = require('./protoim/error_pb')
 var cmd          = require('./protoim/cmd_pb')
 var chat_type    = require('./protoim/chat_type_pb')
 var message_type = require('./protoim/message_type_pb')
+var user_type    = require('./protoim/user_type_pb')
 
-var error_info   = require('./protoim/error_info_pb')
+var error_base   = require('./protoim/error_base_pb')
 var message_base = require('./protoim/message_base_pb')
 
 var user_info                  = require('./protoim/user_info_pb')
@@ -19,6 +20,8 @@ var update_friend              = require('./protoim/update_friend_pb')
 var update_friends             = require('./protoim/update_friends_pb')
 var get_conversations_request  = require('./protoim/get_conversations_request_pb')
 var get_conversations_response = require('./protoim/get_conversations_response_pb')
+var message_entity_uri         = require('./protoim/message_entity_uri_pb')
+var message_media              = require('./protoim/message_media_pb')
 var message_request            = require('./protoim/message_request_pb')
 var message_response           = require('./protoim/message_response_pb')
 var message_feedback           = require('./protoim/message_feedback_pb')
@@ -29,8 +32,9 @@ module.exports = {
     Cmd                  : cmd,
     ChatType             : chat_type,
     MessageType          : message_type,
+    UserType             : user_type,
     
-    ErrorInfo            : error_info,
+    ErrorBase            : error_base,
     MessageBase          : message_base,
 
     UserInfo             : user_info,
@@ -45,6 +49,8 @@ module.exports = {
     UpdateFriends        : update_friends,
     GetConversationsRequest  : get_conversations_request,
     GetConversationsResponse : get_conversations_response,
+    MessageEntityUri     : message_entity_uri,
+    MessageMedia         : message_media,
     MessageRequest       : message_request,
     MessageResponse      : message_response,
     MessageFeedback      : message_feedback,

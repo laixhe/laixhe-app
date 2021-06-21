@@ -66,7 +66,7 @@ func (s *Servers) IsLogin(userID string) bool {
 }
 
 // SendMessageResponse 发送信息
-func (s *Servers) SendMessageResponse(data *protoim.MessageResponse) *protoim.ErrorInfo {
+func (s *Servers) SendMessageResponse(data *protoim.MessageResponse) *protoim.ErrorBase {
 	protoBase, err := EnCode(protoim.CMD_C_MESSAGE_RESPONSE, data)
 	if err != nil {
 		return ErrorMessage(protoim.Error_E_ENCODE, err.Error())

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+// 对消息内容需要做跳转的转换 (如：url 地址)
+message MessageEntityUri{
+    int32  start_offset  = 1; // 开始偏移的位置
+    int32  length  = 2; // 要偏移的长度
+    string url     = 3; // 要跳转 url
+    string user_id = 4; // 要跳转的用户id
+}

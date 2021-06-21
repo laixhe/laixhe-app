@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+// 消息媒体 (图片、文件、语音文件、视频文件)
+message MessageMedia{
+    string file_name = 1; // 文件名
+    string url       = 2; // 地址
+    string mime_type = 3; // 扩展类型
+    string mime_name = 4; // 扩展名
+    int32  size      = 5; // 文件大小(以字节 Byte)
+    int32  width     = 6; // 宽
+    int32  height    = 7; // 高
+    int32  duration  = 8; // 时长(给 语音、视频文件 用的)
+}

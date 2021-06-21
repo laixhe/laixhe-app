@@ -7,7 +7,7 @@ option go_package = "./;protoim";
 import "error.proto";
 
 // 错误信息
-message ErrorInfo {
+message ErrorBase {
     protoim.Error code = 1;
     string msg = 2;
 }
