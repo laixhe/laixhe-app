@@ -38,7 +38,7 @@ func (c *Context) Send(cmd protoim.CMD, data proto.Message) *protoim.ErrorBase {
 	return nil
 }
 
-// Send 发送数据 CMD
+// SendCmd 发送数据 CMD
 func (c *Context) SendCmd(cmd protoim.CMD) *protoim.ErrorBase {
 	// 判断当前链接是否已经关闭
 	if c.conn.isClosed {
@@ -72,7 +72,7 @@ func (c *Context) Sendxxx(cmd protoim.CMD, data proto.Message) *protoim.ErrorBas
 	return nil
 }
 
-// Error 发送错误
+// SendError 发送错误
 func (c *Context) SendError(e protoim.Error, msg ...string) {
 	// 判断当前链接是否已经关闭
 	if c.conn.isClosed {

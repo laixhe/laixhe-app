@@ -79,6 +79,7 @@ func (m *clientManager) initRouter(f func(r *Router)) {
 	f(m.router)
 }
 
+// isNotLoginCmd -
 func (m *clientManager) isNotLoginCmd(cmd protoim.CMD) bool {
 	return m.routerNotLogin[cmd]
 }

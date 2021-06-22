@@ -31,12 +31,12 @@ func AddNotLoginCmd(cmd protoim.CMD) {
 	wsServer.AddNotLoginCmd(cmd)
 }
 
-// 用户是否登录
+// IsLogin 用户是否登录
 func IsLogin(userID string) bool {
 	return wsServer.IsLogin(userID)
 }
 
-// 发送信息
+// SendMessageResponse 发送信息
 func SendMessageResponse(data *protoim.MessageResponse) *protoim.ErrorBase {
 	return wsServer.SendMessageResponse(data)
 }
