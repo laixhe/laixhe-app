@@ -40,7 +40,7 @@ type MysqlConfig struct {
 	Dsn             string        // 连接地址
 	MaxIdleConn     int           // 设置空闲连接池中连接的最大数量
 	MaxOpenConn     int           // 设置打开数据库连接的最大数量
-	ConnMaxLifetime time.Duration // 设置了连接可复用的最大时间(单位：分)
+	ConnMaxLifetime time.Duration // 设置了连接可复用的最大时间(单位：秒)
 }
 
 // RedisConfig Redis配置
@@ -155,10 +155,10 @@ func DBMaxOpenConn() int {
 	return conf.Mysql.MaxOpenConn
 }
 
-// DBConnMaxLifetime 设置了连接可复用的最大时间(单位：分)
+// DBConnMaxLifetime 设置了连接可复用的最大时间(单位：秒)
 func DBConnMaxLifetime() time.Duration {
 	if conf.Mysql.ConnMaxLifetime <= 0 {
-		conf.Mysql.ConnMaxLifetime = 30
+		conf.Mysql.ConnMaxLifetime = 600
 	}
 	return conf.Mysql.ConnMaxLifetime
 }

@@ -1,0 +1,1 @@
+protoc -I=. --dart_out=../im_flutter/lib/protoim *.proto

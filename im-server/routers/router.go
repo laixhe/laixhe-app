@@ -10,7 +10,9 @@ import (
 
 // Router Gin路由
 func Router() *gin.Engine {
-	gin.SetMode(gin.ReleaseMode)
+	if !config.IsAppDebug() {
+		gin.SetMode(gin.ReleaseMode)
+	}
 	r := gin.New()
 	r.Use(zaplog.GinLogger())
 	r.Use(zaplog.GinRecovery())

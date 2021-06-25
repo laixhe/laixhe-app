@@ -23,22 +23,22 @@ logs:
 
 websocket:
   # 读超时(秒)(默认: 20)，同时也是心跳超时
-  readTime: 200
+  readTime: 20
   # 写超时(秒)(默认: 3)
-  writeTime: 30
+  writeTime: 3
 
 mysql:
   dsn: root:123456@tcp(192.168.10.240:3306)/test?charset=utf8mb4&parseTime=True&loc=Local
-  # 设置空闲连接池中连接的最大数量
+  # 设置空闲连接池中连接的最大数量 (默认: 5)
   maxIdleConn: 5
-  # 设置打开数据库连接的最大数量
+  # 设置打开数据库连接的最大数量 (默认: 100)
   maxOpenConn: 100
-  # 设置了连接可复用的最大时间(单位：分)
-  connMaxLifetime: 30
+  # 设置了连接可复用的最大时间(单位：秒)(默认: 600)
+  connMaxLifetime: 600
 
 # 支持 单机、分布式集群
 redis:
-  # 选择 N 号数据库(分布式集群只能为0号数据库的)
+  # 选择 N 号数据库(分布式集群只能为 0 号数据库的)
   DBNum: 0
   password:
   # 当节点只有一个视为单机
