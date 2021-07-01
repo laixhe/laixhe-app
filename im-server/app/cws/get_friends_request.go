@@ -7,23 +7,16 @@ import (
 	"im-server/servers"
 )
 
-// 获取好友列表-请求
+// GetFriendsRequest 获取好友列表-请求
 func GetFriendsRequest(c *servers.Context) {
 	req := new(protoim.GetFriendsRequest)
 	err := c.ProtoBind(req)
 	if err != nil {
-		c.SendError(protoim.Error_E_PARAMETER, err.Error())
+		c.SendError(protoim.ErrorType_E_PARAMETER , err.Error())
 		return
 	}
 
 	users := make([]*protoim.UserInfo, 0)
-	for _, v := range us {
-		users = append(users, &protoim.UserInfo{
-			UserId:   v.UserId,
-			NickName: v.NickName,
-		})
-	}
-
 	rsp := &protoim.GetFriendsResponse{
 		Users: users,
 	}

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+// 红包消息
+message MessageRedPacket{
+}

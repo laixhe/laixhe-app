@@ -5,7 +5,7 @@ package protoim;
 option go_package = "./;protoim";
 
 // 错误类型
-enum Error {
+enum ErrorType {
     E_UNKNOWN         = 0; // 未知错误
     E_SERVER          = 1; // 服务器错误
     E_WRITE_TIMEOUT   = 2; // 服务器读超时

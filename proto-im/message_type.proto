@@ -6,9 +6,12 @@ option go_package = "./;protoim";
 
 // 消息类型
 enum MessageType {
-  TEXT_TYPE  = 0; // 文本消息
-  IMAGE_TYPE = 1; // 图片消息
-  FILE_TYPE  = 2; // 文件消息
-  VOICE_TYPE = 3; // 语音文件消息
-  VIDEO_TYPE = 4; // 视频文件消息
+  M_TEXT  = 0; // 文本消息
+  M_IMAGE = 1; // 图片消息
+  M_FILE  = 2; // 文件消息
+  M_VOICE = 3; // 语音文件消息
+  M_VIDEO = 4; // 视频文件消息
+  M_MAP   = 5; // 地理位置消息
+  M_RED_PACKET = 6; // 红包消息
+  M_TIPS       = 7; // 提示消息
 }

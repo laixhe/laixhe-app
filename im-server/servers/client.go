@@ -118,7 +118,7 @@ func (c *client) readClientChan() {
 		}
 		if !c.isLogin {
 			if !c.manager.isNotLoginCmd(messageBase.Cmd) {
-				c.sendErrorInfo(ErrorMessage(protoim.Error_E_NOT_LOGIN))
+				c.sendErrorInfo(ErrorMessage(protoim.ErrorType_E_NOT_LOGIN))
 				continue
 			}
 		}

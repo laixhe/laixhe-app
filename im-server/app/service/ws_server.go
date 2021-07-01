@@ -36,7 +36,12 @@ func IsLogin(userID string) bool {
 	return wsServer.IsLogin(userID)
 }
 
-// SendMessageResponse 发送信息
-func SendMessageResponse(data *protoim.MessageResponse) *protoim.ErrorBase {
-	return wsServer.SendMessageResponse(data)
+// SendMessageFeedback 发送-消息(服务端发送-客户端接收)-反馈
+func SendMessageFeedback(toUserID string, data *protoim.MessageFeedback) *protoim.ErrorBase {
+	return wsServer.SendMessageFeedback(toUserID, data)
+}
+
+// SendMessageContent 发送-消息(服务端发送-客户端接收)-聊天消息内容
+func SendMessageContent(toUserID string, data *protoim.MessageContent) *protoim.ErrorBase {
+	return wsServer.SendMessageContent(toUserID, data)
 }

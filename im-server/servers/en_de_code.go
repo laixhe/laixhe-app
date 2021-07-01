@@ -23,7 +23,7 @@ func EnCode(cmd protoim.CMD, data proto.Message) ([]byte, error) {
 	return protoBase, nil
 }
 
-// EnCode 编码 CMD
+// EnCodeCmd 编码 CMD
 func EnCodeCmd(cmd protoim.CMD) ([]byte, error) {
 	messageBase := &protoim.MessageBase{
 		Cmd: cmd,
@@ -40,7 +40,7 @@ func DeCodeMessageBase(data []byte) (*protoim.MessageBase, *protoim.ErrorBase) {
 	messageBase := new(protoim.MessageBase)
 	err := proto.Unmarshal(data, messageBase)
 	if err != nil {
-		return nil, ErrorMessage(protoim.Error_E_DECODE, err.Error())
+		return nil, ErrorMessage(protoim.ErrorType_E_DECODE, err.Error())
 	}
 	return messageBase, nil
 }

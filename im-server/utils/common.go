@@ -13,16 +13,16 @@ func GetUserKey(osID protoim.AppOs, userID string) string {
 
 // IsAppOs 是否是已存在的平台
 func IsAppOs(osID protoim.AppOs) bool {
-	if protoim.AppOs_WEB == osID {
+	if protoim.AppOs_OS_WEB == osID {
 		return true
 	}
-	if protoim.AppOs_IOS == osID {
+	if protoim.AppOs_OS_IOS == osID {
 		return true
 	}
-	if protoim.AppOs_ANDROID == osID {
+	if protoim.AppOs_OS_ANDROID == osID {
 		return true
 	}
-	if protoim.AppOs_PC == osID {
+	if protoim.AppOs_OS_PC == osID {
 		return true
 	}
 	return false

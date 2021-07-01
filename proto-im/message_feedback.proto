@@ -4,9 +4,18 @@ package protoim;
 
 option go_package = "./;protoim";
 
-// 消息相关-反馈(客户端发送给服务端接收后响应接收该消息，则反)
+import 'chat_type.proto';
+import 'message_type.proto';
+import 'message_feedback_type.proto';
+
+// 反馈消息-响应
 message MessageFeedback {
-  string conversation_id = 1; // 会话ID( {user_id}_{to_id} )
-  string msg_id          = 2; // 消息ID(服务端生成)
-  string local_msg_id    = 3; // 客户端本地的消息ID(用于客户校验)(客户端生成)
+  string dialog_id    = 1; // 会话ID( d_{user_id}_{chat_type}_{to_id} )
+  string message_id   = 2; // 消息ID( m_{xxx} )(服务端生成)
+  string from_id      = 3; // 发送者(用户ID)
+  string to_id        = 4; // 接收者(用户ID/群ID)
+  int32  pts          = 5; // 当前会话的序列ID(可用于排序)(唯一值)(服务端生成)
+  protoim.ChatType chat_type_id = 6; // 私聊还是群聊
+  protoim.MessageType message_type_id = 7; // 消息类型
+  protoim.MessageFeedbackType feedback_type_id = 8; // 反馈消息类型
 }

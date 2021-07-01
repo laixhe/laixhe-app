@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+import 'message_entity_uri.proto';
+import 'message_media.proto';
+import 'message_map.proto';
+import 'message_red_packet.proto';
+
+// 消息其它内容用于数据存取的
+message MessageCopy{
+  protoim.MessageEntityUri entity = 1; // 对消息内容需要做跳转的转换 (如：url 地址)
+  protoim.MessageMedia media      = 2; // 消息媒体 (图片、文件、语音文件、视频文件)
+  protoim.MessageMedia thumbnail  = 3; // 缩略图
+  protoim.MessageMap mmap         = 4; // 地理位置消息
+  protoim.MessageRedPacket red_packet = 5; // 红包消息
+}

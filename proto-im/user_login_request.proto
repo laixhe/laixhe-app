@@ -8,7 +8,7 @@ import "app_os.proto";
 
 // 用户登录-请求
 message UserLoginRequest {
-  protoim.AppOs app_os_id = 1;
+  protoim.AppOs os_id = 1;
   string account  = 2;
   string password = 3;
 }

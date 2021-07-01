@@ -5,5 +5,5 @@ package protoim;
 option go_package = "./;protoim";
 
 // 消息会话列表-请求
-message GetConversationsRequest{
+message GetDialogsRequest{
 }

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+// 地理位置消息
+message MessageMap{
+  string title  = 1;
+  double lgt    = 2; // 经度
+  double lat    = 3; // 纬度
+}

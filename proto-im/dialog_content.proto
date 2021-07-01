@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+import 'message_content.proto';
+import 'user_base_info.proto';
+import 'group_base_info.proto';
+
+// 消息会话内容
+message DialogContent{
+    int32  unread_count = 1; // 未读数
+    protoim.MessageContent content   = 2; // 消息内容
+    protoim.UserBaseInfo user_base   = 3; // 用户基本信息
+    protoim.GroupBaseInfo group_base = 4; // 群的基本信息
+}

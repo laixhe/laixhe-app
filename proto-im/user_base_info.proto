@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+// 用户基本信息
+message UserBaseInfo {
+  string user_id   = 1;
+  string nick_name = 2;
+  string avatar    = 3;
+  int32  age       = 4;
+}

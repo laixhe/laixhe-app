@@ -12,7 +12,7 @@ func GetUserRequest(c *servers.Context) {
 	req := new(protoim.GetUserRequest)
 	err := c.ProtoBind(req)
 	if err != nil {
-		c.SendError(protoim.Error_E_PARAMETER, err.Error())
+		c.SendError(protoim.ErrorType_E_PARAMETER, err.Error())
 		return
 	}
 
@@ -23,7 +23,6 @@ func GetUserRequest(c *servers.Context) {
 			UserId:   req.UserId,
 			NickName: "laixhe",
 			Age:      18,
-			IsOk:     true,
 		},
 	}
 

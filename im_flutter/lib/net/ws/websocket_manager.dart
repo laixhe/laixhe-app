@@ -56,13 +56,14 @@ class WebSocketManager {
   }
 
   _onMessage(data) {
-    print('ws - message: $data');
+
     var messageBase = MessageBase.fromBuffer(data);
     print('ws - messageBase.cmd=${messageBase.cmd}');
     switch(messageBase.cmd) {
       case CMD.C_USER_LOGIN_RESPONSE:
         var userLoginResponse = UserLoginResponse.fromBuffer(messageBase.data);
-        print('ws - userLoginResponse=$userLoginResponse');
+        print('ws - message: $data');
+        print('ws - userLoginResponse userid=${userLoginResponse.userId} nickName=${userLoginResponse.nickName}');
         break;
     }
   }

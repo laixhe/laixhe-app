@@ -4,10 +4,10 @@ package protoim;
 
 option go_package = "./;protoim";
 
-import "error.proto";
+import "error_type.proto";
 
 // 错误信息
 message ErrorBase {
-    protoim.Error code = 1;
+    protoim.ErrorType code = 1;
     string msg = 2;
 }

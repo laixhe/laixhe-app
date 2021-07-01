@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+import 'message_content.proto';
+
+// 客户端发送消息-请求
+message MessageSendRequest {
+  string local_message_id        = 1; // 客户端本地的消息ID(用于客户校验)(客户端生成)
+  protoim.MessageContent content = 2; // 消息内容
+}

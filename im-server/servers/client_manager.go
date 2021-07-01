@@ -39,30 +39,34 @@ func (m *clientManager) run() {
 	for {
 		select {
 		case c := <-m.register:
-			// 注册客户端的链接
-			m.clients.Store(c.addr, c)
+			if c.addr != "" {
+				// 注册客户端的链接
+				m.clients.Store(c.addr, c)
+			}
 		case c := <-m.userLogin:
-			// 用户登录处理
-			m.users.Store(c.userID, c)
+			if c.isLogin && c.addr != "" {
+				// 用户登录处理
+				m.users.Store(c.userID, c)
+			}
 		case c := <-m.unregister:
 			// 移除注册客户端的链接
 			m.clients.Delete(c.addr)
-			if c.isLogin {
+			if c.isLogin && c.userID != "" {
 				m.users.Delete(c.userID)
 			}
 		case msg := <-m.broadcast:
 			// 广播消息
-			// 给每个客户端发消息
-			m.clients.Range(func(clientAddr, clientInterface interface{}) bool {
+			// 给每个用户客户端发消息
+			m.users.Range(func(userID, clientInterface interface{}) bool {
 				c, is := clientInterface.(*client)
 				if !is {
 					// 移除注册客户端的链接
-					m.clients.Delete(clientAddr)
+					m.users.Delete(userID)
 					return false
 				}
 				if c.isClosed {
 					// 移除注册客户端的链接
-					m.clients.Delete(clientAddr)
+					m.deleteClient(c)
 					return false
 				}
 				if c.isLogin {
@@ -71,6 +75,55 @@ func (m *clientManager) run() {
 				return true
 			})
 		}
+	}
+}
+
+// userIDToClient 以用户id获取客户端链接
+func (m *clientManager) userIDToClient(userID string) (*client, bool) {
+	clientInterface, ok := m.users.Load(userID)
+	if ok {
+		c, is := clientInterface.(*client)
+		if !is {
+			// 移除注册客户端的链接
+			m.users.Delete(userID)
+			return nil, false
+		}
+		if c.isClosed {
+			// 移除注册客户端的链接
+			m.deleteClient(c)
+			return nil, false
+		}
+		return c, true
+	}
+	return nil, false
+}
+
+// clientAddrToClient 以地址获取客户端链接
+func (m *clientManager) clientAddrToClient(clientAddr string) (*client, bool) {
+	clientInterface, ok := m.clients.Load(clientAddr)
+	if ok {
+		c, is := clientInterface.(*client)
+		if !is {
+			// 移除注册客户端的链接
+			m.clients.Delete(clientAddr)
+			return nil, false
+		}
+		if c.isClosed {
+			// 移除注册客户端的链接
+			m.deleteClient(c)
+			return nil, false
+		}
+		return c, true
+	}
+	return nil, false
+}
+
+// deleteClient 移除注册客户端的链接
+func (m *clientManager) deleteClient(c *client) {
+	c.stop()
+	m.clients.Delete(c.addr)
+	if c.userID != "" {
+		m.users.Delete(c.userID)
 	}
 }
 

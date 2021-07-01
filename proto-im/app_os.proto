@@ -7,8 +7,8 @@ option go_package = "./;protoim";
 // 操作系统类型
 enum AppOs {
     OS_UNKNOWN = 0; // 未知
-    WEB     = 1; // web
-    IOS     = 2; // ios
-    ANDROID = 3; // android
-    PC      = 4; // pc
+    OS_WEB     = 1; // web
+    OS_IOS     = 2; // ios
+    OS_ANDROID = 3; // android
+    OS_PC      = 4; // pc
 }

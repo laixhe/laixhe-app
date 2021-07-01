@@ -17,9 +17,9 @@ enum CMD {
   C_GET_FRIENDS_REQUEST         = 1004; // 获取好友列表-请求
   C_GET_FRIENDS_RESPONSE        = 1005; // 获取好友列表-响应
   C_UPDATE_FRIENDS              = 1006; // 更新好友相关信息
-  C_GET_CONVERSATIONS_REQUEST   = 1007; // 消息会话列表-请求
-  C_GET_CONVERSATIONS_RESPONSE  = 1008; // 消息会话列表-响应
-  C_MESSAGE_REQUEST             = 1009; // 消息相关(客户端发送-服务端接收)-请求
-  C_MESSAGE_RESPONSE            = 1010; // 消息相关(服务端发送-客户端接收)-响应
-  C_MESSAGE_FEEDBACK            = 1011; // 消息相关-反馈(客户端发送给服务端接收后响应接收该消息，则反)
+  C_GET_DIALOGS_REQUEST         = 1007; // 消息会话列表-请求
+  C_GET_DIALOGS_RESPONSE        = 1008; // 消息会话列表-响应
+  C_MESSAGE_SEND_REQUEST        = 1009; // 消息(客户端发送-服务端接收)-请求
+  C_MESSAGE_FEEDBACK            = 1010; // 消息(服务端发送-客户端接收)-反馈
+  C_MESSAGE_CONTENT             = 1011; // 消息(服务端发送-客户端接收)-聊天消息内容
 }

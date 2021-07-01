@@ -65,26 +65,30 @@ func (s *Servers) IsLogin(userID string) bool {
 	return ok
 }
 
-// SendMessageResponse 发送信息
-func (s *Servers) SendMessageResponse(data *protoim.MessageResponse) *protoim.ErrorBase {
-	protoBase, err := EnCode(protoim.CMD_C_MESSAGE_RESPONSE, data)
+// SendMessageFeedback 发送-消息(服务端发送-客户端接收)-反馈
+func (s *Servers) SendMessageFeedback(toUserID string, data *protoim.MessageFeedback) *protoim.ErrorBase {
+	protoBase, err := EnCode(protoim.CMD_C_MESSAGE_FEEDBACK, data)
 	if err != nil {
-		return ErrorMessage(protoim.Error_E_ENCODE, err.Error())
+		return ErrorMessage(protoim.ErrorType_E_ENCODE, err.Error())
 	}
-	clientInterface, ok := s.clientManager.users.Load(data.ToId)
+	c, ok := s.clientManager.userIDToClient(toUserID)
 	if ok {
-		c, is := clientInterface.(*client)
-		if !is {
-			// 移除注册客户端的链接
-			s.clientManager.users.Delete(data.ToId)
-			return nil
-		}
-		if c.isClosed {
-			// 移除注册客户端的链接
-			s.clientManager.users.Delete(data.ToId)
-			return nil
-		}
-		_ = c.sendData(protoBase)
+		return ErrorMessage(protoim.ErrorType_E_SERVER, "there is no client link")
 	}
+	_ = c.sendData(protoBase)
+	return nil
+}
+
+// SendMessageContent 发送-消息(服务端发送-客户端接收)-聊天消息内容
+func (s *Servers) SendMessageContent(toUserID string, data *protoim.MessageContent) *protoim.ErrorBase {
+	protoBase, err := EnCode(protoim.CMD_C_MESSAGE_CONTENT, data)
+	if err != nil {
+		return ErrorMessage(protoim.ErrorType_E_ENCODE, err.Error())
+	}
+	c, ok := s.clientManager.userIDToClient(toUserID)
+	if ok {
+		return ErrorMessage(protoim.ErrorType_E_SERVER, "there is no client link")
+	}
+	_ = c.sendData(protoBase)
 	return nil
 }

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package protoim;
+
+option go_package = "./;protoim";
+
+// 反馈消息类型
+enum MessageFeedbackType {
+  MF_SEND          = 0; // 消息-已发送到服务器
+  MF_RECEIVE       = 1; // 消息-已接收(已读)
+  MF_WITHDRAW      = 2; // 消息-已撤回
+}
