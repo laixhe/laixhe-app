@@ -17,7 +17,7 @@ message MessageContent{
   string message_id   = 2; // 消息ID( m_{xxx} )(服务端生成)
   string from_id      = 3; // 发送者(用户ID)
   string to_id        = 4; // 接收者(用户ID/群ID)
-  int32  pts          = 5; // 当前会话的序列ID(可用于排序)(唯一值)(服务端生成)
+  int64  pts          = 5; // 当前会话的序列ID(可用于排序)(唯一值)(服务端生成)
   protoim.ChatType chat_type_id       = 6; // 私聊还是群聊
   protoim.MessageType message_type_id = 7; // 消息类型
   int64  latest_time  = 8; // 最近发生的时间戳(以服务端接收到的时间为准)

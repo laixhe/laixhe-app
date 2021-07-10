@@ -1,9 +1,9 @@
 package main
 
 import (
-	"im-server/routers"
+	_ "im-server/app"
 
-	_ "im-server/database"
+	"im-server/routers"
 )
 
 func main() {
