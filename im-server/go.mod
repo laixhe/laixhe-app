@@ -3,7 +3,7 @@ module im-server
 go 1.16
 
 require (
-	github.com/gin-gonic/gin v1.7.2
+	github.com/gin-gonic/gin v1.7.7
 	github.com/go-redis/redis/v8 v8.11.0
 	github.com/gorilla/websocket v1.4.2
 	github.com/laixhe/goutil v0.3.4
